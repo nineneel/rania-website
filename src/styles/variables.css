@@ -1,0 +1,69 @@
+/* CSS Variables for Rania Travel Website */
+
+:root {
+  /* Primary Colors */
+  --primary-dark: #1A243D;
+  --primary-gold: #A38447;
+  --primary-beige: #E6E2D3;
+  --primary-brown: #442305;
+  --primary-yellow: #ECAD27;
+
+  /* Text Colors */
+  --text-white: #FFFFFF;
+  --text-primary: #1A243D;
+  --text-light-gray: #6B7280;
+  --text-black: #000000;
+
+  /* UI Colors */
+  --color-indicator: #7E7E7E;
+  --color-border-gray: #ADABC3;
+  --color-divider: #E7E6F2;
+  --color-dark-hover: #2a3550;
+  --color-gold-hover: #8b6f3b;
+  --color-brown-hover: #5a2f07;
+
+  /* Gradients */
+  --gradient-dark: linear-gradient(180deg, rgba(26, 36, 61, 0) 34%, #1A243D 100%);
+  --gradient-black: linear-gradient(90deg, #1A243D 51%, black 100%);
+  --gradient-overlay: linear-gradient(180deg, rgba(26, 36, 61, 0) 50%, #1A243D 70%);
+  --gradient-footer-dark: linear-gradient(0deg, rgba(0, 0, 0, 0) 0%, #1A243D 100%);
+  --gradient-signature: linear-gradient(180deg, #1A243D 51%, #0D121F 75%, black 100%);
+
+  /* Typography */
+  --font-family: 'Plus Jakarta Sans', sans-serif;
+  --font-family-secondary: 'DM Sans', sans-serif;
+  --font-size-hero: 56px;
+  --font-size-section-title: 56px;
+  --font-size-section-title-small: 42px;
+  --font-size-card-title: 28px;
+  --font-size-body: 18px;
+  --font-size-regular: 16px;
+  --font-size-small: 14px;
+  --font-size-button: 12px;
+  --font-weight-light: 300;
+  --font-weight-regular: 400;
+  --font-weight-bold: 700;
+  --font-weight-extra-bold: 800;
+
+  /* Spacing */
+  --container-width: 1440px;
+  --content-width: 1023px;
+  --section-padding-vertical: 60px;
+  --section-padding-horizontal: 209px;
+  --card-gap: 12px;
+
+  /* Border Radius */
+  --border-radius-card: 16.96px;
+  --border-radius-button: 100px;
+  --border-radius-icon: 13.89px;
+  --border-radius-small: 8px;
+
+  /* Shadows */
+  --shadow-header: 0px 5px 14px rgba(20, 19, 42, 0.05);
+  --shadow-button-sm: 0px 3.7px 9.25px rgba(26, 36, 61, 0.06);
+  --shadow-button-md: 0px 3.7px 7px rgba(26, 36, 61, 0.08);
+  --shadow-button-hover: 0px 4px 9px rgba(26, 36, 61, 0.12);
+
+  /* Transitions */
+  --transition-fast: 0.3s ease;
+}

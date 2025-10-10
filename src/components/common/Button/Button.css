@@ -1,0 +1,238 @@
+/* Button Base Styles */
+.button {
+  font-family: var(--font-family);
+  font-weight: var(--font-weight-bold);
+  border: none;
+  border-radius: var(--border-radius-button);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  text-align: center;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  box-sizing: border-box;
+  white-space: nowrap;
+}
+
+.button:disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+/* Button Sizes */
+.button-small {
+  padding: 10px 20px;
+  font-size: var(--font-size-button);
+  line-height: 14px;
+  min-height: 34px;
+}
+
+.button-medium {
+  padding: 13px 27px;
+  font-size: 15.69px;
+  line-height: 18.31px;
+  min-height: 45px;
+}
+
+.button-large {
+  padding: 16px 34px;
+  font-size: 19.38px;
+  line-height: 22.62px;
+  min-height: 56px;
+}
+
+.button-xlarge {
+  padding: 19px 40px;
+  font-size: 23.08px;
+  line-height: 26.92px;
+  min-height: 67px;
+}
+
+/* Primary Variant - See Details (White background, gray text) */
+.button-primary {
+  background: var(--text-white);
+  color: var(--text-primary);
+  outline: 1px solid var(--text-primary);
+  outline-offset: -1px;
+  box-shadow: var(--shadow-button-sm);
+}
+
+.button-primary:hover:not(:disabled) {
+  /* background: var(--primary-dark); */
+  background: linear-gradient(90deg, black 0%, var(--primary-dark) 100%);
+  color: var(--text-white);
+  outline-color: var(--primary-dark);
+}
+
+/* Primary Dark Variant - See Details (Dark gradient background) */
+.button-primary-dark {
+  background: linear-gradient(90deg, black 0%, var(--primary-dark) 100%);
+  color: var(--primary-beige);
+  box-shadow: var(--shadow-button-md);
+}
+
+.button-primary-dark:hover:not(:disabled) {
+  background: linear-gradient(90deg, var(--primary-dark) 0%, black 100%);
+  box-shadow: var(--shadow-button-hover);
+}
+
+/* Secondary Variant - I am Interest (Outline brown) */
+.button-secondary {
+  background: transparent;
+  color: var(--primary-brown);
+  outline: 1px solid var(--primary-brown);
+  outline-offset: -1px;
+}
+
+.button-secondary:hover:not(:disabled) {
+  background: var(--primary-brown);
+  color: var(--primary-beige);
+}
+
+/* Secondary Filled Variant - I am Interest (Brown background) */
+.button-secondary-filled {
+  background: var(--primary-brown);
+  color: var(--primary-beige);
+}
+
+.button-secondary-filled:hover:not(:disabled) {
+  background: var(--color-brown-hover);
+}
+
+/* Tertiary Variant - Contact Rania (Outline gold) */
+.button-tertiary {
+  background: var(--text-white);
+  color: var(--primary-gold);
+  outline: 1px solid var(--primary-gold);
+  outline-offset: -1px;
+}
+
+.button-tertiary:hover:not(:disabled) {
+  background: var(--primary-gold);
+  color: var(--text-white);
+}
+
+/* Tertiary Filled Variant - Contact Rania (Gold background) */
+.button-tertiary-filled {
+  background: var(--primary-gold);
+  color: var(--primary-beige);
+}
+
+.button-tertiary-filled:hover:not(:disabled) {
+  background: var(--color-gold-hover);
+}
+
+/* Subscribe Variant - Subscribe (White background, black text) */
+.button-subscribe {
+  background: var(--text-white);
+  color: var(--text-black);
+  outline: 1px solid var(--primary-dark);
+  outline-offset: -1px;
+}
+
+.button-subscribe:hover:not(:disabled) {
+  background: var(--primary-dark);
+  color: var(--text-white);
+}
+
+/* Subscribe Gradient Variant - Subscribe (Gradient background) */
+.button-subscribe-gradient {
+  background: linear-gradient(90deg, var(--primary-dark) 0%, var(--primary-brown) 100%);
+  color: var(--primary-beige);
+  outline: 1px solid var(--primary-dark);
+  outline-offset: -1px;
+}
+
+.button-subscribe-gradient:hover:not(:disabled) {
+  background: linear-gradient(90deg, var(--primary-brown) 0%, var(--primary-dark) 100%);
+}
+
+/* Upgrade Variant - Upgrade Now (Outline brown) */
+.button-upgrade {
+  background: transparent;
+  color: var(--primary-brown);
+  outline: 1px solid var(--primary-brown);
+  outline-offset: -1px;
+}
+
+.button-upgrade:hover:not(:disabled) {
+  background: var(--primary-brown);
+  color: var(--text-white);
+}
+
+/* Upgrade Gradient Variant - Upgrade Now (Gold gradient) */
+.button-upgrade-gradient {
+  background: linear-gradient(225deg, var(--primary-brown) 0%, var(--primary-yellow) 50%, var(--primary-brown) 100%);
+  color: var(--text-white);
+}
+
+.button-upgrade-gradient:hover:not(:disabled) {
+  background: linear-gradient(225deg, var(--primary-yellow) 0%, var(--primary-brown) 50%, var(--primary-yellow) 100%);
+}
+
+/* Change Variant - Change Now (Outline gold) */
+.button-change {
+  background: transparent;
+  color: var(--primary-gold);
+  outline: 1px solid var(--primary-gold);
+  outline-offset: -1px;
+}
+
+.button-change:hover:not(:disabled) {
+  background: var(--primary-gold);
+  color: var(--text-white);
+}
+
+/* Change Gradient Variant - Change Now (Gold gradient) */
+.button-change-gradient {
+  background: linear-gradient(180deg, var(--primary-gold) 0%, var(--primary-brown) 100%);
+  color: var(--primary-beige);
+}
+
+.button-change-gradient:hover:not(:disabled) {
+  background: linear-gradient(180deg, var(--primary-brown) 0%, var(--primary-gold) 100%);
+}
+
+/* Itinerary Variant - Itinerary (Dark background) */
+.button-itinerary {
+  background: var(--primary-dark);
+  color: var(--text-white);
+}
+
+.button-itinerary:hover:not(:disabled) {
+  background: var(--color-dark-hover);
+}
+
+/* Itinerary Gradient Variant - Itinerary (Gold gradient) */
+.button-itinerary-gradient {
+  background: linear-gradient(180deg, var(--primary-gold) 0%, var(--primary-brown) 100%);
+  color: var(--primary-beige);
+}
+
+.button-itinerary-gradient:hover:not(:disabled) {
+  background: linear-gradient(180deg, var(--primary-brown) 0%, var(--primary-gold) 100%);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .button-small {
+    padding: 8px 16px;
+    font-size: 11px;
+  }
+
+  .button-medium {
+    padding: 10px 20px;
+    font-size: 14px;
+  }
+
+  .button-large {
+    padding: 12px 24px;
+    font-size: 16px;
+  }
+
+  .button-xlarge {
+    padding: 14px 28px;
+    font-size: 18px;
+  }
+}
