@@ -110,17 +110,17 @@ const Home = () => {
   const events = [
     {
       title: "Scheduled Webinar",
-      description: "Lorem ipsum dolor sit amet consectet adipiscing eli consectetur aliquet id enim neque turpis urna hen.",
+      description: "Join our complimentary webinar for heartfelt guidance on your upcoming pilgrimage.",
       image: upcomingEvent1
     },
     {
       title: "Digital Manasik",
-      description: "Lorem ipsum dolor sit amet consectet adipiscing eli consectetur aliquet id enim neque turpis urna hen.",
+      description: "Find the true understanding, learn the Manasik with our supportive and accessible online program.",
       image: upcomingEvent2
     },
     {
       title: "Live Event",
-      description: "Lorem ipsum dolor sit amet consectet adipiscing eli consectetur aliquet id enim neque turpis urna hen.",
+      description: "Join our live event to share in the spirit and prepare your heart for the journey ahead.",
       image: upcomingEvent3
     }
   ];
@@ -282,7 +282,7 @@ const Home = () => {
           <div className="signature-card-content">
             <h2 className="signature-card-title" style={{ color: textColor, transition: 'color 0.5s ease' }}>Rania BSI Signature Card</h2>
             <p className="signature-card-description" style={{ color: textColor, transition: 'color 0.5s ease' }}>
-              Lorem ipsum dolor sit amet consectetur adipiscing elit dolor semper at ac tempus enim.
+              Carry your blessings, not your worries; experience secure and simple payments throughout your journey with the Rania Signature Card.
             </p>
           </div>
         </div>
