@@ -19,7 +19,7 @@ const Header = ({ activeLink = 'Home' }) => {
     { id: 'webinar', label: 'Webinar With Rania', href: '#webinar', isRoute: false, comingSoon: true },
     { id: 'partnership', label: 'Partnership', href: '#partnership', isRoute: false, comingSoon: true },
     { id: 'contact', label: 'Contact Us', href: '/contact', isRoute: true },
-    { id: 'support', label: 'Support & Help', href: '#support', isRoute: false, comingSoon: true }
+    { id: 'support', label: 'Support & Help', href: '/support', isRoute: false }
   ];
 
   const toggleMobileMenu = () => {

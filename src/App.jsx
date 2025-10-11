@@ -5,6 +5,7 @@ import About from './pages/About';
 import Hajj from './pages/Hajj';
 import Umrah from './pages/Umrah';
 import Contact from './pages/Contact';
+import Support from './pages/Support';
 import './styles/App.css';
 
 const App = () => {
@@ -16,6 +17,7 @@ const App = () => {
         <Route path="/hajj" element={<Hajj />} />
         <Route path="/umrah" element={<Umrah />} />
         <Route path="/contact" element={<Contact />} />
+        <Route path="/support" element={<Support />} />
       </Routes>
       <Footer />
     </Router>
