@@ -867,6 +867,11 @@
     height: auto;
   }
 
+  /* Packages Section */
+  .hajj-packages-section {
+    padding: 40px 20px;
+  }
+
   :root {
     --section-padding-horizontal: 20px;
   }

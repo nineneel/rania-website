@@ -2,7 +2,7 @@ import './SignatureCard.css';
 
 const SignatureCard = ({
   image,
-  title = "Rania BSI Signature Card",
+  title = "Rania Signature Card",
   description = "Carry your blessings, not your worries; experience secure and simple payments throughout your journey with the Rania Signature Card.",
   textColor = "var(--text-primary)",
   backgroundColor = "transparent"
