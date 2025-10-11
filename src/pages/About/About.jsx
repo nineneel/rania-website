@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import Button from '../../components/common/Button';
 import Header from '../../components/layout/Header';
 import Carousel from '../../components/common/Carousel/Carousel';
+import Partners from '../../components/common/Partners';
 import './About.css';
 
 // Import hero image
@@ -23,20 +24,6 @@ import value3 from '../../assets/images/home/value/value-3.webp';
 import value4 from '../../assets/images/home/value/value-4.webp';
 import value5 from '../../assets/images/home/value/value-5.webp';
 
-// Import partner logos (reuse from Home)
-import partnerLogo1 from '../../assets/images/home/partner-logo/partner-logo-1.webp';
-import partnerLogo2 from '../../assets/images/home/partner-logo/partner-logo-2.webp';
-import partnerLogo3 from '../../assets/images/home/partner-logo/partner-logo-3.webp';
-import partnerLogo4 from '../../assets/images/home/partner-logo/partner-logo-4.webp';
-import partnerLogo5 from '../../assets/images/home/partner-logo/partner-logo-5.webp';
-import partnerLogo6 from '../../assets/images/home/partner-logo/partner-logo-6.webp';
-import partnerLogo7 from '../../assets/images/home/partner-logo/partner-logo-7.webp';
-import partnerLogo8 from '../../assets/images/home/partner-logo/partner-logo-8.webp';
-import partnerLogo9 from '../../assets/images/home/partner-logo/partner-logo-9.webp';
-import partnerLogo10 from '../../assets/images/home/partner-logo/partner-logo-10.webp';
-import partnerLogo11 from '../../assets/images/home/partner-logo/partner-logo-11.webp';
-import partnerLogo12 from '../../assets/images/home/partner-logo/partner-logo-12.webp';
-
 // Import wave divider
 import waveImage from '../../assets/utils/wave.webp';
 
@@ -50,13 +37,6 @@ const About = () => {
     { title: "Excellence", subtitle: "End-to-end Service", icon: value3 },
     { title: "Spirituality", subtitle: "Best Service", icon: value4 },
     { title: "Elevation", subtitle: "Journey", icon: value5 }
-  ];
-
-  // Partner logos data (same as Home page)
-  const partners = [
-    partnerLogo1, partnerLogo2, partnerLogo3, partnerLogo4,
-    partnerLogo5, partnerLogo6, partnerLogo7, partnerLogo8,
-    partnerLogo9, partnerLogo10, partnerLogo11, partnerLogo12
   ];
 
   // Milestone data
@@ -147,22 +127,7 @@ const About = () => {
       </section>
 
       {/* Partners Carousel Section */}
-      <section className="about-partners-section">
-        <div className="about-partners-carousel">
-          <div className="about-partners-track">
-            {/* Duplicate for infinite scroll */}
-            {[...partners, ...partners].map((partner, index) => (
-              <img
-                key={index}
-                src={partner}
-                alt={`Partner ${index + 1}`}
-                className="about-partner-logo"
-                loading="lazy"
-              />
-            ))}
-          </div>
-        </div>
-      </section>
+      <Partners />
 
       {/* Values Section */}
       <section className="values-section about-section">

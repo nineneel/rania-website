@@ -7,6 +7,12 @@
   top: 0;
   left: 0;
   z-index: 1000;
+  transition: background-color 0.3s ease-in-out, backdrop-filter 0.3s ease-in-out;
+}
+
+.header:has(.nav-hidden) {
+  background: rgba(255, 255, 255, 0.55);
+  backdrop-filter: blur(10px);
 }
 
 /* Desktop Header - Default (768px and above) */
@@ -16,19 +22,43 @@
   align-items: center;
   justify-content: center;
   padding: 20px 0;
-  height: 150px;
+  transition: height 0.3s ease-in-out;
+}
+
+.header-desktop:has(.nav-hidden) {
+  /* height: 84px; */
+  height: 120px;
+}
+
+.header-desktop:has(.nav-visible) {
+  height: 160px;
 }
 
 .header-logo {
   height: 60px;
   width: auto;
-  margin-bottom: 24px;
 }
 
 .header-nav {
   display: flex;
   gap: 32px;
   align-items: center;
+  max-height: 50px;
+  overflow: hidden;
+  opacity: 1;
+  margin-top: 24px;
+  transition: max-height 0.3s ease-in-out, opacity 0.3s ease-in-out, margin 0.3s ease-in-out;
+}
+
+.nav-hidden {
+  max-height: 0;
+  opacity: 0;
+  margin-top: 0 !important;
+}
+
+.nav-visible {
+  max-height: 50px;
+  opacity: 1;
 }
 
 .nav-link {
@@ -47,6 +77,29 @@
 .nav-link:hover {
   color: var(--primary-gold);
   font-weight: var(--font-weight-bold);
+}
+
+/* Coming Soon Styles */
+.nav-link.coming-soon {
+  cursor: pointer;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+
+.nav-link.coming-soon:hover {
+  color: var(--primary-gold);
+  font-weight: var(--font-weight-bold);
+}
+
+.nav-link .coming-soon-badge {
+  font-size: 9px;
+  color: var(--primary-gold);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
 }
 
 /* Mobile Header - Hidden by default */
@@ -163,6 +216,27 @@
   .mobile-nav-link:hover {
     color: var(--primary-gold);
     background: rgba(230, 226, 211, 0.3);
+  }
+
+  .mobile-nav-link.coming-soon {
+    cursor: pointer;
+    position: relative;
+  }
+
+  .mobile-nav-link.coming-soon:hover {
+    color: var(--primary-gold);
+    background: rgba(230, 226, 211, 0.3);
+  }
+
+  .mobile-nav-link.coming-soon:hover::after {
+    content: 'Coming Soon';
+    display: block;
+    font-size: 11px;
+    color: var(--primary-gold);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-top: 8px;
   }
 
   .mobile-nav-divider {

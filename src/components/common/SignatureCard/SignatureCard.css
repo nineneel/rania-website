@@ -1,0 +1,88 @@
+/* Signature Card Section */
+.signature-card-section {
+  width: 100%;
+  min-height: 404px;
+  background: transparent;
+  padding: var(--section-padding-vertical) var(--section-padding-horizontal);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.signature-card-container {
+  max-width: var(--content-width);
+  display: flex;
+  gap: 85px;
+  align-items: center;
+}
+
+.signature-card-image img {
+  width: 348px;
+  height: 380px;
+  border-radius: 20px;
+  object-fit: cover;
+}
+
+.signature-card-content {
+  flex: 1;
+}
+
+.signature-card-title {
+  color: var(--text-primary);
+  font-size: 36px;
+  font-weight: var(--font-weight-bold);
+  line-height: 46px;
+  margin-bottom: 20px;
+}
+
+.signature-card-description {
+  color: var(--text-primary);
+  font-size: var(--font-size-body);
+  font-weight: var(--font-weight-regular);
+  line-height: 1.6;
+  max-width: 421px;
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+  .signature-card-container {
+    flex-direction: column;
+    gap: 40px;
+  }
+
+  .signature-card-image img {
+    width: 100%;
+    max-width: 348px;
+    height: auto;
+  }
+
+  .signature-card-title {
+    font-size: 28px;
+    line-height: 36px;
+  }
+
+  .signature-card-description {
+    max-width: 100%;
+  }
+}
+
+@media (max-width: 768px) {
+  .signature-card-section {
+    min-height: auto;
+    padding: 60px 20px;
+  }
+
+  .signature-card-container {
+    gap: 30px;
+  }
+
+  .signature-card-title {
+    font-size: 24px;
+    line-height: 32px;
+    margin-bottom: 16px;
+  }
+
+  .signature-card-description {
+    font-size: 14px;
+  }
+}

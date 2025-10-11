@@ -5,6 +5,8 @@ import Button from '../../components/common/Button/Button';
 import Header from '../../components/layout/Header/Header';
 import Footer from '../../components/layout/Footer/Footer';
 import Carousel from '../../components/common/Carousel/Carousel';
+import Partners from '../../components/common/Partners';
+import SignatureCard from '../../components/common/SignatureCard';
 
 // Import hero images
 import hero1 from '../../assets/images/home/hero/hero-1.webp';
@@ -17,19 +19,6 @@ import journey1 from '../../assets/images/home/jurney/jurney_1.webp';
 import journey2 from '../../assets/images/home/jurney/jurney-2.webp';
 import journey3 from '../../assets/images/home/jurney/jurney-3.webp';
 
-// Import partner logos
-import partnerLogo1 from '../../assets/images/home/partner-logo/partner-logo-1.webp';
-import partnerLogo2 from '../../assets/images/home/partner-logo/partner-logo-2.webp';
-import partnerLogo3 from '../../assets/images/home/partner-logo/partner-logo-3.webp';
-import partnerLogo4 from '../../assets/images/home/partner-logo/partner-logo-4.webp';
-import partnerLogo5 from '../../assets/images/home/partner-logo/partner-logo-5.webp';
-import partnerLogo6 from '../../assets/images/home/partner-logo/partner-logo-6.webp';
-import partnerLogo7 from '../../assets/images/home/partner-logo/partner-logo-7.webp';
-import partnerLogo8 from '../../assets/images/home/partner-logo/partner-logo-8.webp';
-import partnerLogo9 from '../../assets/images/home/partner-logo/partner-logo-9.webp';
-import partnerLogo10 from '../../assets/images/home/partner-logo/partner-logo-10.webp';
-import partnerLogo11 from '../../assets/images/home/partner-logo/partner-logo-11.webp';
-import partnerLogo12 from '../../assets/images/home/partner-logo/partner-logo-12.webp';
 
 // Import upcoming event images
 import upcomingEvent1 from '../../assets/images/home/upcoming-event/upcoming-event-1.webp';
@@ -123,12 +112,6 @@ const Home = () => {
       description: "Join our live event to share in the spirit and prepare your heart for the journey ahead.",
       image: upcomingEvent3
     }
-  ];
-
-  const partners = [
-    partnerLogo1, partnerLogo2, partnerLogo3, partnerLogo4,
-    partnerLogo5, partnerLogo6, partnerLogo7, partnerLogo8,
-    partnerLogo9, partnerLogo10, partnerLogo11, partnerLogo12
   ];
 
   // Auto-advance hero slides every 4 seconds
@@ -244,15 +227,7 @@ const Home = () => {
       </section>
 
       {/* Partners Carousel */}
-      <section className="partners-section">
-        <div className="partners-carousel">
-          <div className="partners-track">
-            {[...partners, ...partners].map((partner, index) => (
-              <img key={index} src={partner} alt={`Partner ${index + 1}`} className="partner-logo" />
-            ))}
-          </div>
-        </div>
-      </section>
+      <Partners />
 
       {/* Upcoming Events */}
       <section ref={eventsRef} className="events-section">
@@ -274,19 +249,10 @@ const Home = () => {
       </section>
 
       {/* Signature Card Section */}
-      <section className="signature-card-section">
-        <div className="signature-card-container">
-          <div className="signature-card-image">
-            <img src={signatureCard} alt="Rania BSI Signature Card" />
-          </div>
-          <div className="signature-card-content">
-            <h2 className="signature-card-title" style={{ color: textColor, transition: 'color 0.5s ease' }}>Rania BSI Signature Card</h2>
-            <p className="signature-card-description" style={{ color: textColor, transition: 'color 0.5s ease' }}>
-              Carry your blessings, not your worries; experience secure and simple payments throughout your journey with the Rania Signature Card.
-            </p>
-          </div>
-        </div>
-      </section>
+      <SignatureCard
+        image={signatureCard}
+        textColor={textColor}
+      />
     </div>
   );
 };

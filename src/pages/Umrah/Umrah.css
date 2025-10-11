@@ -1,0 +1,754 @@
+/* Umrah Page Styles */
+
+.umrah {
+  width: 100%;
+  overflow-x: hidden;
+  background: var(--text-white);
+}
+
+/* Hero Section */
+.umrah-hero-section {
+  width: 100%;
+  height: calc(100vh - 150px);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 150px;
+}
+
+.umrah-hero-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: var(--gradient-dark);
+}
+
+.umrah-hero-content {
+  position: relative;
+  z-index: 10;
+  display: flex;
+  align-items: end;
+  text-align: center;
+  max-width: 800px;
+  height: 100%;
+  padding: 7% 20px;
+}
+
+.umrah-hero-title {
+  color: var(--text-white);
+  font-size: var(--font-size-section-title-small);
+  font-weight: var(--font-weight-extra-bold);
+  line-height: 50px;
+}
+
+/* Features/Benefits Section */
+.umrah-features-section {
+  width: 100%;
+  background: var(--text-white);
+  padding: 40px var(--section-padding-horizontal);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.umrah-features-grid {
+  max-width: 766px;
+  display: grid;
+  grid-template-columns: repeat(10, 1fr);
+  gap: 12px;
+  align-items: center;
+  justify-content: center;
+}
+
+.umrah-features-grid .umrah-feature-item:nth-child(1) {
+  grid-column: 1 / 3;
+}
+
+.umrah-features-grid .umrah-feature-item:nth-child(2) {
+  grid-column: 3 / 5;
+}
+
+.umrah-features-grid .umrah-feature-item:nth-child(3) {
+  grid-column: 5 / 7;
+}
+
+.umrah-features-grid .umrah-feature-item:nth-child(4) {
+  grid-column: 7 / 9;
+}
+
+.umrah-features-grid .umrah-feature-item:nth-child(5) {
+  grid-column: 9 / 11;
+}
+
+.umrah-features-grid .umrah-feature-item:nth-child(6) {
+  grid-column: 2 / 4;
+}
+
+.umrah-features-grid .umrah-feature-item:nth-child(7) {
+  grid-column: 4 / 6;
+}
+
+.umrah-features-grid .umrah-feature-item:nth-child(8) {
+  grid-column: 6 / 8;
+}
+
+.umrah-features-grid .umrah-feature-item:nth-child(9) {
+  grid-column: 8 / 10;
+}
+
+.umrah-feature-item {
+  width: 140px;
+  height: 140px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  padding: 28px 0;
+  background: linear-gradient(180deg, #1A243D 0%, black 50%, #1A243D 100%);
+  border-radius: 8.32px;
+}
+
+.umrah-feature-icon-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.umrah-feature-icon {
+  width: 40px;
+  height: 40px;
+}
+
+.umrah-feature-title {
+  color: var(--text-white);
+  font-size: var(--font-size-small);
+  font-weight: var(--font-weight-bold);
+  text-align: center;
+  max-width: 120px;
+  word-wrap: break-word;
+}
+
+/* Packages Section */
+.umrah-packages-section {
+  width: 100%;
+  min-height: 1121px;
+  background: var(--text-white);
+  padding: 82px var(--section-padding-horizontal);
+}
+
+.umrah-packages-header {
+  position: relative;
+  margin-bottom: 110px;
+  text-align: center;
+}
+
+.umrah-section-title {
+  color: var(--text-primary);
+  font-size: 56px;
+  font-weight: var(--font-weight-bold);
+  text-align: start;
+  margin-bottom: 30px;
+}
+
+.umrah-certification-badge {
+  position: absolute;
+  top: 110px;
+  right: 0;
+  width: 429px;
+  height: 40px;
+  background: #A38447;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  padding: 0 10px;
+  gap: 4.5px;
+}
+
+.umrah-cert-icon {
+  width: 15px;
+  height: 15px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.umrah-cert-icon img {
+  width: 13.75px;
+  height: 13.12px;
+  object-fit: contain;
+}
+
+.umrah-cert-title {
+  color: var(--text-white);
+  font-size: 10px;
+  font-family: var(--font-family-primary);
+  font-weight: var(--font-weight-bold);
+  line-height: 1.3;
+  white-space: nowrap;
+}
+
+.umrah-cert-desc {
+  color: var(--text-white);
+  font-size: 10px;
+  font-family: var(--font-family-primary);
+  font-weight: var(--font-weight-regular);
+  line-height: 1.3;
+}
+
+.umrah-cert-a {
+  font-weight: var(--font-weight-bold);
+}
+
+.umrah-packages-container {
+  display: flex;
+  justify-content: center;
+  gap: 18px;
+  max-width: var(--content-width);
+  margin: 0 auto;
+  flex-wrap: wrap;
+}
+
+.umrah-package-card {
+  width: 285px;
+  position: relative;
+  background: var(--text-white);
+  border-radius: 24px;
+  border: 1px solid #E0E0E0;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.umrah-package-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
+}
+
+.umrah-package-image {
+  width: 285px;
+  height: 180px;
+  object-fit: cover;
+  border-radius: 24px;
+}
+
+.umrah-package-title {
+  padding: 0 24px;
+  margin-top: 19px;
+  color: var(--text-primary);
+  font-size: 32px;
+  font-family: var(--font-family-primary);
+  font-weight: var(--font-weight-extra-bold);
+  line-height: 40px;
+}
+
+.umrah-package-description {
+  padding: 0 24px;
+  margin-top: 13px;
+  color: var(--text-black);
+  font-size: 10px;
+  font-family: var(--font-family-primary);
+  font-style: italic;
+  font-weight: var(--font-weight-bold);
+}
+
+.umrah-package-hotels {
+  padding: 0 24px;
+  margin-top: 21px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  flex-grow: 1;
+}
+
+.umrah-hotel-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  position: relative;
+}
+
+.umrah-hotel-icon {
+  width: 20px;
+  height: 20px;
+  background: #E0E0E0;
+  border-radius: 24px;
+  position: relative;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.umrah-hotel-icon img {
+  width: 12px;
+  height: 12px;
+}
+
+.umrah-hotel-name {
+  color: var(--text-primary);
+  font-size: 12px;
+  font-family: var(--font-family-primary);
+  font-weight: var(--font-weight-medium);
+  text-transform: capitalize;
+  flex: 1;
+}
+
+.umrah-hotel-stars {
+  display: flex;
+  gap: 2px;
+  margin-left: auto;
+}
+
+.umrah-star {
+  width: 10px;
+  height: 10px;
+}
+
+.umrah-departure-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.umrah-departure-icon {
+  width: 18px;
+  height: 20px;
+  background: #E0E0E0;
+  border-radius: 24px;
+  position: relative;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.umrah-departure-icon img {
+  width: 8px;
+  height: 12px;
+}
+
+.umrah-departure-text {
+  color: var(--text-primary);
+  font-size: 12px;
+  font-family: var(--font-family-primary);
+  font-weight: var(--font-weight-medium);
+  text-transform: capitalize;
+  line-height: 14px;
+}
+
+.umrah-package-details {
+  width: 276px;
+  padding: 0 24px;
+  margin-top: auto;
+  padding-top: 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+}
+
+.umrah-detail-item {
+  min-width: 70px;
+  height: 30px;
+  background: var(--text-white);
+  box-shadow: 0px 7.4px 26px rgba(0, 0, 0, 0.1);
+  border-radius: 3px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  padding: 0 8px;
+}
+
+.umrah-detail-icon {
+  width: 15px;
+  height: 15px;
+  flex-shrink: 0;
+}
+
+.umrah-detail-text {
+  color: var(--text-primary);
+  font-size: 10px;
+  font-family: var(--font-family-primary);
+  font-weight: var(--font-weight-semi-bold);
+  text-transform: capitalize;
+}
+
+.umrah-detail-airlines {
+  width: 107px;
+  height: 30px;
+  background: var(--text-white);
+  box-shadow: 0px 7.4px 26px rgba(0, 0, 0, 0.1);
+  border-radius: 3px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 0 8px;
+}
+
+.umrah-airline-logo {
+  height: 18px;
+  width: auto;
+  object-fit: contain;
+}
+
+.umrah-package-divider {
+  width: 276px;
+  height: 0px;
+  margin: 0 25px;
+  margin-top: 11px;
+  border-top: 1px solid var(--text-black);
+}
+
+.umrah-package-price {
+  padding: 0 24px;
+  margin-top: 11px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.umrah-price-label {
+  color: var(--text-black);
+  font-size: 10px;
+  font-family: var(--font-family-primary);
+  font-weight: var(--font-weight-regular);
+}
+
+.umrah-price-amount {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+}
+
+.umrah-price-currency {
+  color: var(--text-black);
+  font-size: 16px;
+  font-family: var(--font-family-primary);
+  font-weight: var(--font-weight-semi-bold);
+}
+
+.umrah-price-value {
+  color: var(--text-black);
+  font-size: 20px;
+  font-family: var(--font-family-primary);
+  font-weight: var(--font-weight-extra-bold);
+}
+
+.umrah-package-actions {
+  padding: 0 24px;
+  padding-bottom: 24px;
+  margin-top: 11px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+}
+
+.umrah-itinerary-button {
+  width: 70px;
+  height: 34px;
+  background: var(--text-primary);
+  border-radius: 100px;
+  border: none;
+  color: var(--text-white);
+  font-size: 12px;
+  font-family: var(--font-family-primary);
+  font-weight: var(--font-weight-extra-bold);
+  line-height: 14px;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.umrah-itinerary-button:hover {
+  opacity: 0.9;
+}
+
+.umrah-interest-button {
+  width: 170px;
+  height: 45.77px;
+  background: transparent;
+  border-radius: 130.77px;
+  border: 1.31px solid #442305;
+  color: #442305;
+  font-size: 15.69px;
+  font-family: var(--font-family-primary);
+  font-weight: var(--font-weight-extra-bold);
+  line-height: 18.31px;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.umrah-interest-button:hover {
+  background: #442305;
+  color: var(--text-white);
+}
+
+/* CTA Section */
+.umrah-cta-section {
+  width: 100%;
+  height: 449px;
+  background: linear-gradient(90deg, black 0%, var(--text-primary) 100%);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 var(--section-padding-horizontal);
+  position: relative;
+  overflow: hidden;
+}
+
+.umrah-cta-content {
+  max-width: 380px;
+  z-index: 10;
+}
+
+.umrah-cta-title {
+  color: #E6E2D3;
+  font-size: 32px;
+  font-weight: var(--font-weight-bold);
+  line-height: 46px;
+  margin-bottom: 20px;
+}
+
+.umrah-cta-description {
+  color: #E6E2D3;
+  font-size: 15px;
+  font-weight: var(--font-weight-regular);
+  line-height: 25px;
+  margin-bottom: 32px;
+}
+
+.umrah-cta-image {
+  position: absolute;
+  right: 0;
+  top: 0;
+  height: 100%;
+}
+
+.umrah-cta-image img {
+  width: 663px;
+  height: 449px;
+  object-fit: cover;
+}
+
+/* Manage Plan Section */
+.umrah-manage-section {
+  width: 100%;
+  min-height: 522px;
+  background: var(--text-white);
+  padding: var(--section-padding-vertical) var(--section-padding-horizontal);
+}
+
+.umrah-section-title-dark {
+  color: var(--text-primary);
+  font-size: 56px;
+  font-weight: var(--font-weight-bold);
+  text-align: center;
+  margin-bottom: 60px;
+}
+
+.umrah-manage-container {
+  display: flex;
+  justify-content: center;
+  gap: 50px;
+  max-width: var(--content-width);
+  margin: 0 auto;
+}
+
+.umrah-manage-card {
+  width: 600px;
+  height: 188.72px;
+  position: relative;
+  border-radius: 14.10px;
+  padding: 30.32px 30.52px 30.52px 30.77px;
+}
+
+.umrah-manage-card-brown {
+  border: 1px solid var(--primary-brown);
+}
+
+.umrah-manage-card-gold {
+  border: 1px solid var(--primary-gold);
+}
+
+.umrah-manage-title {
+  position: absolute;
+  left: 30.52px;
+  top: 30.32px;
+  font-size: 24px;
+  font-family: var(--font-family-primary);
+  font-weight: var(--font-weight-bold);
+  line-height: 19.74px;
+  word-wrap: break-word;
+}
+
+.umrah-manage-card-brown .umrah-manage-title {
+  color: var(--primary-brown);
+}
+
+.umrah-manage-card-gold .umrah-manage-title {
+  color: var(--primary-gold);
+}
+
+.umrah-manage-description {
+  position: absolute;
+  width: 264px;
+  left: 30.77px;
+  top: 61.72px;
+  font-size: 15px;
+  font-family: var(--font-family-primary);
+  font-weight: var(--font-weight-regular);
+  line-height: 25px;
+  word-wrap: break-word;
+}
+
+.umrah-manage-card-brown .umrah-manage-description {
+  color: var(--primary-brown);
+}
+
+.umrah-manage-card-gold .umrah-manage-description {
+  color: var(--primary-gold);
+}
+
+.umrah-manage-button {
+  position: absolute;
+  left: 30.77px;
+  top: 130.28px;
+  width: 95px;
+  height: 34px;
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+  .umrah-hero-section {
+    height: 600px;
+  }
+
+  .umrah-hero-title {
+    font-size: 42px;
+    line-height: 50px;
+  }
+
+  .umrah-features-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .umrah-packages-container {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .umrah-certification-badge {
+    position: static;
+    margin: 0 auto 40px;
+  }
+
+  .umrah-cta-section {
+    flex-direction: column;
+    height: auto;
+    padding: 60px var(--section-padding-horizontal) 0 var(--section-padding-horizontal);
+  }
+
+  .umrah-cta-image {
+    position: relative;
+    margin-top: 40px;
+  }
+
+  .umrah-manage-container {
+    flex-direction: column;
+    align-items: center;
+    gap: 30px;
+  }
+
+  .umrah-manage-card {
+    max-width: 472.77px;
+    width: 100%;
+  }
+}
+
+@media (max-width: 768px) {
+  .umrah-hero-section {
+    margin-top: 70px;
+    height: 500px;
+  }
+
+  .umrah-hero-title {
+    font-size: 32px;
+    line-height: 40px;
+  }
+
+  .umrah-features-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+  }
+
+  .umrah-section-title,
+  .umrah-section-title-dark {
+    font-size: 36px;
+  }
+
+  .umrah-package-card {
+    max-width: 100%;
+  }
+
+  .umrah-certification-badge {
+    width: 100%;
+    max-width: 100%;
+    height: auto;
+    min-height: 40px;
+    padding: 8px 10px;
+    flex-wrap: wrap;
+    justify-content: center;
+    text-align: center;
+  }
+
+  .umrah-cert-title,
+  .umrah-cert-desc {
+    white-space: normal;
+    font-size: 9px;
+  }
+
+  .umrah-manage-card {
+    width: 100%;
+    max-width: 100%;
+    height: auto;
+    min-height: 188.72px;
+    padding: 20px;
+  }
+
+  .umrah-manage-title {
+    position: static;
+    margin-bottom: 12px;
+    font-size: 20px;
+    line-height: 1.4;
+  }
+
+  .umrah-manage-description {
+    position: static;
+    width: 100%;
+    max-width: 100%;
+    margin-bottom: 20px;
+    font-size: 14px;
+    line-height: 1.6;
+  }
+
+  .umrah-manage-button {
+    position: static;
+    width: auto;
+    height: auto;
+  }
+
+  :root {
+    --section-padding-horizontal: 20px;
+  }
+}

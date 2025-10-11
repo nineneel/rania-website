@@ -405,51 +405,6 @@ body {
   line-height: 1.5;
 }
 
-/* Signature Card Section */
-.signature-card-section {
-  width: 100%;
-  min-height: 404px;
-  background: transparent;
-  padding: var(--section-padding-vertical) var(--section-padding-horizontal);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.signature-card-container {
-  max-width: var(--content-width);
-  display: flex;
-  gap: 85px;
-  align-items: center;
-}
-
-.signature-card-image img {
-  width: 348px;
-  height: 380px;
-  border-radius: 20px;
-  object-fit: cover;
-}
-
-.signature-card-content {
-  flex: 1;
-}
-
-.signature-card-title {
-  color: var(--text-primary);
-  font-size: 36px;
-  font-weight: var(--font-weight-bold);
-  line-height: 46px;
-  margin-bottom: 20px;
-}
-
-.signature-card-description {
-  color: var(--text-primary);
-  font-size: var(--font-size-body);
-  font-weight: var(--font-weight-regular);
-  line-height: 1.6;
-  max-width: 421px;
-}
-
 /* Newsletter and Footer styles now in Footer component */
 
 /* Responsive Design */
@@ -534,16 +489,6 @@ body {
   .service-section-title {
     text-align: center;
     font-size: 28px;
-  }
-
-  .signature-card-container {
-    flex-direction: column;
-    gap: 30px;
-  }
-
-  .signature-card-image img {
-    width: 100%;
-    height: auto;
   }
 
   .service-card,

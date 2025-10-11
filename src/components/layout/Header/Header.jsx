@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import './Header.css';
@@ -6,18 +6,20 @@ import raniaLogo from '../../../assets/icons/rania-logo.png';
 
 const Header = ({ activeLink = 'Home' }) => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isVisible, setIsVisible] = useState(true);
+  const lastScrollY = useRef(0);
   const location = useLocation();
 
   const navLinks = [
     { id: 'home', label: 'Home', href: '/', isRoute: true },
     { id: 'about', label: 'About Rania', href: '/about', isRoute: true },
     { id: 'hajj', label: 'Hajj With Rania', href: '/hajj', isRoute: false },
-    { id: 'umrah', label: 'Umrah With Rania', href: '#umrah', isRoute: false },
-    { id: 'world', label: 'Rania To The World', href: '#world', isRoute: false },
-    { id: 'webinar', label: 'Webinar With Rania', href: '#webinar', isRoute: false },
-    { id: 'partnership', label: 'Partnership', href: '#partnership', isRoute: false },
-    { id: 'contact', label: 'Contact Us', href: '#contact', isRoute: false },
-    { id: 'support', label: 'Support & Help', href: '#support', isRoute: false }
+    { id: 'umrah', label: 'Umrah With Rania', href: '/umrah', isRoute: false},
+    { id: 'world', label: 'Rania To The World', href: '#world', isRoute: false, comingSoon: true },
+    { id: 'webinar', label: 'Webinar With Rania', href: '#webinar', isRoute: false, comingSoon: true },
+    { id: 'partnership', label: 'Partnership', href: '#partnership', isRoute: false, comingSoon: true },
+    { id: 'contact', label: 'Contact Us', href: '/contact', isRoute: true },
+    { id: 'support', label: 'Support & Help', href: '#support', isRoute: false, comingSoon: true }
   ];
 
   const toggleMobileMenu = () => {
@@ -28,12 +30,37 @@ const Header = ({ activeLink = 'Home' }) => {
     setIsMobileMenuOpen(false);
   };
 
+  useEffect(() => {
+    const handleScroll = () => {
+      const currentScrollY = window.scrollY;
+
+      // Show header when at the top of the page
+      if (currentScrollY < 10) {
+        setIsVisible(true);
+      }
+      // Hide header when scrolling down, show when scrolling up
+      else if (currentScrollY > lastScrollY.current) {
+        setIsVisible(false);
+      } else {
+        setIsVisible(true);
+      }
+
+      lastScrollY.current = currentScrollY;
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
+
   return (
     <header className="header">
       {/* Desktop Header */}
       <div className="header-desktop">
-        <img src={raniaLogo} alt="Rania Logo" className="header-logo" />
-        <nav className="header-nav">
+        <img src={raniaLogo} alt="Rania Logo" className={`header-logo ${isVisible ? 'header-logo-visible' : 'header-logo-hidden'}`} />
+        <nav className={`header-nav ${isVisible ? 'nav-visible' : 'nav-hidden'}`}>
           {navLinks.map((link) => {
             const isActive = link.isRoute ? location.pathname === link.href : false;
             return link.isRoute ? (
@@ -47,10 +74,13 @@ const Header = ({ activeLink = 'Home' }) => {
             ) : (
               <a
                 key={link.id}
-                href={link.href}
-                className={`nav-link ${activeLink.toLowerCase() === link.label.toLowerCase() ? 'active' : ''}`}
+                href={link.comingSoon ? '#' : link.href}
+                className={`nav-link ${activeLink.toLowerCase() === link.label.toLowerCase() ? 'active' : ''} ${link.comingSoon ? 'coming-soon' : ''}`}
+                onClick={(e) => link.comingSoon && e.preventDefault()}
+                data-tooltip={link.comingSoon ? 'Coming Soon' : undefined}
               >
                 {link.label}
+                {link.comingSoon && <span className="coming-soon-badge">Coming Soon</span>}
               </a>
             );
           })}
@@ -89,11 +119,18 @@ const Header = ({ activeLink = 'Home' }) => {
                     </Link>
                   ) : (
                     <a
-                      href={link.href}
-                      className={`mobile-nav-link ${activeLink.toLowerCase() === link.label.toLowerCase() ? 'active' : ''}`}
-                      onClick={handleLinkClick}
+                      href={link.comingSoon ? '#' : link.href}
+                      className={`mobile-nav-link ${activeLink.toLowerCase() === link.label.toLowerCase() ? 'active' : ''} ${link.comingSoon ? 'coming-soon' : ''}`}
+                      onClick={(e) => {
+                        if (link.comingSoon) {
+                          e.preventDefault();
+                        } else {
+                          handleLinkClick();
+                        }
+                      }}
                     >
                       {link.label}
+                      {link.comingSoon && <span className="coming-soon-badge">Coming Soon</span>}
                     </a>
                   )}
                   {index < navLinks.length - 1 && <div className="mobile-nav-divider"></div>}

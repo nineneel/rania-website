@@ -221,6 +221,24 @@
 .about-milestone-item {
   flex: 1;
   text-align: center;
+  position: relative;
+}
+
+.about-milestone-item::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  right: -20px;
+  transform: translateY(-50%);
+  width: 0;
+  height: 0;
+  border-top: 12px solid transparent;
+  border-bottom: 12px solid transparent;
+  border-left: 24px solid var(--primary-gold);
+}
+
+.about-milestone-item:last-child::after {
+  display: none;
 }
 
 .about-milestone-year {
@@ -232,7 +250,7 @@
 
 .about-milestone-text {
   color: var(--text-primary);
-  font-size: var(--font-size-body);
+  font-size: var(--font-size-regular);
   font-weight: var(--font-weight-regular);
   line-height: 1.5;
 }
@@ -611,6 +629,18 @@
   .about-milestone-timeline {
     flex-direction: column;
     align-items: center;
+  }
+
+  .about-milestone-item::after {
+    top: auto;
+    bottom: -30px;
+    left: 50%;
+    right: auto;
+    transform: translateX(-50%) rotate(90deg);
+  }
+
+  .about-milestone-item:last-child::after {
+    display: none;
   }
 
   .about-certification-card {
