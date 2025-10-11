@@ -2,7 +2,7 @@ import { useState, useEffect, useRef } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import './Header.css';
-import raniaLogo from '../../../assets/icons/rania-logo.png';
+import raniaLogo from '../../../assets/icons/rania-logo.webp';
 
 const Header = ({ activeLink = 'Home' }) => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);

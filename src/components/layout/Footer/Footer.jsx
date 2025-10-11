@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import PropTypes from 'prop-types';
 import './Footer.css';
-import raniaLogo from '../../../assets/icons/rania-logo.png';
+import raniaLogo from '../../../assets/icons/rania-logo.webp';
 import Button from '../../common/Button/Button';
 import facebookIcon from '../../../assets/icons/Facebook.svg';
 import instagramIcon from '../../../assets/icons/Instagram.svg';
