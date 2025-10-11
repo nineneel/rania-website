@@ -224,12 +224,14 @@ const Umrah = () => {
       {/* Packages Section */}
       <section id="packages" className="umrah-packages-section">
         <div className="umrah-packages-header">
-          <h2 className="umrah-section-title">Discover Your Umrah</h2>
+          <h2 className="umrah-section-title">Discover Your Private Umrah</h2>
           <div className="umrah-certification-badge">
+           <div className='umrah-cert-title-wrap'>
             <div className="umrah-cert-icon">
               <img src={verifiedIcon} alt="Verified" />
             </div>
             <div className="umrah-cert-title">PPIU Certification<br/>(Official Umrah License)</div>
+            </div> 
             <div className="umrah-cert-desc">
               <span className="umrah-cert-a">'A'</span> Accredited Umrah Pilgrimage Organizer<br/>License Number: 02202041807930001
             </div>

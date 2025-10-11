@@ -137,7 +137,6 @@
 /* Packages Section */
 .umrah-packages-section {
   width: 100%;
-  min-height: 1121px;
   background: var(--text-white);
   padding: 60px var(--section-padding-horizontal);
 }
@@ -145,12 +144,12 @@
 .umrah-packages-header {
   margin: 0 auto;
   margin-bottom: 20px;
-  text-align: center;
   display: flex;
-  flex-direction: column;
-  align-items: end;
-  padding: 0 20px;
-  max-width: var(--content-width);
+  flex-direction: row;
+  align-items: flex-end;
+  justify-content: space-between;
+  max-width: var(--container-width);
+  width: 100%;
 }
 
 .umrah-section-title {
@@ -158,19 +157,25 @@
   font-size: 52px;
   font-weight: var(--font-weight-bold);
   text-align: start;
-  width: 100%;
-  margin-bottom: 30px;
+  margin: 0;
 }
 
 .umrah-certification-badge {
-  width: 429px;
+  width: 380px;
   height: 40px;
   background: #A38447;
   border-radius: 8px;
   display: flex;
   align-items: center;
+  justify-content: space-between;
   padding: 0 10px;
-  margin-top: 20px;
+  gap: 4.5px;
+  flex-shrink: 0;
+}
+
+.umrah-cert-title-wrap {
+  display: flex;
+  align-items: center;
   gap: 4.5px;
 }
 
@@ -212,17 +217,15 @@
 }
 
 .umrah-packages-container {
-  display: flex;
-  justify-content: center;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
   gap: 18px;
-  max-width: var(--content-width);
+  max-width: var(--container-width);
   margin: 0 auto;
-  flex-wrap: wrap;
 }
 
 .umrah-package-card {
-  width: 285px;
-  position: relative;
+  width: 100%;
   background: var(--text-white);
   border-radius: 24px;
   border: 1px solid #E0E0E0;
@@ -238,7 +241,7 @@
 }
 
 .umrah-package-image {
-  width: 285px;
+  width: 100%;
   height: 180px;
   object-fit: cover;
   border-radius: 24px;
@@ -350,14 +353,17 @@
 }
 
 .umrah-package-details {
-  width: 276px;
+  width: 100%;
   padding: 0 24px;
   margin-top: auto;
   padding-top: 24px;
   display: flex;
-  justify-content: space-between;
+  flex-wrap: wrap;
+  justify-content: start;
   align-items: center;
   gap: 8px;
+  box-sizing: border-box;
+  margin-bottom: 8px;
 }
 
 .umrah-detail-item {
@@ -407,9 +413,9 @@
 }
 
 .umrah-package-divider {
-  width: 276px;
+  width: calc(100% - 48px);
   height: 0px;
-  margin: 0 25px;
+  margin: 0 24px;
   margin-top: 11px;
   border-top: 1px solid var(--text-black);
 }
@@ -732,13 +738,18 @@
     grid-column: auto;
   }
 
-  .umrah-packages-container {
+  .umrah-packages-header {
     flex-direction: column;
-    align-items: center;
+    align-items: flex-start;
+    gap: 20px;
+  }
+
+  .umrah-packages-container {
+    grid-template-columns: repeat(2, 1fr);
   }
 
   .umrah-certification-badge {
-    margin: 0 auto 40px;
+    align-self: flex-end;
   }
 
   .umrah-cta-section {
@@ -810,6 +821,16 @@
     padding: 40px 20px;
   }
 
+  .umrah-packages-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+  }
+
+  .umrah-packages-container {
+    grid-template-columns: 1fr;
+  }
+
   .umrah-features-grid {
     grid-template-columns: repeat(2, 1fr);
     gap: 12px;
@@ -825,7 +846,6 @@
   .umrah-section-title,
   .umrah-section-title-dark {
     font-size: 36px;
-    margin-bottom: 30px;
   }
 
   .umrah-package-card {

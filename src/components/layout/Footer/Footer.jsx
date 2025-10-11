@@ -152,10 +152,10 @@ const Footer = () => {
         <div className="footer-bottom">
           <p className="footer-copyright">Copyright © 2025 Rania</p>
           <div className="footer-legal">
-            <span>All Rights Reserved | </span>
-            <a href="#terms">Terms and Conditions</a>
+            <span>All Rights Reserved</span>
+            {/* <a href="#terms">Terms and Conditions</a>
             <span> | </span>
-            <a href="#privacy">Privacy Policy</a>
+            <a href="#privacy">Privacy Policy</a> */}
           </div>
         </div>
       </div>

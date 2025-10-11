@@ -160,10 +160,12 @@ const Hajj = () => {
         <div className="hajj-packages-header">
           <h2 className="hajj-section-title">Discover Your Hajj</h2>
           <div className="hajj-certification-badge">
+           <div className='hajj-cert-title-wrap'>
             <div className="hajj-cert-icon">
               <img src={verifiedIcon} alt="Verified" />
             </div>
             <div className="hajj-cert-title">PIHK Certification<br/>(Official Special Hajj License)</div>
+            </div>
             <div className="hajj-cert-desc">
               <span className="hajj-cert-a">'A'</span> Accredited Special Hajj Pilgrimage Organizer<br/>License No. 02202041807930002
             </div>
