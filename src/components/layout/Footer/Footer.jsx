@@ -3,40 +3,38 @@ import PropTypes from 'prop-types';
 import './Footer.css';
 import raniaLogo from '../../../assets/icons/rania-logo.png';
 import Button from '../../common/Button/Button';
+import facebookIcon from '../../../assets/icons/Facebook.svg';
+import instagramIcon from '../../../assets/icons/Instagram.svg';
+import linkedinIcon from '../../../assets/icons/LinkedIn.svg';
+import youtubeIcon from '../../../assets/icons/YouTube.svg';
 
 const Footer = () => {
   const [email, setEmail] = useState('');
 
   const footerLinks = {
     home: [
-      { label: 'Partners', href: '#partners' },
-      { label: 'As Seen On', href: '#seen-on' },
-      { label: 'Programs', href: '#programs' },
-      { label: 'Upcoming', href: '#upcoming' },
-      { label: 'Signature Card', href: '#signature-card' },
-      { label: 'Subscribe', href: '#subscribe' },
-      { label: 'Articles', href: '#articles' }
+      { label: 'Home', href: '/' },
+      { label: 'Partners', href: '/#partners' },
+      { label: 'Programs', href: '/#programs' },
+      { label: 'Upcoming Events', href: '/#events' },
+      { label: 'Signature Card', href: '/#signature-card' }
     ],
     hajj: [
-      { label: 'Accrediation', href: '#accreditation' },
-      { label: 'Partners', href: '#partners' },
-      { label: 'Programs', href: '#programs' },
-      { label: 'Manage Plan', href: '#manage-plan' },
-      { label: 'Signature Card', href: '#signature-card' }
+      { label: 'Hajj With Rania', href: '/hajj' },
+      { label: 'Partners', href: '/hajj#partners' },
+      { label: 'Discover', href: '/hajj#packages' },
+      { label: 'Manage', href: '/hajj#manage' },
+      { label: 'Signature Card', href: '/hajj#signature-card' }
     ],
     umrah: [
-      { label: 'Accrediation', href: '#accreditation' },
-      { label: 'Partners', href: '#partners' },
-      { label: 'Programs', href: '#programs' },
-      { label: 'Manage Plan', href: '#manage-plan' }
+      { label: 'Umrah With Rania', href: '/umrah' },
+      { label: 'Partners', href: '/umrah#partners' },
+      { label: 'Discover', href: '/umrah#packages' },
+      { label: 'Manage', href: '/umrah#manage' }
     ],
     company: [
-      { label: 'About Rania', href: '#about' },
-      { label: 'Milestone', href: '#milestone' },
-      { label: 'Our Vision', href: '#vision' },
-      { label: 'Meet Expert', href: '#experts' },
-      { label: 'Partners', href: '#partners' },
-      { label: 'Life', href: '#life' }
+      { label: 'About Rania', href: '/about' },
+      { label: 'Contact Us', href: '/contact' }
     ],
     support: [
       { label: 'FAQ', href: '#faq' },
@@ -47,11 +45,10 @@ const Footer = () => {
   };
 
   const socialLinks = [
-    { name: 'Facebook', href: '#facebook', icon: 'f' },
-    { name: 'Twitter', href: '#twitter', icon: '𝕏' },
-    { name: 'Instagram', href: '#instagram', icon: '📷' },
-    { name: 'LinkedIn', href: '#linkedin', icon: 'in' },
-    { name: 'YouTube', href: '#youtube', icon: '▶' }
+    { name: 'Facebook', href: 'https://www.facebook.com/raniaalmutamayizahtravel/', icon: facebookIcon },
+    { name: 'Instagram', href: 'https://www.instagram.com/hajj.rania.co/', icon: instagramIcon },
+    { name: 'LinkedIn', href: 'https://www.linkedin.com/company/pt-rania-almutamayizah-travel/', icon: linkedinIcon },
+    { name: 'YouTube', href: 'https://www.youtube.com/@HajjRania', icon: youtubeIcon }
   ];
 
   const handleNewsletterSubmit = (e) => {
@@ -89,6 +86,11 @@ const Footer = () => {
         <div className="footer-container">
           <div className="footer-logo-section">
             <img src={raniaLogo} alt="Rania Logo" className="footer-logo" />
+            <p className="footer-address">
+              Mall Kota Kasablanka, Prudential Centre, <br />
+              Kav No.88 Floor 7N,<br /> 
+              Kota Jakarta Selatan, 12870
+            </p>
             <div className="footer-social">
               {socialLinks.map((social) => (
                 <a
@@ -96,8 +98,10 @@ const Footer = () => {
                   href={social.href}
                   className="social-icon"
                   aria-label={social.name}
+                  target="_blank"
+                  rel="noopener noreferrer"
                 >
-                  {social.icon}
+                  <img src={social.icon} alt={social.name} className="social-icon-img" />
                 </a>
               ))}
             </div>

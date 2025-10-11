@@ -511,8 +511,8 @@
   height: 100%;
   background: linear-gradient(
     180deg,
-    rgba(26, 36, 61, 0) 50%,
-    var(--primary-dark) 100%
+    transparent 50%,
+    black 100%
   );
 }
 
@@ -526,17 +526,19 @@
 
 .about-expert-name {
   color: var(--text-white);
-  font-size: 25.39px;
+  font-size: 24px;
   font-weight: var(--font-weight-bold);
   margin-bottom: 4px;
+  text-align: center;
 }
 
 .about-expert-role {
   color: var(--text-white);
-  font-size: 15.87px;
+  font-size: 12px;
   font-weight: var(--font-weight-regular);
   text-transform: uppercase;
   letter-spacing: 1.59px;
+  text-align: center;
 }
 
 /* Gallery Section */

@@ -41,6 +41,7 @@ const Home = () => {
   const [textColor, setTextColor] = useState('white');
 
   // Refs for tracking sections
+  const servicesRef = useRef(null);
   const eventsRef = useRef(null);
   const signatureRef = useRef(null);
 
@@ -51,18 +52,18 @@ const Home = () => {
       image: hero1
     },
     {
-      title: "Experience The Sacred Journey",
-      subtitle: "With Complete Guidance and Comfort",
+      title: "Hajj Without Wait, Hajj With Rania",
+      subtitle: "We remove the worry. You receive the blessing",
       image: hero2
     },
     {
-      title: "Your Spiritual Journey Begins",
-      subtitle: "Professional Service, Heartfelt Care",
+      title: "Webinar With Rania",
+      subtitle: "Let us help you replace your worries with wisdom",
       image: hero3
     },
     {
-      title: "Join Thousands of Satisfied Pilgrims",
-      subtitle: "Making Dreams Come True Since 2015",
+      title: "Rania To The World",
+      subtitle: "Discover the world through personalized journeys that reveal the authentic soul of each destination",
       image: hero4
     }
   ];
@@ -80,37 +81,43 @@ const Home = () => {
       title: "Hajj With Rania",
       description: "Journey with a serene soul, ready to receive the immense blessings of Hajj.",
       image: journey1,
-      available: true
+      available: true,
+      link: "/hajj"
     },
     {
       title: "Umrah With Rania",
       description: "Take the first step toward the journey your heart has been yearning for.",
       image: journey2,
-      available: true
+      available: true,
+      link: "/umrah"
     },
     {
       title: "World With Rania",
       description: "Discover the world through personalized journeys that reveal the authentic soul of each destination.",
       image: journey3,
-      available: false
+      available: false,
+      link: null
     }
   ];
-
+  
   const events = [
     {
       title: "Scheduled Webinar",
       description: "Join our complimentary webinar for heartfelt guidance on your upcoming pilgrimage.",
-      image: upcomingEvent1
+      image: upcomingEvent1,
+      available: false
     },
     {
       title: "Digital Manasik",
       description: "Find the true understanding, learn the Manasik with our supportive and accessible online program.",
-      image: upcomingEvent2
+      image: upcomingEvent2,
+      available: false
     },
     {
       title: "Live Event",
       description: "Join our live event to share in the spirit and prepare your heart for the journey ahead.",
-      image: upcomingEvent3
+      image: upcomingEvent3,
+      available: false
     }
   ];
 
@@ -149,6 +156,16 @@ const Home = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  // Scroll to services section
+  const scrollToServices = () => {
+    if (servicesRef.current) {
+      servicesRef.current.scrollIntoView({
+        behavior: 'smooth',
+        block: 'start'
+      });
+    }
+  };
+
   return (
     <div className="home" style={{ backgroundColor: bgColor, transition: 'background-color 0.5s ease' }}>
       {/* Header */}
@@ -165,10 +182,10 @@ const Home = () => {
             <div className="hero-overlay"></div>
             <div className={`hero-content ${index === currentSlide ? 'active' : ''}`}>
               <h1 className="hero-title">{slide.title}</h1>
-              <p className="hero-subtitle">{slide.subtitle}</p>
+              <p className="hero-subtitle">{slide.subtitle}</p> 
               <div className="hero-buttons">
-                <Button variant="primary" size="small">See Details</Button>
-                <Button variant="tertiary" size="small">Contact Rania</Button>
+                <Button variant="primary" size="small" onClick={scrollToServices}>See Details</Button>
+                <Button variant="tertiary" size="small" to='/contact'>Contact Rania</Button>
               </div>
             </div>
           </div>
@@ -202,7 +219,7 @@ const Home = () => {
       </section>
 
       {/* Services Section */}
-      <section className="services-section">
+      <section id="programs" ref={servicesRef} className="services-section">
         <h2 className="service-section-title" style={{ color: textColor, transition: 'color 0.5s ease' }}>Redefine Your Journey</h2>
         <Carousel className="services-carousel">
           {services.map((service, index) => (
@@ -216,6 +233,7 @@ const Home = () => {
                     variant={service.available ? 'primary' : 'primary-dark'}
                     size="small"
                     disabled={!service.available}
+                    to={service.available ? service.link : undefined}
                   >
                     {service.available ? 'See Details' : 'Coming Soon'}
                   </Button>
@@ -227,10 +245,12 @@ const Home = () => {
       </section>
 
       {/* Partners Carousel */}
-      <Partners />
+      <div id="partners">
+        <Partners />
+      </div>
 
       {/* Upcoming Events */}
-      <section ref={eventsRef} className="events-section">
+      <section id="events" ref={eventsRef} className="events-section">
         <h2 className="section-title" style={{ color: textColor, transition: 'color 0.5s ease' }}>Upcoming Events</h2>
         <Carousel className="events-carousel">
           {events.map((event, index) => (
@@ -240,7 +260,13 @@ const Home = () => {
                 <div className="event-content">
                   <h3 className="event-title">{event.title}</h3>
                   <p className="event-description">{event.description}</p>
-                  <Button variant="primary" size="small">See Details</Button>
+                  <Button 
+                   variant={event.available ? 'primary' : 'primary-dark'}
+                    size="small"
+                    disabled={!event.available}
+                  > 
+                    {event.available ? 'I\'m Interest' : 'Coming Soon'} 
+                  </Button>
                 </div>
               </div>
             </div>
@@ -249,10 +275,12 @@ const Home = () => {
       </section>
 
       {/* Signature Card Section */}
-      <SignatureCard
-        image={signatureCard}
-        textColor={textColor}
-      />
+      <div id="signature-card">
+        <SignatureCard
+          image={signatureCard}
+          textColor={textColor}
+        />
+      </div>
     </div>
   );
 };

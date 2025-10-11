@@ -18,6 +18,11 @@ const Carousel = ({ children, className = '' }) => {
 
   // Touch handlers
   const handleTouchStart = (e) => {
+    // Don't interfere with clicks on interactive elements (buttons, links)
+    if (e.target.closest('button, a')) {
+      return;
+    }
+
     setTouchEnd(0); // Reset touch end
     setTouchStart(e.targetTouches[0].clientX);
   };
@@ -44,6 +49,11 @@ const Carousel = ({ children, className = '' }) => {
 
   // Mouse drag handlers
   const handleMouseDown = (e) => {
+    // Don't interfere with clicks on interactive elements (buttons, links)
+    if (e.target.closest('button, a')) {
+      return;
+    }
+
     setIsDragging(true);
     setDragStart(e.clientX);
     setDragEnd(0);
@@ -139,7 +149,7 @@ const Carousel = ({ children, className = '' }) => {
       </div>
 
       {/* Navigation Arrows (optional, hidden on mobile by default) */}
-      <button
+      {/* <button
         className="carousel-button prev"
         onClick={goToPrevious}
         aria-label="Previous slide"
@@ -152,7 +162,7 @@ const Carousel = ({ children, className = '' }) => {
         aria-label="Next slide"
       >
         ›
-      </button>
+      </button> */}
     </div>
   );
 };

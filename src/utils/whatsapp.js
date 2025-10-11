@@ -1,0 +1,88 @@
+/**
+ * WhatsApp Utility Functions
+ * Generates WhatsApp URLs with pre-filled messages
+ */
+
+// WhatsApp phone numbers for sales
+const WHATSAPP_HAJJ = '6281212882028';
+const WHATSAPP_UMRAH = '6281212882028';
+
+/**
+ * Message templates for different actions
+ */
+export const whatsappMessages = {
+  // Hajj Messages
+  hajjInterest: (packageName) => `Assalamu'alaikum Rania, saya ingin informasi lebih lanjut tentang Program Haji Khusus (ONH) 🙏🏻
+
+- Nama Jamaah:
+- Domisili:
+- Pekerjaan:
+- Umur:
+- Paket Haji yang diminati: ${packageName}`,
+
+  hajjCTA: () => `Assalamu'alaikum Rania, saya ingin informasi lebih lanjut tentang Program Haji Khusus (ONH) 🙏🏻`,
+
+  hajjUpgrade: () => `- nama jamaah:
+- Domisili:
+- Pekerjaan:
+- Umur:
+- Paket haji saat ini:
+- Ganti Kelas haji ke:`,
+
+  hajjChange: () => `- nama jamaah
+- Domisili:
+- Pekerjaan:
+- Umur:
+- kelas haji sekarang:
+- ganti kelas haji ke:`,
+
+  // Umrah Messages
+  umrahInterest: (packageName) => `Assalamu'alaikum Rania, saya ingin info lanjut tentang keberangkatan Umroh saat ini 🙏🏻
+
+- Nama Jamaah:
+- Domisili:
+- Pekerjaan:
+- Umur:
+- Paket Umrah yang diminati: ${packageName}`,
+
+  umrahCTA: () => `Assalamu'alaikum Rania, saya ingin info lanjut tentang keberangkatan Umroh saat ini 🙏🏻`,
+
+  umrahChange: () => `- nama jamaah
+- Domisili:
+- Pekerjaan:
+- umur:
+- rencana umrah:
+- perubahan destinasi:`,
+
+  // Contact Rania (general)
+  contactRania: () => `Assalamu'alaikum Rania, saya ingin informasi lebih lanjut tentang layanan Anda 🙏🏻`
+};
+
+/**
+ * Generate WhatsApp URL with pre-filled message
+ * @param {string} message - The pre-filled message
+ * @param {string} phoneNumber - WhatsApp number
+ * @returns {string} WhatsApp URL
+ */
+export const generateWhatsAppUrl = (message, phoneNumber) => {
+  const encodedMessage = encodeURIComponent(message);
+  return `https://wa.me/${phoneNumber}?text=${encodedMessage}`;
+};
+
+/**
+ * Open WhatsApp for Hajj inquiries
+ * @param {string} message - The pre-filled message
+ */
+export const openWhatsAppHajj = (message) => {
+  const url = generateWhatsAppUrl(message, WHATSAPP_HAJJ);
+  window.open(url, '_blank', 'noopener,noreferrer');
+};
+
+/**
+ * Open WhatsApp for Umrah inquiries
+ * @param {string} message - The pre-filled message
+ */
+export const openWhatsAppUmrah = (message) => {
+  const url = generateWhatsAppUrl(message, WHATSAPP_UMRAH);
+  window.open(url, '_blank', 'noopener,noreferrer');
+};

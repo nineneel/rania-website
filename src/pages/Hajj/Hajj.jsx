@@ -5,6 +5,7 @@ import Footer from '../../components/layout/Footer/Footer';
 import Button from '../../components/common/Button/Button';
 import Partners from '../../components/common/Partners';
 import SignatureCard from '../../components/common/SignatureCard';
+import { openWhatsAppHajj, whatsappMessages } from '../../utils/whatsapp';
 
 // Import wave divider
 import waveImage from '../../assets/utils/wave-light.webp';
@@ -136,7 +137,9 @@ const Hajj = () => {
       </section>
 
       {/* Partners Carousel */}
-      <Partners />
+      <div id="partners">
+        <Partners />
+      </div>
 
       {/* Features/Benefits Section */}
       <section className="hajj-features-section">
@@ -153,7 +156,7 @@ const Hajj = () => {
       </section>
 
       {/* Packages Section */}
-      <section className="hajj-packages-section">
+      <section id="packages" className="hajj-packages-section">
         <div className="hajj-packages-header">
           <h2 className="hajj-section-title">Discover Your Hajj</h2>
           <div className="hajj-certification-badge">
@@ -196,7 +199,12 @@ const Hajj = () => {
                 ))}
               </ul>
 
-              <Button variant="secondary" size="medium" className="hajj-package-button">
+              <Button
+                variant="secondary"
+                size="medium"
+                className="hajj-package-button"
+                onClick={() => openWhatsAppHajj(whatsappMessages.hajjInterest(pkg.name))}
+              >
                 I am Interest
               </Button>
 
@@ -226,21 +234,27 @@ const Hajj = () => {
       </div>
 
       {/* Signature Card Section */}
-      <SignatureCard
-        image={signatureCardImage}
-        title="Rania Signature Card"
-        description="Carry your blessings, not your worries; experience secure and simple payments throughout your journey with the Rania Signature Card"
-        backgroundColor="#E2E2E2"
-      />
+      <div id="signature-card">
+        <SignatureCard
+          image={signatureCardImage}
+          title="Rania Signature Card"
+          description="Carry your blessings, not your worries; experience secure and simple payments throughout your journey with the Rania Signature Card"
+          backgroundColor="#E2E2E2"
+        />
+      </div>
 
       {/* CTA Section */}
       <section className="hajj-cta-section">
         <div className="hajj-cta-content">
-          <h2 className="hajj-cta-title">Want To Know More For Your Unforgotten Journey?</h2>
+          <h2 className="hajj-cta-title">Have Questions? Get Answers in Minutes</h2>
           <p className="hajj-cta-description">
-            Lorem ipsum dolor sit amet consectetur adipiscing elit dolor semper at ac tempus enim.
+            Rania is ready to provide immediate answers about your Hajj preparations
           </p>
-          <Button variant="tertiary-filled" size="small">
+          <Button
+            variant="tertiary-filled"
+            size="small"
+            onClick={() => openWhatsAppHajj(whatsappMessages.hajjCTA())}
+          >
             Contact Rania
           </Button>
         </div>
@@ -250,16 +264,20 @@ const Hajj = () => {
       </section>
 
       {/* Manage Plan Section */}
-      <section className="hajj-manage-section">
+      <section id="manage" className="hajj-manage-section">
         <h2 className="hajj-section-title-dark">Manage Your Hajj</h2>
         <div className="hajj-manage-container">
           <div className="hajj-manage-card hajj-manage-card-brown">
             <h3 className="hajj-manage-title">Upgrade My Plan</h3>
             <p className="hajj-manage-description">
-              Lorem ipsum dolor sit amet consecte tur adipiscing elit semper.
+              Enhance Your Spiritual Journey with Added Comfort
             </p>
             <div className="hajj-manage-button">
-              <Button variant="upgrade" size="small">
+              <Button
+                variant="upgrade"
+                size="small"
+                onClick={() => openWhatsAppHajj(whatsappMessages.hajjUpgrade())}
+              >
                 Upgrade Now
               </Button>
             </div>
@@ -267,10 +285,14 @@ const Hajj = () => {
           <div className="hajj-manage-card hajj-manage-card-gold">
             <h3 className="hajj-manage-title">Change My Plan</h3>
             <p className="hajj-manage-description">
-              Lorem ipsum dolor sit amet consecte tur adipiscing elit semper.
+              Find a Hajj Package That's the Right Fit for You
             </p>
             <div className="hajj-manage-button">
-              <Button variant="change" size="small">
+              <Button
+                variant="change"
+                size="small"
+                onClick={() => openWhatsAppHajj(whatsappMessages.hajjChange())}
+              >
                 Change Now
               </Button>
             </div>

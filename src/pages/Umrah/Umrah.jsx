@@ -5,6 +5,7 @@ import Footer from '../../components/layout/Footer/Footer';
 import Button from '../../components/common/Button/Button';
 import Partners from '../../components/common/Partners';
 import SignatureCard from '../../components/common/SignatureCard';
+import { openWhatsAppUmrah, whatsappMessages } from '../../utils/whatsapp';
 
 // Import wave divider
 import waveImage from '../../assets/utils/wave-light.webp';
@@ -71,6 +72,24 @@ const Umrah = () => {
   // Package data for Umrah
   const packages = [
     {
+      title: "Umrah Regular",
+      description: "Discover Your Sacred Umrah Journey",
+      image: umrahRegular,
+      hotels: [
+        { name: "Ansar Golden Tulip", stars: 4 },
+        { name: "Makarem Ajyad Hotel", stars: 5 }
+      ],
+      departure: "Soekarno-Hatta airport (CGK) Jakarta",
+      duration: "9 Days",
+      frequency: "Weekly",
+      airlines: [
+        { name: "Saudia", logo: saudiaLogo },
+        { name: "Emirates", logo: emiratesLogo }
+      ],
+      price: "43.800.000,00",
+      currency: "Rp"
+    },
+    {
       title: "Umrah Dubai",
       description: "Discover Your Sacred Umrah Journey and Amazing Dubai",
       image: umrahDubai1,
@@ -86,24 +105,6 @@ const Umrah = () => {
         { name: "Emirates", logo: emiratesLogo }
       ],
       price: "57.000.000,00",
-      currency: "Rp"
-    },
-    {
-      title: "Umrah Regular",
-      description: "Discover Your Sacred Umrah Journey",
-      image: umrahRegular,
-      hotels: [
-        { name: "Ansar Golden Tulip", stars: 5 },
-        { name: "Makarem Ajyad Hotel", stars: 5 }
-      ],
-      departure: "Soekarno-Hatta airport (CGK) Jakarta",
-      duration: "9 Days",
-      frequency: "Weekly",
-      airlines: [
-        { name: "Saudia", logo: saudiaLogo },
-        { name: "Emirates", logo: emiratesLogo }
-      ],
-      price: "43.800.000,00",
       currency: "Rp"
     },
     {
@@ -129,7 +130,7 @@ const Umrah = () => {
       description: "Discover Your Sacred Umrah Journey and Amazing Dubai",
       image: umrahDubai3,
       hotels: [
-        { name: "Ansar Golden Tulip", stars: 5 },
+        { name: "Ansar Golden Tulip", stars: 4 },
         { name: "Makarem Ajyad Hotel", stars: 5 }
       ],
       departure: "Soekarno-Hatta airport (CGK) Jakarta",
@@ -165,7 +166,7 @@ const Umrah = () => {
       description: "Discover Your Sacred Umrah and Wonderful Turkiye",
       image: umrahTurkiye2,
       hotels: [
-        { name: "Ansar Golden Tulip", stars: 5 },
+        { name: "Ansar Golden Tulip", stars: 4 },
         { name: "Makarem Ajyad Hotel", stars: 5 }
       ],
       departure: "Soekarno-Hatta airport (CGK) Jakarta",
@@ -202,7 +203,9 @@ const Umrah = () => {
       </section>
 
       {/* Partners Carousel */}
-      <Partners />
+      <div id="partners">
+        <Partners />
+      </div>
 
       {/* Features/Benefits Section */}
       <section className="umrah-features-section">
@@ -219,7 +222,7 @@ const Umrah = () => {
       </section>
 
       {/* Packages Section */}
-      <section className="umrah-packages-section">
+      <section id="packages" className="umrah-packages-section">
         <div className="umrah-packages-header">
           <h2 className="umrah-section-title">Discover Your Umrah</h2>
           <div className="umrah-certification-badge">
@@ -293,10 +296,12 @@ const Umrah = () => {
               <div className="umrah-package-divider"></div>
 
               <div className="umrah-package-actions">
-                <Button variant="primary" size="small" className="umrah-itinerary-button">
-                  Itinerary
-                </Button>
-                <Button variant="secondary" size="medium" className="umrah-interest-button">
+                <Button
+                  variant="secondary"
+                  size="medium"
+                  className="umrah-interest-button"
+                  onClick={() => openWhatsAppUmrah(whatsappMessages.umrahInterest(pkg.title))}
+                >
                   I am Interest
                 </Button>
               </div>
@@ -308,11 +313,15 @@ const Umrah = () => {
       {/* CTA Section */}
       <section className="umrah-cta-section">
         <div className="umrah-cta-content">
-          <h2 className="umrah-cta-title">Want To Know More For Your Unforgotten Journey?</h2>
+          <h2 className="umrah-cta-title">Ready to Answer the Call? Let's Plan Your Journey</h2>
           <p className="umrah-cta-description">
-            Lorem ipsum dolor sit amet consectetur adipiscing elit dolor semper at ac tempus enim.
+            Turn your spiritual yearning into a blessed reality. Let us help you plan a seamless and meaningful Umrah journey
           </p>
-          <Button variant="tertiary-filled" size="small">
+          <Button
+            variant="tertiary-filled"
+            size="small"
+            onClick={() => openWhatsAppUmrah(whatsappMessages.umrahCTA())}
+          >
             Contact Rania
           </Button>
         </div>
@@ -322,7 +331,7 @@ const Umrah = () => {
       </section>
 
       {/* Manage Plan Section */}
-      <section className="umrah-manage-section">
+      <section id="manage" className="umrah-manage-section">
         <h2 className="umrah-section-title-dark">Manage Your Umrah</h2>
         <div className="umrah-manage-container">
           <div className="umrah-manage-card umrah-manage-card-gold">
@@ -331,7 +340,11 @@ const Umrah = () => {
               Lorem ipsum dolor sit amet consecte tur adipiscing elit semper.
             </p>
             <div className="umrah-manage-button">
-              <Button variant="change" size="small">
+              <Button
+                variant="change"
+                size="small"
+                onClick={() => openWhatsAppUmrah(whatsappMessages.umrahChange())}
+              >
                 Change Now
               </Button>
             </div>

@@ -1,4 +1,5 @@
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 import './Button.css';
 
 const Button = ({
@@ -6,12 +7,23 @@ const Button = ({
   variant = 'primary',
   size = 'medium',
   onClick,
+  to,
   type = 'button',
   disabled = false,
   className = ''
 }) => {
   const buttonClass = `button button-${variant} button-${size} ${className}`.trim();
 
+  // If 'to' prop is provided, render as Link (for internal navigation)
+  if (to && !disabled) {
+    return (
+      <Link to={to} className={buttonClass}>
+        {children}
+      </Link>
+    );
+  }
+
+  // Otherwise, render as button (for onClick handlers like WhatsApp)
   return (
     <button
       type={type}
@@ -44,6 +56,7 @@ Button.propTypes = {
   ]),
   size: PropTypes.oneOf(['small', 'medium', 'large', 'xlarge']),
   onClick: PropTypes.func,
+  to: PropTypes.string,
   type: PropTypes.oneOf(['button', 'submit', 'reset']),
   disabled: PropTypes.bool,
   className: PropTypes.string
