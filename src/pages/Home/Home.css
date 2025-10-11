@@ -194,7 +194,7 @@ body {
   /* min-height: 90vh; */
   background: transparent;
   padding: var(--section-padding-vertical) var(--section-padding-horizontal);
-  padding-top: calc(var(--section-padding-vertical) * 2 + 60px);
+  padding-top: calc(var(--section-padding-vertical) * 2 + 10px);
 }
 
 .section-title {
@@ -456,6 +456,11 @@ body {
     font-size: 16px;
   }
 
+  .values-section {
+    padding: 0 20px;
+    padding-top: 40px;
+  }
+
   .values-container {
     flex-direction: row;
     justify-content: center;
@@ -485,13 +490,24 @@ body {
     font-size: 14px;
   }
 
+  .services-section {
+    padding: 40px 20px;
+    padding-top: 50px;
+  }
+
+  .events-section {
+    padding: 40px 20px;
+  }
+
   .section-title {
     font-size: 36px;
+    margin-bottom: 30px;
   }
 
   .service-section-title {
     text-align: center;
     font-size: 28px;
+    margin-bottom: 30px;
   }
 
   .service-card,

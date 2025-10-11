@@ -50,7 +50,7 @@ const Hajj = () => {
     { title: "Dedicated Tour Leader", icon: value7 },
     { title: "Flexible Payment", icon: value8 },
     { title: "Travel Insurance", icon: value9 },
-    { title: "Exclusive BSI Card", icon: value10 }
+    { title: "Exclusive Card", icon: value10 }
   ];
 
   // Package data

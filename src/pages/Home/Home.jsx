@@ -105,7 +105,8 @@ const Home = () => {
       title: "Scheduled Webinar",
       description: "Join our complimentary webinar for heartfelt guidance on your upcoming pilgrimage.",
       image: upcomingEvent1,
-      available: false
+      available: true,
+      link: "https://docs.google.com/forms/d/e/1FAIpQLSchCmTZJQ9ZDd9Z6GMCQE2Uy64P9RltS8qUxfkAD5ylm8dFCg/viewform"
     },
     {
       title: "Digital Manasik",
@@ -264,6 +265,7 @@ const Home = () => {
                    variant={event.available ? 'primary' : 'primary-dark'}
                     size="small"
                     disabled={!event.available}
+                    to={event.available ? event.link : undefined}
                   > 
                     {event.available ? 'I\'m Interest' : 'Coming Soon'} 
                   </Button>

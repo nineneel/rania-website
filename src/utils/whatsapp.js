@@ -4,8 +4,8 @@
  */
 
 // WhatsApp phone numbers for sales
-const WHATSAPP_HAJJ = '6281212882028';
-const WHATSAPP_UMRAH = '6281212882028';
+const WHATSAPP_HAJJ = '62812561717';
+const WHATSAPP_UMRAH = '628118855489';
 
 /**
  * Message templates for different actions
@@ -53,6 +53,14 @@ export const whatsappMessages = {
 - umur:
 - rencana umrah:
 - perubahan destinasi:`,
+
+  umrahCustomize: () => `Assalamu'alaikum Rania, saya ingin info untuk kustomisasi paket Umroh 🙏🏻
+
+- Nama Jamaah:
+- Domisili:
+- Pekerjaan:
+- Umur:
+- Detail perubahan yang diinginkan (hotel/penerbangan/tanggal/destinasi):`,
 
   // Contact Rania (general)
   contactRania: () => `Assalamu'alaikum Rania, saya ingin informasi lebih lanjut tentang layanan Anda 🙏🏻`

@@ -43,7 +43,7 @@ import value10 from '../../assets/images/umrah/value/value-10.webp';
 import knowMoreImage from '../../assets/images/umrah/know_more_image.webp';
 
 // Import signature card image
-import signatureCardImage from '../../assets/images/home/signature-card.webp';
+import customizeYourUmrah from '../../assets/images/umrah/customize_your_umrah.webp';
 
 // Import package card images
 import umrahDubai1 from '../../assets/images/umrah/packages/umrah-1.webp';
@@ -74,10 +74,28 @@ const Umrah = () => {
     {
       title: "Umrah Regular",
       description: "Discover Your Sacred Umrah Journey",
+      image: umrahDubai1,
+      hotels: [
+        { name: "Maden Hotel madinah", stars: 5 },
+        { name: "Marwa Rotana hotel Makkah", stars: 5 }
+      ],
+      departure: "Soekarno-Hatta airport (CGK) Jakarta",
+      duration: "9 Days",
+      frequency: "Weekly",
+      airlines: [
+        { name: "Saudia", logo: saudiaLogo },
+        { name: "Emirates", logo: emiratesLogo }
+      ],
+      price: "54.800.000,00",
+      currency: "Rp"
+    },
+    {
+      title: "Umrah Regular",
+      description: "Discover Your Sacred Umrah Journey",
       image: umrahRegular,
       hotels: [
         { name: "Ansar Golden Tulip", stars: 4 },
-        { name: "Makarem Ajyad Hotel", stars: 5 }
+        { name: "Makarem Ajyad Hotel", stars: 4 }
       ],
       departure: "Soekarno-Hatta airport (CGK) Jakarta",
       duration: "9 Days",
@@ -87,24 +105,6 @@ const Umrah = () => {
         { name: "Emirates", logo: emiratesLogo }
       ],
       price: "43.800.000,00",
-      currency: "Rp"
-    },
-    {
-      title: "Umrah Dubai",
-      description: "Discover Your Sacred Umrah Journey and Amazing Dubai",
-      image: umrahDubai1,
-      hotels: [
-        { name: "Maden Hotel madinah", stars: 5 },
-        { name: "Marwa Rotana hotel Makkah", stars: 5 }
-      ],
-      departure: "Soekarno-Hatta airport (CGK) Jakarta",
-      duration: "12 Days",
-      frequency: "Weekly",
-      airlines: [
-        { name: "Saudia", logo: saudiaLogo },
-        { name: "Emirates", logo: emiratesLogo }
-      ],
-      price: "57.000.000,00",
       currency: "Rp"
     },
     {
@@ -131,7 +131,7 @@ const Umrah = () => {
       image: umrahDubai3,
       hotels: [
         { name: "Ansar Golden Tulip", stars: 4 },
-        { name: "Makarem Ajyad Hotel", stars: 5 }
+        { name: "Makarem Ajyad Hotel", stars: 4 }
       ],
       departure: "Soekarno-Hatta airport (CGK) Jakarta",
       duration: "12 Days",
@@ -167,7 +167,7 @@ const Umrah = () => {
       image: umrahTurkiye2,
       hotels: [
         { name: "Ansar Golden Tulip", stars: 4 },
-        { name: "Makarem Ajyad Hotel", stars: 5 }
+        { name: "Makarem Ajyad Hotel", stars: 4 }
       ],
       departure: "Soekarno-Hatta airport (CGK) Jakarta",
       duration: "14 Days",
@@ -310,6 +310,30 @@ const Umrah = () => {
         </div>
       </section>
 
+      {/* Customize Your Umrah Plan */}
+      <section className="umrah-customize-section">
+        <div className="umrah-customize-container">
+          <div className="umrah-customize-card">
+            <div className="umrah-customize-image">
+              <img src={customizeYourUmrah} alt="Customize Plan" loading="lazy" />
+            </div>
+            <div className="umrah-customize-content">
+              <h2 className="umrah-customize-title">Customize Your Umrah Plan</h2>
+              <p className="umrah-customize-description">
+                Quickly and easily change hotels, flights, dates, and destinations to match your plan.
+              </p>
+              <Button
+                variant="tertiary"
+                size="small"
+                onClick={() => openWhatsAppUmrah(whatsappMessages.umrahCustomize())}
+              >
+                Contact Rania
+              </Button>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* CTA Section */}
       <section className="umrah-cta-section">
         <div className="umrah-cta-content">
@@ -337,7 +361,7 @@ const Umrah = () => {
           <div className="umrah-manage-card umrah-manage-card-gold">
             <h3 className="umrah-manage-title">Change My Plan</h3>
             <p className="umrah-manage-description">
-              Lorem ipsum dolor sit amet consecte tur adipiscing elit semper.
+              Add a Different Journey to Your Umrah Experience. Where Will Your Journey Take You Next?
             </p>
             <div className="umrah-manage-button">
               <Button

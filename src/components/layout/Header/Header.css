@@ -192,7 +192,7 @@
   }
 
   .mobile-nav > div:first-child .mobile-nav-link {
-    background: var(--primary-beige);
+    border-top: 1px solid var(--color-border-gray);
   }
 
   .mobile-nav-link {
@@ -209,6 +209,7 @@
   }
 
   .mobile-nav-link.active {
+    background: var(--primary-beige);
     color: var(--primary-gold);
     font-weight: 700;
   }

@@ -7,6 +7,7 @@ import facebookIcon from '../../../assets/icons/Facebook.svg';
 import instagramIcon from '../../../assets/icons/Instagram.svg';
 import linkedinIcon from '../../../assets/icons/LinkedIn.svg';
 import youtubeIcon from '../../../assets/icons/YouTube.svg';
+import tiktokIcon from '../../../assets/icons/tiktok.svg';
 
 const Footer = () => {
   const [email, setEmail] = useState('');
@@ -48,7 +49,8 @@ const Footer = () => {
     { name: 'Facebook', href: 'https://www.facebook.com/raniaalmutamayizahtravel/', icon: facebookIcon },
     { name: 'Instagram', href: 'https://www.instagram.com/hajj.rania.co/', icon: instagramIcon },
     { name: 'LinkedIn', href: 'https://www.linkedin.com/company/pt-rania-almutamayizah-travel/', icon: linkedinIcon },
-    { name: 'YouTube', href: 'https://www.youtube.com/@HajjRania', icon: youtubeIcon }
+    { name: 'YouTube', href: 'https://www.youtube.com/@HajjRania', icon: youtubeIcon },
+    { name: 'TikTok', href: 'https://www.tiktok.com/@hajjrania.co?_t=ZS-90RuTBM3OZI&_r=1', icon: tiktokIcon }
   ];
 
   const handleNewsletterSubmit = (e) => {

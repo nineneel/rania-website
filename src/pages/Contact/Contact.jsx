@@ -4,6 +4,7 @@ import instagramIcon from '../../assets/icons/Instagram.svg';
 import facebookIcon from '../../assets/icons/Facebook.svg';
 import youtubeIcon from '../../assets/icons/YouTube.svg';
 import linkedinIcon from '../../assets/icons/LinkedIn.svg';
+import tiktokIcon from '../../assets/icons/tiktok.svg';
 
 const Contact = () => {
   return (
@@ -225,6 +226,13 @@ const Contact = () => {
               <img src={youtubeIcon} alt="YouTube" className="contact-social-icon-img" />
             </span>
             <span className="contact-social-name">YouTube</span>
+          </a>
+
+          <a href="https://www.tiktok.com/@hajjrania.co?_t=ZS-90RuTBM3OZI&_r=1" target="_blank" rel="noopener noreferrer" className="contact-social-link">
+            <span className="contact-social-icon">
+              <img src={tiktokIcon} alt="TikTok" className="contact-social-icon-img" />
+            </span>
+            <span className="contact-social-name">TikTok</span>
           </a>
         </div>
       </section>

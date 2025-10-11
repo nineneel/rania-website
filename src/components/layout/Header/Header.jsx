@@ -13,13 +13,13 @@ const Header = ({ activeLink = 'Home' }) => {
   const navLinks = [
     { id: 'home', label: 'Home', href: '/', isRoute: true },
     { id: 'about', label: 'About Rania', href: '/about', isRoute: true },
-    { id: 'hajj', label: 'Hajj With Rania', href: '/hajj', isRoute: false },
-    { id: 'umrah', label: 'Umrah With Rania', href: '/umrah', isRoute: false},
+    { id: 'hajj', label: 'Hajj With Rania', href: '/hajj', isRoute: true },
+    { id: 'umrah', label: 'Umrah With Rania', href: '/umrah', isRoute: true},
     { id: 'world', label: 'Rania To The World', href: '#world', isRoute: false, comingSoon: true },
     { id: 'webinar', label: 'Webinar With Rania', href: '#webinar', isRoute: false, comingSoon: true },
     { id: 'partnership', label: 'Partnership', href: '#partnership', isRoute: false, comingSoon: true },
     { id: 'contact', label: 'Contact Us', href: '/contact', isRoute: true },
-    { id: 'support', label: 'Support & Help', href: '/support', isRoute: false }
+    { id: 'support', label: 'Support & Help', href: '/support', isRoute: true }
   ];
 
   const toggleMobileMenu = () => {
@@ -120,7 +120,7 @@ const Header = ({ activeLink = 'Home' }) => {
                   ) : (
                     <a
                       href={link.comingSoon ? '#' : link.href}
-                      className={`mobile-nav-link ${activeLink.toLowerCase() === link.label.toLowerCase() ? 'active' : ''} ${link.comingSoon ? 'coming-soon' : ''}`}
+                      className={`mobile-nav-link ${isActive ? 'active' : ''} ${link.comingSoon ? 'coming-soon' : ''}`}
                       onClick={(e) => {
                         if (link.comingSoon) {
                           e.preventDefault();
