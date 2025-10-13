@@ -83,8 +83,8 @@ const About = () => {
   // Team members data
   const teamMembers = [
     { name: 'Fadhal Faisal Sa’di', role: 'VP Chief Financial Officer', image: expert1 },
-    { name: 'Antar Helmi', role: 'Director', image: expert2 },
-    { name: 'Syed Mohd Naquib', role: 'VP Chief Business Security Officer', image: expert3 }
+    { name: 'Antar Helmi Alkathiri', role: 'Chief Executive Officer', image: expert2 },
+    { name: 'Syed Mohd Naquib Alattas', role: 'Chief Commercial Officer', image: expert3 }
   ];
 
   // Gallery images data
