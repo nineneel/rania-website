@@ -5,6 +5,8 @@ import Footer from '../../components/layout/Footer/Footer';
 import Button from '../../components/common/Button/Button';
 import Partners from '../../components/common/Partners';
 import SignatureCard from '../../components/common/SignatureCard';
+import SEO from '../../components/common/SEO';
+import { StructuredData } from '../../components/common/SEO';
 import { openWhatsAppHajj, whatsappMessages } from '../../utils/whatsapp';
 
 // Import wave divider
@@ -123,6 +125,28 @@ const Hajj = () => {
 
   return (
     <div className="hajj">
+      {/* SEO Meta Tags */}
+      <SEO
+        title="Hajj With Rania - Premium Hajj Packages Without The Wait"
+        description="Experience unforgettable Hajj with Rania Travel. Premium hajj packages with direct flights, 5-star hotels in Haram, certified Mutawif, 24/7 support, and flexible payment. PIHK 'A' accredited operator. Book your sacred journey today."
+        keywords="rania hajj, hajj travel, hajj rania, paket haji, haji rania, hajj package, hajj indonesia, hajj without wait, premium hajj, luxury hajj, PIHK, haji khusus, travel haji terbaik, paket haji terpercaya, hajj 2025"
+        canonical="/hajj"
+      />
+      <StructuredData
+        type="service"
+        data={{
+          serviceType: 'Hajj Pilgrimage Services',
+          description: 'Premium Hajj travel packages with exceptional service, comfort, and spiritual guidance. Licensed PIHK operator offering direct flights, luxury accommodations, and 24/7 support.'
+        }}
+      />
+      <StructuredData
+        type="breadcrumb"
+        data={[
+          { name: 'Home', url: '/' },
+          { name: 'Hajj With Rania', url: '/hajj' }
+        ]}
+      />
+
       {/* Header */}
       <Header activeLink="Hajj With Rania" />
 

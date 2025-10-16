@@ -1,4 +1,6 @@
 import Header from '../../components/layout/Header';
+import SEO from '../../components/common/SEO';
+import { StructuredData } from '../../components/common/SEO';
 import './Contact.css';
 import instagramIcon from '../../assets/icons/Instagram.svg';
 import facebookIcon from '../../assets/icons/Facebook.svg';
@@ -9,6 +11,21 @@ import tiktokIcon from '../../assets/icons/tiktok.svg';
 const Contact = () => {
   return (
     <div className="contact">
+      {/* SEO Meta Tags */}
+      <SEO
+        title="Contact Rania Travel - Hajj & Umrah Consultation"
+        description="Get in touch with Rania Travel for Hajj and Umrah consultation. Contact us for booking inquiries, package information, and customer support. Office in Jakarta Selatan. Call 0811-8855-489 or visit our office."
+        keywords="contact rania, rania travel contact, kontak rania, hubungi rania, rania customer service, rania jakarta, rania office"
+        canonical="/contact"
+      />
+      <StructuredData
+        type="breadcrumb"
+        data={[
+          { name: 'Home', url: '/' },
+          { name: 'Contact Us', url: '/contact' }
+        ]}
+      />
+
       {/* Header */}
       <Header activeLink="Contact Us" />
 

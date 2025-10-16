@@ -3,6 +3,8 @@ import Button from '../../components/common/Button';
 import Header from '../../components/layout/Header';
 import Carousel from '../../components/common/Carousel/Carousel';
 import Partners from '../../components/common/Partners';
+import SEO from '../../components/common/SEO';
+import { StructuredData } from '../../components/common/SEO';
 import './About.css';
 
 // Import hero image
@@ -113,6 +115,21 @@ const About = () => {
 
   return (
     <div className="about">
+      {/* SEO Meta Tags */}
+      <SEO
+        title="About Rania Travel - Premium Hajj & Umrah Services"
+        description="Learn about PT Rania Almutamayizah Travel, your sacred journey partner since 2013. Licensed PPIU & PIHK operator with 'A' accreditation offering premium Hajj and Umrah services with trust, integrity, and heartfelt care."
+        keywords="about rania, rania travel about, PT Rania Almutamayizah, PPIU certification, PIHK certification, IATA accreditation, umrah organizer, hajj organizer, travel umrah terpercaya"
+        canonical="/about"
+      />
+      <StructuredData
+        type="breadcrumb"
+        data={[
+          { name: 'Home', url: '/' },
+          { name: 'About Rania', url: '/about' }
+        ]}
+      />
+
       {/* Header */}
       <Header activeLink="About Rania" />
 

@@ -7,6 +7,8 @@ import Footer from '../../components/layout/Footer/Footer';
 import Carousel from '../../components/common/Carousel/Carousel';
 import Partners from '../../components/common/Partners';
 import SignatureCard from '../../components/common/SignatureCard';
+import SEO from '../../components/common/SEO';
+import { StructuredData } from '../../components/common/SEO';
 
 // Import hero images
 import hero1 from '../../assets/images/home/hero/hero-1.webp';
@@ -169,6 +171,16 @@ const Home = () => {
 
   return (
     <div className="home" style={{ backgroundColor: bgColor, transition: 'background-color 0.5s ease' }}>
+      {/* SEO Meta Tags */}
+      <SEO
+        title="Premium Umrah & Hajj Travel Services Indonesia"
+        description="Rania Travel - Your trusted partner for exclusive Umrah and Hajj pilgrimage services. Premium travel packages with exceptional service, comfort, and spiritual connection. Licensed PPIU & PIHK operator."
+        keywords="rania, rania travel, travel rania, umrah travel, hajj travel, rania hajj, rania umrah, umrah indonesia, hajj indonesia, umroh rania, haji rania, paket umrah, paket haji, travel umrah terpercaya, travel haji terbaik, PPIU, PIHK, umrah package, hajj package"
+        canonical="/"
+      />
+      <StructuredData type="organization" />
+      <StructuredData type="website" />
+
       {/* Header */}
       <Header activeLink="Home" />
 

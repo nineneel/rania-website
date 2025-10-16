@@ -5,6 +5,8 @@ import Footer from '../../components/layout/Footer/Footer';
 import Button from '../../components/common/Button/Button';
 import Partners from '../../components/common/Partners';
 import SignatureCard from '../../components/common/SignatureCard';
+import SEO from '../../components/common/SEO';
+import { StructuredData } from '../../components/common/SEO';
 import { openWhatsAppUmrah, whatsappMessages } from '../../utils/whatsapp';
 
 // Import wave divider
@@ -189,6 +191,28 @@ const Umrah = () => {
 
   return (
     <div className="umrah">
+      {/* SEO Meta Tags */}
+      <SEO
+        title="Umrah With Rania - Premium Umrah Packages Weekly Departure"
+        description="Experience unforgettable Umrah with Rania Travel. Weekly departure from Jakarta with direct flights, 5-star hotels near Haram, certified Mutawif, 24/7 support. PPIU 'A' accredited. Customize your Umrah package with Dubai or Turkey. Book now!"
+        keywords="rania umrah, umrah travel, umrah rania, paket umrah, umroh rania, umrah package, umrah indonesia, weekly umrah, premium umrah, luxury umrah, PPIU, umrah dubai, umrah turkey, travel umrah terpercaya, paket umrah terbaik, umrah 2025"
+        canonical="/umrah"
+      />
+      <StructuredData
+        type="service"
+        data={{
+          serviceType: 'Umrah Pilgrimage Services',
+          description: 'Premium Umrah travel packages with weekly departures, exceptional service, and comfort. Licensed PPIU operator offering direct flights, luxury accommodations near Haram, and customizable packages.'
+        }}
+      />
+      <StructuredData
+        type="breadcrumb"
+        data={[
+          { name: 'Home', url: '/' },
+          { name: 'Umrah With Rania', url: '/umrah' }
+        ]}
+      />
+
       {/* Header */}
       <Header activeLink="Umrah With Rania" />
 

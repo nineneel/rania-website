@@ -1,5 +1,7 @@
 import Header from '../../components/layout/Header';
 import Button from '../../components/common/Button/Button';
+import SEO from '../../components/common/SEO';
+import { StructuredData } from '../../components/common/SEO';
 import './Support.css';
 
 const Support = () => {
@@ -53,6 +55,21 @@ const Support = () => {
 
   return (
     <div className="support">
+      {/* SEO Meta Tags */}
+      <SEO
+        title="Support - Rania Travel Help Center & FAQ"
+        description="Find answers to common questions about Hajj and Umrah packages with Rania Travel. Get help with booking, documents, payment plans, and more. 24/7 customer support available."
+        keywords="rania support, rania help, rania faq, rania customer service, hajj faq, umrah faq, travel support"
+        canonical="/support"
+      />
+      <StructuredData
+        type="breadcrumb"
+        data={[
+          { name: 'Home', url: '/' },
+          { name: 'Support', url: '/support' }
+        ]}
+      />
+
       {/* Header */}
       <Header activeLink="Support" />
 
