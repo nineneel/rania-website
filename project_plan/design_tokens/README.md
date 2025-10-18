@@ -1,6 +1,6 @@
 # Design Tokens
 
-Design tokens extracted from the Figma design for the Rania Travel website.
+Design tokens extracted from the Figma design for the RANIA website.
 
 ## Files
 

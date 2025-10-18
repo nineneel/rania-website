@@ -1,7 +1,7 @@
-# Rania Travel Website - Folder Structure Plan
+# RANIA Website - Folder Structure Plan
 
 ## Project Overview
-This is a travel website built with Vite + React template for Rania Travel services.
+This is a travel website built with Vite + React template for RANIA services.
 
 ## Folder Structure
 

@@ -1,4 +1,4 @@
-// Helper functions for Rania Travel Website
+// Helper functions for RANIA Website
 
 /**
  * Format currency

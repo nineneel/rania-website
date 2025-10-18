@@ -1,7 +1,7 @@
-# Rania Travel Website - Folder Structure Documentation
+# RANIA Website - Folder Structure Documentation
 
 ## Overview
-This document explains the folder structure implemented for the Rania Travel website project.
+This document explains the folder structure implemented for the RANIA website project.
 
 ## Directory Structure
 

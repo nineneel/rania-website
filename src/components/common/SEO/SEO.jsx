@@ -12,7 +12,7 @@ const SEO = ({
 }) => {
   const siteUrl = 'https://www.rania.co.id';
   const defaultImage = `${siteUrl}/og-image.jpg`;
-  const fullTitle = title ? `${title} | Rania Travel` : 'Rania Travel | Premium Umrah & Hajj Travel Services Indonesia';
+  const fullTitle = title ? `${title} | RANIA` : 'RANIA | Redefine Hajj Reimagined Journey';
   const canonicalUrl = canonical ? `${siteUrl}${canonical}` : siteUrl;
   const imageUrl = ogImage ? `${siteUrl}${ogImage}` : defaultImage;
 
@@ -34,7 +34,7 @@ const SEO = ({
       <meta property="og:title" content={fullTitle} />
       {description && <meta property="og:description" content={description} />}
       <meta property="og:image" content={imageUrl} />
-      <meta property="og:site_name" content="Rania Travel" />
+      <meta property="og:site_name" content="RANIA" />
 
       {/* Twitter */}
       <meta property="twitter:card" content="summary_large_image" />

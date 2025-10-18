@@ -194,7 +194,7 @@ const Umrah = () => {
       {/* SEO Meta Tags */}
       <SEO
         title="Umrah With Rania - Premium Umrah Packages Weekly Departure"
-        description="Experience unforgettable Umrah with Rania Travel. Weekly departure from Jakarta with direct flights, 5-star hotels near Haram, certified Mutawif, 24/7 support. PPIU 'A' accredited. Customize your Umrah package with Dubai or Turkey. Book now!"
+        description="Experience unforgettable Umrah with RANIA. Weekly departure from Jakarta with direct flights, 5-star hotels near Haram, certified Mutawif, 24/7 support. PPIU 'A' accredited. Customize your Umrah package with Dubai or Turkey. Book now!"
         keywords="rania umrah, umrah travel, umrah rania, paket umrah, umroh rania, umrah package, umrah indonesia, weekly umrah, premium umrah, luxury umrah, PPIU, umrah dubai, umrah turkey, travel umrah terpercaya, paket umrah terbaik, umrah 2025"
         canonical="/umrah"
       />

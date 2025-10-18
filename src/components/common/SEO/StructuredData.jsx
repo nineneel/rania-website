@@ -6,7 +6,7 @@ const StructuredData = ({ type = 'organization', data }) => {
     '@context': 'https://schema.org',
     '@type': 'TravelAgency',
     name: 'PT Rania Almutamayizah Travel',
-    alternateName: 'Rania Travel',
+    alternateName: 'RANIA',
     url: 'https://www.rania.co.id',
     logo: 'https://www.rania.co.id/logo.png',
     description: 'Premium Umrah and Hajj travel services provider in Indonesia. Licensed PPIU & PIHK operator offering exclusive pilgrimage experiences.',
@@ -45,7 +45,7 @@ const StructuredData = ({ type = 'organization', data }) => {
     serviceType: serviceData.serviceType,
     provider: {
       '@type': 'TravelAgency',
-      name: 'Rania Travel'
+      name: 'RANIA'
     },
     areaServed: {
       '@type': 'Country',
@@ -57,7 +57,7 @@ const StructuredData = ({ type = 'organization', data }) => {
   const getWebsiteSchema = () => ({
     '@context': 'https://schema.org',
     '@type': 'WebSite',
-    name: 'Rania Travel',
+    name: 'RANIA',
     url: 'https://www.rania.co.id',
     potentialAction: {
       '@type': 'SearchAction',

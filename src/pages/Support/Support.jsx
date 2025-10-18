@@ -57,8 +57,8 @@ const Support = () => {
     <div className="support">
       {/* SEO Meta Tags */}
       <SEO
-        title="Support - Rania Travel Help Center & FAQ"
-        description="Find answers to common questions about Hajj and Umrah packages with Rania Travel. Get help with booking, documents, payment plans, and more. 24/7 customer support available."
+        title="Support - RANIA Help Center & FAQ"
+        description="Find answers to common questions about Hajj and Umrah packages with RANIA. Get help with booking, documents, payment plans, and more. 24/7 customer support available."
         keywords="rania support, rania help, rania faq, rania customer service, hajj faq, umrah faq, travel support"
         canonical="/support"
       />

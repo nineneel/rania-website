@@ -128,7 +128,7 @@ const Hajj = () => {
       {/* SEO Meta Tags */}
       <SEO
         title="Hajj With Rania - Premium Hajj Packages Without The Wait"
-        description="Experience unforgettable Hajj with Rania Travel. Premium hajj packages with direct flights, 5-star hotels in Haram, certified Mutawif, 24/7 support, and flexible payment. PIHK 'A' accredited operator. Book your sacred journey today."
+        description="Experience unforgettable Hajj with RANIA. Premium hajj packages with direct flights, 5-star hotels in Haram, certified Mutawif, 24/7 support, and flexible payment. PIHK 'A' accredited operator. Book your sacred journey today."
         keywords="rania hajj, hajj travel, hajj rania, paket haji, haji rania, hajj package, hajj indonesia, hajj without wait, premium hajj, luxury hajj, PIHK, haji khusus, travel haji terbaik, paket haji terpercaya, hajj 2025"
         canonical="/hajj"
       />

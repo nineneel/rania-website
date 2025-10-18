@@ -1,6 +1,6 @@
-// Constants for Rania Travel Website
+// Constants for RANIA Website
 
-export const APP_NAME = 'Rania Travel';
+export const APP_NAME = 'RANIA';
 
 export const ROUTES = {
   HOME: '/',

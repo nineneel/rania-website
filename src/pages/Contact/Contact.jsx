@@ -13,8 +13,8 @@ const Contact = () => {
     <div className="contact">
       {/* SEO Meta Tags */}
       <SEO
-        title="Contact Rania Travel - Hajj & Umrah Consultation"
-        description="Get in touch with Rania Travel for Hajj and Umrah consultation. Contact us for booking inquiries, package information, and customer support. Office in Jakarta Selatan. Call 0811-8855-489 or visit our office."
+        title="Contact RANIA - Hajj & Umrah Consultation"
+        description="Get in touch with RANIA for Hajj and Umrah consultation. Contact us for booking inquiries, package information, and customer support. Office in Jakarta Selatan. Call 0811-8855-489 or visit our office."
         keywords="contact rania, rania travel contact, kontak rania, hubungi rania, rania customer service, rania jakarta, rania office"
         canonical="/contact"
       />

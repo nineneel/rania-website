@@ -117,7 +117,7 @@ const About = () => {
     <div className="about">
       {/* SEO Meta Tags */}
       <SEO
-        title="About Rania Travel - Premium Hajj & Umrah Services"
+        title="About RANIA - Premium Hajj & Umrah Services"
         description="Learn about PT Rania Almutamayizah Travel, your sacred journey partner since 2013. Licensed PPIU & PIHK operator with 'A' accreditation offering premium Hajj and Umrah services with trust, integrity, and heartfelt care."
         keywords="about rania, rania travel about, PT Rania Almutamayizah, PPIU certification, PIHK certification, IATA accreditation, umrah organizer, hajj organizer, travel umrah terpercaya"
         canonical="/about"

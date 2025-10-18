@@ -3,7 +3,7 @@
 ## What Was Done
 
 ### 1. Folder Structure Created ✅
-Successfully created a professional, scalable folder structure for the Rania Travel website with the following main directories:
+Successfully created a professional, scalable folder structure for the RANIA website with the following main directories:
 
 - `src/assets/` - Fonts, icons, and images
 - `src/components/` - Common, layout, and feature components

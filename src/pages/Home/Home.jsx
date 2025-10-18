@@ -173,8 +173,8 @@ const Home = () => {
     <div className="home" style={{ backgroundColor: bgColor, transition: 'background-color 0.5s ease' }}>
       {/* SEO Meta Tags */}
       <SEO
-        title="Premium Umrah & Hajj Travel Services Indonesia"
-        description="Rania Travel - Your trusted partner for exclusive Umrah and Hajj pilgrimage services. Premium travel packages with exceptional service, comfort, and spiritual connection. Licensed PPIU & PIHK operator."
+        title="Redefine Hajj Reimagined Journey"
+        description="RANIA - Your trusted partner for exclusive Umrah and Hajj pilgrimage services. Premium travel packages with exceptional service, comfort, and spiritual connection. Licensed PPIU & PIHK operator."
         keywords="rania, rania travel, travel rania, umrah travel, hajj travel, rania hajj, rania umrah, umrah indonesia, hajj indonesia, umroh rania, haji rania, paket umrah, paket haji, travel umrah terpercaya, travel haji terbaik, PPIU, PIHK, umrah package, hajj package"
         canonical="/"
       />
