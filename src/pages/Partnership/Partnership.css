@@ -1,0 +1,274 @@
+/* Partnership Page Styles */
+
+.partnership {
+  width: 100%;
+  overflow-x: hidden;
+  background: var(--text-white);
+}
+
+/* Scroll Animation Base */
+.partnership-section {
+  position: relative;
+  overflow: hidden;
+}
+
+.partnership-section.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Hero Section */
+.partnership-hero-section {
+  width: 100%;
+  height: calc(100vh - 150px);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 150px;
+}
+
+.partnership-hero-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: var(--gradient-dark);
+}
+
+.partnership-hero-content {
+  position: relative;
+  z-index: 10;
+  display: flex;
+  align-items: end;
+  text-align: center;
+  max-width: 800px;
+  height: 100%;
+  padding: 7% 20px;
+}
+
+.partnership-hero-title {
+  color: var(--text-white);
+  font-size: var(--font-size-section-title-small);
+  font-weight: var(--font-weight-extra-bold);
+  line-height: 50px;
+}
+
+/* Collaboration Section */
+.partnership-collaboration-section {
+  width: 100%;
+  min-height: 400px;
+  padding: var(--section-padding-vertical) var(--section-padding-horizontal);
+  background: var(--text-white);
+}
+
+.partnership-collaboration-title {
+  color: var(--text-primary);
+  font-size: 40px;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-weight: var(--font-weight-bold);
+  text-align: center;
+  margin-bottom: 16px;
+}
+
+.partnership-collaboration-subtitle {
+  color: var(--text-primary);
+  font-size: 14px;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-weight: var(--font-weight-regular);
+  text-align: center;
+  line-height: 20px;
+  margin-bottom: 60px;
+}
+
+.partnership-collaboration-container {
+  max-width: var(--content-width);
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  /* gap: 24px; */
+  column-gap: 24px;
+  align-items: start;
+}
+
+/* Collaboration Cards */
+.partnership-collab-card {
+  position: relative;
+  border-radius: 12px;
+  overflow: hidden;
+  transition: transform var(--transition-fast);
+}
+
+.partnership-collab-card:hover {
+  transform: translateY(-5px);
+}
+
+.partnership-collab-large {
+  grid-row: span 2;
+  height: 100%;
+}
+
+.partnership-collab-small-container {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.partnership-collab-image-wrapper {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.partnership-collab-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.partnership-collab-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+.partnership-collab-content {
+  position: absolute;
+  bottom: 24px;
+  left: 24px;
+  right: 24px;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 12px;
+}
+
+.partnership-collab-content-horizontal {
+  align-items: flex-start;
+  text-align: left;
+  bottom: 16px;
+  left: 16px;
+  right: 16px;
+}
+
+.partnership-collab-title {
+  color: var(--text-white);
+  font-size: 21px;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-weight: var(--font-weight-bold);
+  line-height: 18px;
+  margin: 0;
+}
+
+.partnership-collab-title-small {
+  font-size: 16px;
+  line-height: 18px;
+}
+
+.partnership-collab-description {
+  color: var(--text-white);
+  font-size: 12px;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-weight: var(--font-weight-regular);
+  line-height: 1.4;
+  margin: 0;
+  max-width: 308px;
+}
+
+.partnership-collab-description-small {
+  font-size: 11px;
+  line-height: 16px;
+  max-width: 171px;
+}
+
+.partnership-collab-button {
+  margin-top: 8px;
+}
+
+.partnership-collab-button-small {
+  margin-top: 4px;
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+  .partnership-hero-section {
+    height: 600px;
+  }
+
+  .partnership-hero-title {
+    font-size: 42px;
+    line-height: 50px;
+  }
+
+  .partnership-collaboration-container {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  .partnership-collab-large {
+    grid-row: span 1;
+    min-height: 400px;
+  }
+
+  .partnership-collab-small {
+    height: 200px;
+  }
+}
+
+@media (max-width: 768px) {
+  .partnership-hero-section {
+    margin-top: 70px;
+    height: 500px;
+  }
+
+  .partnership-hero-title {
+    font-size: 32px;
+    line-height: 40px;
+  }
+
+  .partnership-collaboration-title {
+    font-size: 28px;
+  }
+
+  .partnership-collaboration-subtitle {
+    font-size: 12px;
+    padding: 0 20px;
+  }
+
+  .partnership-collab-large {
+    min-height: 350px;
+  }
+
+  .partnership-collab-small {
+    height: 180px;
+  }
+
+  .partnership-collab-title {
+    font-size: 18px;
+  }
+
+  .partnership-collab-title-small {
+    font-size: 14px;
+  }
+
+  .partnership-collab-description {
+    font-size: 11px;
+  }
+
+  .partnership-collab-description-small {
+    font-size: 10px;
+  }
+
+  :root {
+    --section-padding-horizontal: 20px;
+  }
+}

@@ -62,6 +62,33 @@ export const whatsappMessages = {
 - Umur:
 - Detail perubahan yang diinginkan (hotel/penerbangan/tanggal/destinasi):`,
 
+  // Partnership Messages
+  partnershipCompany: () => `Assalamu'alaikum Rania, saya tertarik untuk berkolaborasi dalam Program Haji & Umrah 🙏🏻
+
+- Nama Perusahaan:
+- Bidang Usaha:
+- Nama PIC:
+- Jabatan:
+- No. Telepon:
+- Jenis Kolaborasi yang diminati: Company Collaboration`,
+
+  partnershipNGO: () => `Assalamu'alaikum Rania, saya tertarik untuk berkolaborasi dalam Program Haji & Umrah 🙏🏻
+
+- Nama Organisasi:
+- Bidang Kegiatan:
+- Nama PIC:
+- Jabatan:
+- No. Telepon:
+- Jenis Kolaborasi yang diminati: NGO Collaboration`,
+
+  partnershipOther: () => `Assalamu'alaikum Rania, saya tertarik untuk berkolaborasi dalam Program Haji & Umrah 🙏🏻
+
+- Nama:
+- Profesi/Bidang:
+- No. Telepon:
+- Jenis Kolaborasi yang diminati: Other Collaboration
+- Detail kolaborasi yang diinginkan:`,
+
   // Contact Rania (general)
   contactRania: () => `Assalamu'alaikum Rania, saya ingin informasi lebih lanjut tentang layanan Anda 🙏🏻`
 };
