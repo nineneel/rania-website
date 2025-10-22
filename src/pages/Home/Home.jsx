@@ -7,6 +7,7 @@ import Footer from '../../components/layout/Footer/Footer';
 import Carousel from '../../components/common/Carousel/Carousel';
 import Partners from '../../components/common/Partners';
 import SignatureCard from '../../components/common/SignatureCard';
+import Testimonial from '../../components/common/Testimonial';
 import SEO from '../../components/common/SEO';
 import { StructuredData } from '../../components/common/SEO';
 
@@ -295,6 +296,12 @@ const Home = () => {
           textColor={textColor}
         />
       </div>
+
+      {/* Testimonial Section */}
+      <Testimonial />
+
+      {/* Footer */}
+      <Footer />
     </div>
   );
 };
