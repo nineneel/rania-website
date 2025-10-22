@@ -16,8 +16,8 @@ const Header = ({ activeLink = 'Home' }) => {
     { id: 'hajj', label: 'Hajj With Rania', href: '/hajj', isRoute: true },
     { id: 'umrah', label: 'Umrah With Rania', href: '/umrah', isRoute: true},
     { id: 'world', label: 'Rania To The World', href: '#world', isRoute: false, comingSoon: true },
-    { id: 'webinar', label: 'Webinar With Rania', href: '#webinar', isRoute: false, comingSoon: true },
-    { id: 'partnership', label: 'Partnership', href: '/partnership', isRoute: false},
+    { id: 'webinar', label: 'Webinar With Rania', href: '/webinar', isRoute: true },
+    { id: 'partnership', label: 'Partnership', href: '/partnership', isRoute: true},
     { id: 'contact', label: 'Contact Us', href: '/contact', isRoute: true },
     { id: 'support', label: 'Support & Help', href: '/support', isRoute: true }
   ];

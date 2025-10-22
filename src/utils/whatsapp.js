@@ -89,6 +89,15 @@ export const whatsappMessages = {
 - Jenis Kolaborasi yang diminati: Other Collaboration
 - Detail kolaborasi yang diinginkan:`,
 
+  // Webinar Messages
+  webinar: (eventType) => `Assalamu'alaikum Rania, saya tertarik untuk mengikuti event ${eventType} 🙏🏻
+
+- Nama:
+- Domisili:
+- No. Telepon:
+- Email:
+- Event yang diminati: ${eventType}`,
+
   // Contact Rania (general)
   contactRania: () => `Assalamu'alaikum Rania, saya ingin informasi lebih lanjut tentang layanan Anda 🙏🏻`
 };
