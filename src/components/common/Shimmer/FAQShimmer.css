@@ -1,0 +1,110 @@
+/* FAQ Shimmer Loading Effect */
+.faq-shimmer-container {
+  max-width: 980px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.faq-shimmer-item {
+  background: #ffffff;
+  padding: 20px 32px;
+  border-radius: 100px;
+  border: 1px solid #e0e0e0;
+  position: relative;
+  overflow: hidden;
+}
+
+.faq-shimmer-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.faq-shimmer-question {
+  flex: 1;
+  height: 21px;
+  background: #e0e0e0;
+  border-radius: 4px;
+  position: relative;
+  overflow: hidden;
+}
+
+.faq-shimmer-question::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(255, 255, 255, 0.6) 50%,
+    rgba(255, 255, 255, 0) 100%
+  );
+  animation: shimmerSlide 2s infinite;
+}
+
+.faq-shimmer-indicator {
+  min-width: 24px;
+  width: 24px;
+  height: 24px;
+  background: #e0e0e0;
+  border-radius: 50%;
+  flex-shrink: 0;
+  position: relative;
+  overflow: hidden;
+}
+
+.faq-shimmer-indicator::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(255, 255, 255, 0.6) 50%,
+    rgba(255, 255, 255, 0) 100%
+  );
+  animation: shimmerSlide 2s infinite 0.2s;
+}
+
+/* Animations */
+@keyframes shimmerSlide {
+  0% {
+    left: -100%;
+  }
+  100% {
+    left: 100%;
+  }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .faq-shimmer-item {
+    padding: 16px 24px;
+    border-radius: 50px;
+  }
+
+  .faq-shimmer-indicator {
+    min-width: 20px;
+    width: 20px;
+    height: 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .faq-shimmer-item {
+    padding: 14px 20px;
+  }
+
+  .faq-shimmer-question {
+    height: 18px;
+  }
+}

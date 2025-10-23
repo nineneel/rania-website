@@ -188,6 +188,27 @@ export const getSocialMedia = async () => {
 };
 
 /**
+ * Get all active FAQs
+ * @returns {Promise<{success: boolean, data: Array}>}
+ */
+export const getFAQs = async () => {
+  const logPrefix = '[FAQs]';
+
+  try {
+    logger.debug(`📡 [API] GET ${API_ENDPOINTS.FAQS}`);
+    const response = await apiRequest(API_ENDPOINTS.FAQS);
+    logger.info(`✅ ${logPrefix} Response:`, {
+      success: response.success,
+      dataCount: response.data?.length
+    });
+    return response;
+  } catch (error) {
+    logger.error(`❌ ${logPrefix} Error:`, error.message);
+    throw error;
+  }
+};
+
+/**
  * Submit contact form
  * @param {Object} formData - Contact form data
  * @returns {Promise<{success: boolean, message: string}>}

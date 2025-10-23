@@ -107,6 +107,37 @@
   background: var(--text-white);
 }
 
+/* Empty State */
+.support-empty-state {
+  max-width: 600px;
+  margin: 60px auto;
+  text-align: center;
+  padding: 40px 20px;
+}
+
+.support-empty-icon {
+  margin-bottom: 24px;
+  display: flex;
+  justify-content: center;
+  opacity: 0.6;
+}
+
+.support-empty-title {
+  color: var(--text-primary);
+  font-size: 24px;
+  font-weight: var(--font-weight-bold);
+  margin-bottom: 12px;
+}
+
+.support-empty-description {
+  color: var(--text-primary);
+  font-size: 16px;
+  font-weight: var(--font-weight-regular);
+  opacity: 0.7;
+  line-height: 1.6;
+  margin-bottom: 24px;
+}
+
 .support-faq-title {
   color: var(--text-primary);
   font-size: 32px;
