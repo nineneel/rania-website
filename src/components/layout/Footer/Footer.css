@@ -98,8 +98,45 @@
 .footer-social {
   display: flex;
   gap: 16px;
+  flex-wrap: wrap;
+  align-items: center;
 }
 
+/* Loading state */
+.footer-social-loading {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+}
+
+.social-icon-loading {
+  width: 36px;
+  height: 36px;
+  background: linear-gradient(90deg, rgba(255, 255, 255, 0.1) 25%, rgba(255, 255, 255, 0.2) 50%, rgba(255, 255, 255, 0.1) 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+  border-radius: var(--border-radius-small);
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+/* Empty state */
+.footer-social-empty {
+  color: var(--text-white);
+  font-size: 14px;
+  opacity: 0.5;
+  font-style: italic;
+  margin: 0;
+}
+
+/* Social icon styles */
 .social-icon {
   width: 36px;
   height: 36px;

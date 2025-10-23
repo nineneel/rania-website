@@ -167,19 +167,48 @@ export const getUmrahPackages = async () => {
 };
 
 /**
+ * Get all active social media links
+ * @returns {Promise<{success: boolean, data: Array}>}
+ */
+export const getSocialMedia = async () => {
+  const logPrefix = '[Social Media]';
+
+  try {
+    logger.debug(`📡 [API] GET ${API_ENDPOINTS.SOCIAL_MEDIA}`);
+    const response = await apiRequest(API_ENDPOINTS.SOCIAL_MEDIA);
+    logger.info(`✅ ${logPrefix} Response:`, {
+      success: response.success,
+      dataCount: response.data?.length
+    });
+    return response;
+  } catch (error) {
+    logger.error(`❌ ${logPrefix} Error:`, error.message);
+    throw error;
+  }
+};
+
+/**
  * Submit contact form
  * @param {Object} formData - Contact form data
  * @returns {Promise<{success: boolean, message: string}>}
  */
 export const submitContactForm = async (formData) => {
+  const logPrefix = '[Contact Form]';
+
   try {
+    logger.debug(`📡 [API] POST ${API_ENDPOINTS.CONTACT}`, {
+      name: formData.name,
+      email: formData.email,
+      subject: formData.subject
+    });
     const response = await apiRequest(API_ENDPOINTS.CONTACT, {
       method: 'POST',
       body: JSON.stringify(formData),
     });
+    logger.info(`✅ ${logPrefix} Submitted successfully`);
     return response;
   } catch (error) {
-    console.warn('Failed to submit contact form:', error);
+    logger.error(`❌ ${logPrefix} Error:`, error.message);
     throw error;
   }
 };

@@ -1,8 +1,10 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import './Footer.css';
 import raniaLogo from '../../../assets/icons/rania-logo.webp';
 import Button from '../../common/Button/Button';
+import { getSocialMedia } from '../../../services/api';
+import logger from '../../../utils/logger';
 import facebookIcon from '../../../assets/icons/Facebook.svg';
 import instagramIcon from '../../../assets/icons/Instagram.svg';
 import linkedinIcon from '../../../assets/icons/LinkedIn.svg';
@@ -11,6 +13,31 @@ import tiktokIcon from '../../../assets/icons/tiktok.svg';
 
 const Footer = () => {
   const [email, setEmail] = useState('');
+
+  // API Data States
+  const [socialMedia, setSocialMedia] = useState([]);
+  const [isLoadingSocial, setIsLoadingSocial] = useState(true);
+
+  // Icon mapping for social media
+  const iconMap = {
+    instagram: instagramIcon,
+    facebook: facebookIcon,
+    youtube: youtubeIcon,
+    linkedin: linkedinIcon,
+    tiktok: tiktokIcon,
+  };
+
+  // Helper function to get icon for social media
+  const getSocialIcon = (name) => {
+    const lowerName = name?.toLowerCase() || '';
+    for (const [key, icon] of Object.entries(iconMap)) {
+      if (lowerName.includes(key)) {
+        return icon;
+      }
+    }
+    // Return first available icon as default
+    return Object.values(iconMap)[0];
+  };
 
   const footerLinks = {
     home: [
@@ -45,13 +72,36 @@ const Footer = () => {
     ]
   };
 
-  const socialLinks = [
-    { name: 'Facebook', href: 'https://www.facebook.com/raniaalmutamayizahtravel/', icon: facebookIcon },
-    { name: 'Instagram', href: 'https://www.instagram.com/hajj.rania.co/', icon: instagramIcon },
-    { name: 'LinkedIn', href: 'https://www.linkedin.com/company/pt-rania-almutamayizah-travel/', icon: linkedinIcon },
-    { name: 'YouTube', href: 'https://www.youtube.com/@HajjRania', icon: youtubeIcon },
-    { name: 'TikTok', href: 'https://www.tiktok.com/@hajjrania.co?_t=ZS-90RuTBM3OZI&_r=1', icon: tiktokIcon }
-  ];
+  // Fetch social media links from API
+  const fetchSocialMedia = async () => {
+    const logPrefix = '[Footer Social Media]';
+
+    try {
+      logger.debug(`${logPrefix} Fetching social media links...`);
+      setIsLoadingSocial(true);
+
+      const response = await getSocialMedia();
+      logger.debug(`${logPrefix} ✅ API Response:`, response);
+
+      if (response.success && response.data) {
+        setSocialMedia(response.data);
+        logger.info(`${logPrefix} ✅ Loaded ${response.data.length} social media links`);
+      }
+    } catch (error) {
+      logger.error(`${logPrefix} ❌ API Error:`, error);
+      setSocialMedia([]);
+      logger.warn(`${logPrefix} ⚠️ Using empty social media links`);
+    } finally {
+      setIsLoadingSocial(false);
+      logger.debug(`${logPrefix} Loading complete`);
+    }
+  };
+
+  // Fetch data on component mount
+  useEffect(() => {
+    logger.info('🚀 [Footer] Initializing social media fetch...');
+    fetchSocialMedia();
+  }, []);
 
   const handleNewsletterSubmit = (e) => {
     e.preventDefault();
@@ -94,18 +144,33 @@ const Footer = () => {
               Kota Jakarta Selatan, 12870
             </p>
             <div className="footer-social">
-              {socialLinks.map((social) => (
-                <a
-                  key={social.name}
-                  href={social.href}
-                  className="social-icon"
-                  aria-label={social.name}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  <img src={social.icon} alt={social.name} className="social-icon-img" />
-                </a>
-              ))}
+              {isLoadingSocial ? (
+                <div className="footer-social-loading">
+                  {/* Show loading shimmer placeholders */}
+                  {[1, 2, 3, 4, 5].map((i) => (
+                    <div key={i} className="social-icon-loading"></div>
+                  ))}
+                </div>
+              ) : socialMedia.length > 0 ? (
+                socialMedia.map((social) => (
+                  <a
+                    key={social.id}
+                    href={social.url}
+                    className="social-icon"
+                    aria-label={social.name}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <img
+                      src={getSocialIcon(social.name)}
+                      alt={social.name}
+                      className="social-icon-img"
+                    />
+                  </a>
+                ))
+              ) : (
+                <p className="footer-social-empty">No social links available</p>
+              )}
             </div>
           </div>
 
