@@ -266,7 +266,13 @@ const Umrah = () => {
                     variant="secondary"
                     size="medium"
                     className="umrah-interest-button"
-                    onClick={() => openWhatsAppUmrah(whatsappMessages.umrahInterest(pkg.title))}
+                    onClick={() => {
+                      if (pkg.link) {
+                        window.open(pkg.link, '_blank', 'noopener,noreferrer');
+                      } else {
+                        openWhatsAppUmrah(whatsappMessages.umrahInterest(pkg.title));
+                      }
+                    }}
                   >
                     I am Interest
                   </Button>
