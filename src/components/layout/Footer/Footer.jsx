@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import './Footer.css';
 import raniaLogo from '../../../assets/icons/rania-logo.webp';
 import Button from '../../common/Button/Button';
-import { getSocialMedia } from '../../../services/api';
+import { getSocialMedia, subscribeNewsletter } from '../../../services/api';
 import logger from '../../../utils/logger';
 import facebookIcon from '../../../assets/icons/Facebook.svg';
 import instagramIcon from '../../../assets/icons/Instagram.svg';
@@ -13,6 +13,8 @@ import tiktokIcon from '../../../assets/icons/tiktok.svg';
 
 const Footer = () => {
   const [email, setEmail] = useState('');
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState({ type: '', message: '' });
 
   // API Data States
   const [socialMedia, setSocialMedia] = useState([]);
@@ -106,10 +108,64 @@ const Footer = () => {
     fetchSocialMedia();
   }, []);
 
-  const handleNewsletterSubmit = (e) => {
+  const handleNewsletterSubmit = async (e) => {
     e.preventDefault();
-    console.log('Newsletter subscription:', email);
-    setEmail('');
+    const logPrefix = '[Newsletter]';
+
+    setIsSubmitting(true);
+    setSubmitStatus({ type: '', message: '' });
+
+    try {
+      logger.debug(`${logPrefix} Submitting subscription...`);
+
+      const response = await subscribeNewsletter(email);
+      logger.debug(`${logPrefix} ✅ API Response:`, response);
+
+      if (response.success) {
+        setSubmitStatus({
+          type: 'success',
+          message: response.message || 'Thank you for subscribing! Please check your email to verify your subscription.',
+        });
+        logger.info(`${logPrefix} ✅ Subscription successful`);
+
+        // Reset form
+        setEmail('');
+      } else {
+        setSubmitStatus({
+          type: 'error',
+          message: response.message || 'Something went wrong. Please try again.',
+        });
+        logger.error(`${logPrefix} ❌ Subscription failed:`, response.message);
+      }
+    } catch (error) {
+      logger.error(`${logPrefix} ❌ Error:`, error);
+
+      // Check if error has validation errors
+      if (error.message.includes('already subscribed')) {
+        setSubmitStatus({
+          type: 'error',
+          message: 'This email is already subscribed to our newsletter.',
+        });
+      } else if (error.message.includes('validation') || error.message.includes('invalid')) {
+        setSubmitStatus({
+          type: 'error',
+          message: error.message,
+        });
+      } else if (error.message.includes('connect') || error.message.includes('network')) {
+        setSubmitStatus({
+          type: 'error',
+          message: 'Network error. Please check your connection and try again.',
+        });
+      } else {
+        setSubmitStatus({
+          type: 'error',
+          message: 'Failed to subscribe. Please try again later.',
+        });
+      }
+    } finally {
+      setIsSubmitting(false);
+      logger.debug(`${logPrefix} Subscription complete`);
+    }
   };
 
   return (
@@ -129,10 +185,23 @@ const Footer = () => {
                 onChange={(e) => setEmail(e.target.value)}
                 className="newsletter-input"
                 required
+                disabled={isSubmitting}
               />
             </div>
-            <Button type="submit" variant="subscribe" size="small">Subscribe</Button>
+            <Button
+              type="submit"
+              variant="subscribe"
+              size="small"
+              disabled={isSubmitting}
+            >
+              {isSubmitting ? 'Subscribing...' : 'Subscribe'}
+            </Button>
           </form>
+          {submitStatus.message && (
+            <div className={`newsletter-message newsletter-message-${submitStatus.type}`}>
+              {submitStatus.message}
+            </div>
+          )}
         </div>
       </div>
 

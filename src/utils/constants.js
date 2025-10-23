@@ -19,6 +19,7 @@ export const API_ENDPOINTS = {
   SOCIAL_MEDIA: '/api/social-media',
   UMRAH_PACKAGES: '/api/umrah-packages',
   CONTACT: '/api/contact',
+  NEWSLETTER: '/api/newsletter/subscribe',
 };
 
 export const CONTACT_INFO = {

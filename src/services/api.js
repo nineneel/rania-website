@@ -234,4 +234,28 @@ export const submitContactForm = async (formData) => {
   }
 };
 
+/**
+ * Subscribe to newsletter
+ * @param {string} email - Subscriber email address
+ * @returns {Promise<{success: boolean, message: string}>}
+ */
+export const subscribeNewsletter = async (email) => {
+  const logPrefix = '[Newsletter]';
+
+  try {
+    logger.debug(`📡 [API] POST ${API_ENDPOINTS.NEWSLETTER}`, {
+      email
+    });
+    const response = await apiRequest(API_ENDPOINTS.NEWSLETTER, {
+      method: 'POST',
+      body: JSON.stringify({ email }),
+    });
+    logger.info(`✅ ${logPrefix} Subscribed successfully`);
+    return response;
+  } catch (error) {
+    logger.error(`❌ ${logPrefix} Error:`, error.message);
+    throw error;
+  }
+};
+
 export default apiRequest;
