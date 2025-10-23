@@ -197,7 +197,7 @@ const Contact = () => {
               Fill out the form below and we'll get back to you as soon as possible
             </p>
 
-            <form className="contact-form">
+            <form className="contact-form" onSubmit={handleSubmit}>
             <div className="contact-form-row">
               <div className="contact-form-group">
                 <label htmlFor="name" className="contact-form-label">Full Name</label>
@@ -272,11 +272,18 @@ const Contact = () => {
               ></textarea>
             </div>
 
+              {submitStatus.type === 'error' && (
+                <div className="contact-form-status error">
+                  {submitStatus.message}
+                </div>
+              )}
+
               <button
                 type="submit"
                 className="contact-form-button"
+                disabled={isSubmitting}
               >
-                Send Message
+                {isSubmitting ? 'Sending...' : 'Send Message'}
               </button>
             </form>
           </div>

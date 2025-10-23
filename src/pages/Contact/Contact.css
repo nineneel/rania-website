@@ -306,12 +306,12 @@
   transition: background var(--transition-fast), transform var(--transition-fast);
 }
 
-.contact-form-button:hover {
+.contact-form-button:not(:disabled):hover {
   background: var(--primary-brown);
   transform: translateY(-2px);
 }
 
-.contact-form-button:active {
+.contact-form-button:not(:disabled):active {
   transform: translateY(0);
 }
 
