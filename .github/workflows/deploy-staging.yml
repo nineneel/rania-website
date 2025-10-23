@@ -10,7 +10,7 @@ jobs:
   deploy:
     name: Build and Deploy to Staging
     runs-on: ubuntu-latest
-    environment: Production
+    environment: Staging
 
     steps:
       - name: Checkout code
@@ -27,8 +27,8 @@ jobs:
 
       - name: Create staging .env file
         run: |
-          echo "VITE_API_BASE_URL=${{ secrets.STAGING_VITE_API_BASE_URL }}" > .env
-          echo "VITE_BASE_PATH=${{ secrets.STAGING_VITE_BASE_PATH }}" >> .env
+          echo "VITE_API_BASE_URL=${{ secrets.VITE_API_BASE_URL }}" > .env
+          echo "VITE_BASE_PATH=${{ secrets.VITE_BASE_PATH }}" >> .env
 
       - name: Build staging
         run: npm run build:staging
@@ -42,7 +42,7 @@ jobs:
           protocol: ftps
           port: 21
           local-dir: ./dist/
-          server-dir: ${{ secrets.STAGING_FTP_SERVER_DIR }}
+          server-dir: ${{ secrets.FTP_SERVER_DIR }}
           dangerous-clean-slate: false
           exclude: |
             **/.git*
