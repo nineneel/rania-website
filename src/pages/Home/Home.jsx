@@ -298,7 +298,7 @@ const Home = () => {
       </div>
 
       {/* Testimonial Section */}
-      <Testimonial />
+      {/* <Testimonial /> */}
 
       {/* Footer */}
       <Footer />

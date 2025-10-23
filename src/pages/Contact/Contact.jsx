@@ -17,9 +17,6 @@ const Contact = () => {
     subject: '',
     message: '',
   });
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [submitStatus, setSubmitStatus] = useState({ type: '', message: '' });
-  const [showSuccessModal, setShowSuccessModal] = useState(false);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -27,66 +24,6 @@ const Contact = () => {
       ...prev,
       [name]: value,
     }));
-  };
-
-  const closeModal = () => {
-    setShowSuccessModal(false);
-  };
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    setIsSubmitting(true);
-    setSubmitStatus({ type: '', message: '' });
-
-    try {
-      // API endpoint - update this URL to match your backend server
-      const API_URL = 'http://127.0.0.1:8000/api/contact';
-
-      const response = await fetch(API_URL, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Accept': 'application/json',
-        },
-        body: JSON.stringify(formData),
-      });
-
-      const data = await response.json();
-
-      if (response.ok) {
-        // Show success modal
-        setShowSuccessModal(true);
-        // Reset form
-        setFormData({
-          name: '',
-          email: '',
-          phone: '',
-          subject: '',
-          message: '',
-        });
-      } else {
-        // Handle validation errors
-        if (data.errors) {
-          const errorMessages = Object.values(data.errors).flat().join(' ');
-          setSubmitStatus({
-            type: 'error',
-            message: errorMessages,
-          });
-        } else {
-          setSubmitStatus({
-            type: 'error',
-            message: data.message || 'Something went wrong. Please try again.',
-          });
-        }
-      }
-    } catch (error) {
-      setSubmitStatus({
-        type: 'error',
-        message: 'Network error. Please check your connection and try again.',
-      });
-    } finally {
-      setIsSubmitting(false);
-    }
   };
 
   return (
@@ -127,14 +64,7 @@ const Contact = () => {
               Fill out the form below and we'll get back to you as soon as possible
             </p>
 
-            {/* Error Message */}
-            {submitStatus.type === 'error' && submitStatus.message && (
-              <div className="contact-form-status error">
-                {submitStatus.message}
-              </div>
-            )}
-
-            <form className="contact-form" onSubmit={handleSubmit}>
+            <form className="contact-form">
             <div className="contact-form-row">
               <div className="contact-form-group">
                 <label htmlFor="name" className="contact-form-label">Full Name</label>
@@ -147,7 +77,6 @@ const Contact = () => {
                   value={formData.name}
                   onChange={handleChange}
                   required
-                  disabled={isSubmitting}
                 />
               </div>
 
@@ -162,7 +91,6 @@ const Contact = () => {
                   value={formData.email}
                   onChange={handleChange}
                   required
-                  disabled={isSubmitting}
                 />
               </div>
             </div>
@@ -179,7 +107,6 @@ const Contact = () => {
                   value={formData.phone}
                   onChange={handleChange}
                   required
-                  disabled={isSubmitting}
                 />
               </div>
 
@@ -194,7 +121,6 @@ const Contact = () => {
                   value={formData.subject}
                   onChange={handleChange}
                   required
-                  disabled={isSubmitting}
                 />
               </div>
             </div>
@@ -210,16 +136,14 @@ const Contact = () => {
                 value={formData.message}
                 onChange={handleChange}
                 required
-                disabled={isSubmitting}
               ></textarea>
             </div>
 
               <button
                 type="submit"
                 className="contact-form-button"
-                disabled={isSubmitting}
               >
-                {isSubmitting ? 'Sending...' : 'Send Message'}
+                Send Message
               </button>
             </form>
           </div>
@@ -361,26 +285,6 @@ const Contact = () => {
         </div>
       </section>
 
-      {/* Success Modal */}
-      {showSuccessModal && (
-        <div className="contact-modal-overlay" onClick={closeModal}>
-          <div className="contact-modal" onClick={(e) => e.stopPropagation()}>
-            <div className="contact-modal-icon">
-              <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
-                <polyline points="22 4 12 14.01 9 11.01"></polyline>
-              </svg>
-            </div>
-            <h3 className="contact-modal-title">Thank You!</h3>
-            <p className="contact-modal-message">
-              RANIA will contact you soon by your email or phone number. Please stay tuned!
-            </p>
-            <button className="contact-modal-button" onClick={closeModal}>
-              Got it
-            </button>
-          </div>
-        </div>
-      )}
     </div>
   );
 };
