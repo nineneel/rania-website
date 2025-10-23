@@ -3,3 +3,12 @@ node_modules
 dist
 dist-ssr
 *.local
+
+# Environment Variables
+.env
+.env.local
+
+# Keep these for reference (they should NOT contain secrets)
+# .env.example
+# .env.production
+# .env.staging

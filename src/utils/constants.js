@@ -12,9 +12,13 @@ export const ROUTES = {
 };
 
 export const API_ENDPOINTS = {
-  DESTINATIONS: '/api/destinations',
-  TOURS: '/api/tours',
-  BOOKINGS: '/api/bookings',
+  HERO_SLIDES: '/api/hero-slides',
+  EVENTS: '/api/events',
+  TESTIMONIALS: '/api/testimonials',
+  FAQS: '/api/faqs',
+  SOCIAL_MEDIA: '/api/social-media',
+  UMRAH_PACKAGES: '/api/umrah-packages',
+  CONTACT: '/api/contact',
 };
 
 export const CONTACT_INFO = {
