@@ -449,9 +449,6 @@ const Home = () => {
 
       {/* Testimonial Section */}
       <Testimonial />
-
-      {/* Footer */}
-      <Footer />
     </div>
   );
 };

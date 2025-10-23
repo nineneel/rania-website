@@ -129,7 +129,7 @@
 
 /* Empty state */
 .footer-social-empty {
-  color: var(--text-white);
+  color: var(--text-primary);
   font-size: 14px;
   opacity: 0.5;
   font-style: italic;

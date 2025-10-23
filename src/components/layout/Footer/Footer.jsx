@@ -17,9 +17,10 @@ const Footer = () => {
   // API Data States
   const [socialMedia, setSocialMedia] = useState([]);
   const [isLoadingSocial, setIsLoadingSocial] = useState(true);
+  const [socialError, setSocialError] = useState(null);
 
-  // Icon mapping for social media
-  const iconMap = {
+  // Fallback icons for social media
+  const fallbackIcons = {
     instagram: instagramIcon,
     facebook: facebookIcon,
     youtube: youtubeIcon,
@@ -27,16 +28,16 @@ const Footer = () => {
     tiktok: tiktokIcon,
   };
 
-  // Helper function to get icon for social media
-  const getSocialIcon = (name) => {
+  // Helper function to get fallback icon for social media
+  const getFallbackIcon = (name) => {
     const lowerName = name?.toLowerCase() || '';
-    for (const [key, icon] of Object.entries(iconMap)) {
+    for (const [key, icon] of Object.entries(fallbackIcons)) {
       if (lowerName.includes(key)) {
         return icon;
       }
     }
-    // Return first available icon as default
-    return Object.values(iconMap)[0];
+    // Return first available icon as default fallback
+    return Object.values(fallbackIcons)[0];
   };
 
   const footerLinks = {
@@ -79,6 +80,7 @@ const Footer = () => {
     try {
       logger.debug(`${logPrefix} Fetching social media links...`);
       setIsLoadingSocial(true);
+      setSocialError(null);
 
       const response = await getSocialMedia();
       logger.debug(`${logPrefix} ✅ API Response:`, response);
@@ -89,6 +91,7 @@ const Footer = () => {
       }
     } catch (error) {
       logger.error(`${logPrefix} ❌ API Error:`, error);
+      setSocialError(error.message);
       setSocialMedia([]);
       logger.warn(`${logPrefix} ⚠️ Using empty social media links`);
     } finally {
@@ -162,9 +165,13 @@ const Footer = () => {
                     rel="noopener noreferrer"
                   >
                     <img
-                      src={getSocialIcon(social.name)}
+                      src={social.icon_url || getFallbackIcon(social.name)}
                       alt={social.name}
                       className="social-icon-img"
+                      onError={(e) => {
+                        // If image fails to load, use fallback icon
+                        e.target.src = getFallbackIcon(social.name);
+                      }}
                     />
                   </a>
                 ))
