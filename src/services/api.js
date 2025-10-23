@@ -146,6 +146,27 @@ export const getTestimonials = async (params = {}) => {
 };
 
 /**
+ * Get all umrah packages with hotels and airlines
+ * @returns {Promise<{success: boolean, data: Array}>}
+ */
+export const getUmrahPackages = async () => {
+  const logPrefix = '[Umrah Packages]';
+
+  try {
+    logger.debug(`📡 [API] GET ${API_ENDPOINTS.UMRAH_PACKAGES}`);
+    const response = await apiRequest(API_ENDPOINTS.UMRAH_PACKAGES);
+    logger.info(`✅ ${logPrefix} Response:`, {
+      success: response.success,
+      dataCount: response.data?.length
+    });
+    return response;
+  } catch (error) {
+    logger.error(`❌ ${logPrefix} Error:`, error.message);
+    throw error;
+  }
+};
+
+/**
  * Submit contact form
  * @param {Object} formData - Contact form data
  * @returns {Promise<{success: boolean, message: string}>}
