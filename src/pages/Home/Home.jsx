@@ -10,6 +10,9 @@ import SignatureCard from '../../components/common/SignatureCard';
 import Testimonial from '../../components/common/Testimonial';
 import SEO from '../../components/common/SEO';
 import { StructuredData } from '../../components/common/SEO';
+import { HeroShimmer, EventShimmer } from '../../components/common/Shimmer';
+import { getHeroSlides, getEvents } from '../../services/api';
+import logger from '../../utils/logger';
 
 // Import hero images
 import hero1 from '../../assets/images/home/hero/hero-1.webp';
@@ -43,31 +46,49 @@ const Home = () => {
   const [bgColor, setBgColor] = useState('var(--primary-dark)');
   const [textColor, setTextColor] = useState('white');
 
+  // API Data States
+  const [heroSlides, setHeroSlides] = useState([]);
+  const [events, setEvents] = useState([]);
+
+  // Loading States
+  const [isLoadingHero, setIsLoadingHero] = useState(true);
+  const [isLoadingEvents, setIsLoadingEvents] = useState(true);
+  const [isLoadingMoreSlides, setIsLoadingMoreSlides] = useState(false);
+
+  // Pagination States
+  const [heroPage, setHeroPage] = useState(1);
+  const [hasMoreSlides, setHasMoreSlides] = useState(false);
+
+  // Error States
+  const [heroError, setHeroError] = useState(null);
+  const [eventsError, setEventsError] = useState(null);
+
   // Refs for tracking sections
   const servicesRef = useRef(null);
   const eventsRef = useRef(null);
   const signatureRef = useRef(null);
 
-  const heroSlides = [
+  // Fallback hero slides (keep for development/error cases)
+  const fallbackHeroSlides = [
     {
       title: "Weekly Departure From Jakarta To ...",
       subtitle: "The Sacred Umrah Journey Crafted For Your Heart",
-      image: hero1
+      image_url: hero1
     },
     {
       title: "Hajj Without Wait, Hajj With Rania",
       subtitle: "We remove the worry. You receive the blessing",
-      image: hero2
+      image_url: hero2
     },
     {
       title: "Webinar With Rania",
       subtitle: "Let us help you replace your worries with wisdom",
-      image: hero3
+      image_url: hero3
     },
     {
       title: "Rania To The World",
       subtitle: "Discover the world through personalized journeys that reveal the authentic soul of each destination",
-      image: hero4
+      image_url: hero4
     }
   ];
 
@@ -103,30 +124,147 @@ const Home = () => {
     }
   ];
   
-  const events = [
+  // Fallback events (keep for development/error cases)
+  const fallbackEvents = [
     {
       title: "Scheduled Webinar",
       description: "Join our complimentary webinar for heartfelt guidance on your upcoming pilgrimage.",
-      image: upcomingEvent1,
-      available: true,
+      image_url: upcomingEvent1,
+      is_available: true,
       link: "https://docs.google.com/forms/d/e/1FAIpQLSchCmTZJQ9ZDd9Z6GMCQE2Uy64P9RltS8qUxfkAD5ylm8dFCg/viewform"
     },
     {
       title: "Digital Manasik",
       description: "Find the true understanding, learn the Manasik with our supportive and accessible online program.",
-      image: upcomingEvent2,
-      available: false
+      image_url: upcomingEvent2,
+      is_available: false
     },
     {
       title: "Live Event",
       description: "Join our live event to share in the spirit and prepare your heart for the journey ahead.",
-      image: upcomingEvent3,
-      available: false
+      image_url: upcomingEvent3,
+      is_available: false
     }
   ];
 
+  // Fetch initial hero slides
+  const fetchHeroSlides = async (page = 1) => {
+    const logPrefix = '[Hero Slides]';
+
+    try {
+      logger.debug(`${logPrefix} Fetching page ${page}...`, { per_page: 5, page });
+
+      if (page === 1) {
+        setIsLoadingHero(true);
+      } else {
+        setIsLoadingMoreSlides(true);
+        logger.info(`${logPrefix} 🔄 Lazy loading triggered for page ${page}`);
+      }
+
+      const response = await getHeroSlides({ per_page: 5, page });
+      logger.debug(`${logPrefix} ✅ API Response:`, response);
+
+      if (response.success && response.data) {
+        const slideCount = response.data.length;
+
+        if (page === 1) {
+          setHeroSlides(response.data);
+          logger.info(`${logPrefix} ✅ Initial load: ${slideCount} slides loaded`);
+        } else {
+          // Append new slides for lazy loading
+          setHeroSlides(prev => {
+            const newSlides = [...prev, ...response.data];
+            logger.info(`${logPrefix} ✅ Lazy load: Added ${slideCount} slides (Total: ${newSlides.length})`);
+            return newSlides;
+          });
+        }
+
+        setHasMoreSlides(response.pagination?.has_more || false);
+        logger.debug(`${logPrefix} 📊 Pagination:`, {
+          current_page: response.pagination?.current_page,
+          total: response.pagination?.total,
+          has_more: response.pagination?.has_more
+        });
+
+        setHeroError(null);
+      }
+    } catch (error) {
+      logger.error(`${logPrefix} ❌ API Error:`, error);
+      setHeroError(error.message);
+
+      // Use fallback only on initial load
+      if (page === 1) {
+        setHeroSlides(fallbackHeroSlides);
+        logger.warn(`${logPrefix} ⚠️ Using fallback data (${fallbackHeroSlides.length} slides)`);
+      } else {
+        logger.warn(`${logPrefix} ⚠️ Lazy load failed, continuing with existing slides`);
+      }
+    } finally {
+      setIsLoadingHero(false);
+      setIsLoadingMoreSlides(false);
+      logger.debug(`${logPrefix} Loading complete`);
+    }
+  };
+
+  // Fetch events
+  const fetchEvents = async () => {
+    const logPrefix = '[Events]';
+
+    try {
+      logger.debug(`${logPrefix} Fetching events...`);
+      setIsLoadingEvents(true);
+
+      const response = await getEvents();
+      logger.debug(`${logPrefix} ✅ API Response:`, response);
+
+      if (response.data) {
+        setEvents(response.data);
+        logger.info(`${logPrefix} ✅ Loaded ${response.data.length} events`);
+        setEventsError(null);
+      }
+    } catch (error) {
+      logger.error(`${logPrefix} ❌ API Error:`, error);
+      setEventsError(error.message);
+      setEvents(fallbackEvents);
+      logger.warn(`${logPrefix} ⚠️ Using fallback data (${fallbackEvents.length} events)`);
+    } finally {
+      setIsLoadingEvents(false);
+      logger.debug(`${logPrefix} Loading complete`);
+    }
+  };
+
+  // Initial data fetch
+  useEffect(() => {
+    logger.info('🚀 [Home] Initializing API data fetch...');
+    fetchHeroSlides(1);
+    fetchEvents();
+  }, []);
+
+  // Lazy load more hero slides when approaching the end
+  useEffect(() => {
+    if (heroSlides.length === 0 || !hasMoreSlides || isLoadingMoreSlides) return;
+
+    // Load next page when within 2 slides of the end
+    const shouldLoadMore = currentSlide >= heroSlides.length - 2;
+
+    if (shouldLoadMore) {
+      logger.debug('🔄 [Lazy Loading] Trigger conditions met:', {
+        currentSlide,
+        totalSlides: heroSlides.length,
+        hasMoreSlides,
+        isLoadingMoreSlides
+      });
+
+      const nextPage = heroPage + 1;
+      setHeroPage(nextPage);
+      fetchHeroSlides(nextPage);
+    }
+  }, [currentSlide, heroSlides.length, hasMoreSlides, isLoadingMoreSlides, heroPage]);
+
   // Auto-advance hero slides every 4 seconds
   useEffect(() => {
+    if (heroSlides.length === 0) return;
+
     const slideInterval = setInterval(() => {
       setCurrentSlide((prevSlide) => (prevSlide + 1) % heroSlides.length);
     }, 4000); // Change slide every 4 seconds
@@ -187,32 +325,40 @@ const Home = () => {
 
       {/* Hero Section */}
       <section className="hero-section">
-        {heroSlides.map((slide, index) => (
-          <div
-            key={index}
-            className={`hero-slide ${index === currentSlide ? 'active' : ''}`}
-            style={{ backgroundImage: `url(${slide.image})` }}
-          >
-            <div className="hero-overlay"></div>
-            <div className={`hero-content ${index === currentSlide ? 'active' : ''}`}>
-              <h1 className="hero-title">{slide.title}</h1>
-              <p className="hero-subtitle">{slide.subtitle}</p> 
-              <div className="hero-buttons">
-                <Button variant="primary" size="small" onClick={scrollToServices}>See Details</Button>
-                <Button variant="tertiary" size="small" to='/contact'>Contact Rania</Button>
+        {isLoadingHero ? (
+          <HeroShimmer />
+        ) : (
+          <>
+            {heroSlides.map((slide, index) => (
+              <div
+                key={slide.id || index}
+                className={`hero-slide ${index === currentSlide ? 'active' : ''}`}
+                style={{ backgroundImage: `url(${slide.image_url})` }}
+              >
+                <div className="hero-overlay"></div>
+                <div className={`hero-content ${index === currentSlide ? 'active' : ''}`}>
+                  <h1 className="hero-title">{slide.title}</h1>
+                  <p className="hero-subtitle">{slide.subtitle}</p>
+                  <div className="hero-buttons">
+                    <Button variant="primary" size="small" onClick={scrollToServices}>See Details</Button>
+                    <Button variant="tertiary" size="small" to='/contact'>Contact Rania</Button>
+                  </div>
+                </div>
               </div>
-            </div>
-          </div>
-        ))}
-        <div className="hero-indicators">
-          {heroSlides.map((_, index) => (
-            <button
-              key={index}
-              className={`indicator ${index === currentSlide ? 'active' : ''}`}
-              onClick={() => setCurrentSlide(index)}
-            ></button>
-          ))}
-        </div>
+            ))}
+            {heroSlides.length > 0 && (
+              <div className="hero-indicators">
+                {heroSlides.map((_, index) => (
+                  <button
+                    key={index}
+                    className={`indicator ${index === currentSlide ? 'active' : ''}`}
+                    onClick={() => setCurrentSlide(index)}
+                  ></button>
+                ))}
+              </div>
+            )}
+          </>
+        )}
       </section>
 
       {/* Values Section */}
@@ -266,27 +412,31 @@ const Home = () => {
       {/* Upcoming Events */}
       <section id="events" ref={eventsRef} className="events-section">
         <h2 className="section-title" style={{ color: textColor, transition: 'color 0.5s ease' }}>Upcoming Events</h2>
-        <Carousel className="events-carousel">
-          {events.map((event, index) => (
-            <div key={index} className="event-card">
-              <div className="event-image" style={{ backgroundImage: `url(${event.image})` }}>
-                <div className="event-overlay"></div>
-                <div className="event-content">
-                  <h3 className="event-title">{event.title}</h3>
-                  <p className="event-description">{event.description}</p>
-                  <Button 
-                   variant={event.available ? 'primary' : 'primary-dark'}
-                    size="small"
-                    disabled={!event.available}
-                    to={event.available ? event.link : undefined}
-                  > 
-                    {event.available ? 'I\'m Interest' : 'Coming Soon'} 
-                  </Button>
+        {isLoadingEvents ? (
+          <EventShimmer />
+        ) : (
+          <Carousel className="events-carousel">
+            {events.map((event, index) => (
+              <div key={event.id || index} className="event-card">
+                <div className="event-image" style={{ backgroundImage: `url(${event.image_url})` }}>
+                  <div className="event-overlay"></div>
+                  <div className="event-content">
+                    <h3 className="event-title">{event.title}</h3>
+                    <p className="event-description">{event.description}</p>
+                    <Button
+                      variant={event.is_available ? 'primary' : 'primary-dark'}
+                      size="small"
+                      disabled={!event.is_available}
+                      to={event.is_available ? event.link : undefined}
+                    >
+                      {event.is_available ? 'I\'m Interest' : 'Coming Soon'}
+                    </Button>
+                  </div>
                 </div>
               </div>
-            </div>
-          ))}
-        </Carousel>
+            ))}
+          </Carousel>
+        )}
       </section>
 
       {/* Signature Card Section */}
@@ -299,9 +449,6 @@ const Home = () => {
 
       {/* Testimonial Section */}
       <Testimonial />
-
-      {/* Footer */}
-      <Footer />
     </div>
   );
 };

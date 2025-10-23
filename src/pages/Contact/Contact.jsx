@@ -1,7 +1,10 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Header from '../../components/layout/Header';
 import SEO from '../../components/common/SEO';
 import { StructuredData } from '../../components/common/SEO';
+import { SocialMediaShimmer } from '../../components/common/Shimmer';
+import { getSocialMedia, submitContactForm } from '../../services/api';
+import logger from '../../utils/logger';
 import './Contact.css';
 import instagramIcon from '../../assets/icons/Instagram.svg';
 import facebookIcon from '../../assets/icons/Facebook.svg';
@@ -17,6 +20,23 @@ const Contact = () => {
     subject: '',
     message: '',
   });
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState({ type: '', message: '' });
+  const [showSuccessModal, setShowSuccessModal] = useState(false);
+
+  // API Data States
+  const [socialMedia, setSocialMedia] = useState([]);
+  const [isLoadingSocial, setIsLoadingSocial] = useState(true);
+  const [socialError, setSocialError] = useState(null);
+
+  // Fallback icons map
+  const fallbackIcons = {
+    instagram: instagramIcon,
+    facebook: facebookIcon,
+    youtube: youtubeIcon,
+    linkedin: linkedinIcon,
+    tiktok: tiktokIcon,
+  };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -24,6 +44,119 @@ const Contact = () => {
       ...prev,
       [name]: value,
     }));
+  };
+
+  const closeModal = () => {
+    setShowSuccessModal(false);
+  };
+
+  // Helper function to get fallback icon
+  const getFallbackIcon = (name) => {
+    const lowerName = name?.toLowerCase() || '';
+    for (const [key, icon] of Object.entries(fallbackIcons)) {
+      if (lowerName.includes(key)) {
+        return icon;
+      }
+    }
+    // Return first available icon as default fallback
+    return Object.values(fallbackIcons)[0];
+  };
+
+  // Fetch social media links from API
+  const fetchSocialMedia = async () => {
+    const logPrefix = '[Social Media]';
+
+    try {
+      logger.debug(`${logPrefix} Fetching social media links...`);
+      setIsLoadingSocial(true);
+
+      const response = await getSocialMedia();
+      logger.debug(`${logPrefix} ✅ API Response:`, response);
+
+      if (response.success && response.data) {
+        setSocialMedia(response.data);
+        logger.info(`${logPrefix} ✅ Loaded ${response.data.length} social media links`);
+        setSocialError(null);
+      }
+    } catch (error) {
+      logger.error(`${logPrefix} ❌ API Error:`, error);
+      setSocialError(error.message);
+      setSocialMedia([]);
+      logger.warn(`${logPrefix} ⚠️ No social media links available`);
+    } finally {
+      setIsLoadingSocial(false);
+      logger.debug(`${logPrefix} Loading complete`);
+    }
+  };
+
+  // Fetch data on component mount
+  useEffect(() => {
+    logger.info('🚀 [Contact] Initializing API data fetch...');
+    fetchSocialMedia();
+  }, []);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const logPrefix = '[Contact Form]';
+
+    setIsSubmitting(true);
+    setSubmitStatus({ type: '', message: '' });
+
+    try {
+      logger.debug(`${logPrefix} Submitting form...`, {
+        name: formData.name,
+        email: formData.email,
+        subject: formData.subject
+      });
+
+      const response = await submitContactForm(formData);
+      logger.debug(`${logPrefix} ✅ API Response:`, response);
+
+      if (response.success) {
+        // Show success modal
+        setShowSuccessModal(true);
+        logger.info(`${logPrefix} ✅ Form submitted successfully`);
+
+        // Reset form
+        setFormData({
+          name: '',
+          email: '',
+          phone: '',
+          subject: '',
+          message: '',
+        });
+      } else {
+        // Handle errors from API
+        setSubmitStatus({
+          type: 'error',
+          message: response.message || 'Something went wrong. Please try again.',
+        });
+        logger.error(`${logPrefix} ❌ Submission failed:`, response.message);
+      }
+    } catch (error) {
+      logger.error(`${logPrefix} ❌ Error:`, error);
+
+      // Check if error has validation errors
+      if (error.message.includes('validation') || error.message.includes('invalid')) {
+        setSubmitStatus({
+          type: 'error',
+          message: error.message,
+        });
+      } else if (error.message.includes('connect') || error.message.includes('network')) {
+        setSubmitStatus({
+          type: 'error',
+          message: 'Network error. Please check your connection and try again.',
+        });
+      } else {
+        setSubmitStatus({
+          type: 'error',
+          message: 'Failed to submit form. Please try again later.',
+        });
+      }
+    } finally {
+      setIsSubmitting(false);
+      logger.debug(`${logPrefix} Submission complete`);
+    }
   };
 
   return (
@@ -247,44 +380,69 @@ const Contact = () => {
       {/* Social Media Section */}
       <section className="contact-social-section">
         <h2 className="contact-social-title">Connect With Us</h2>
-        <div className="contact-social-links">
-          <a href="https://www.instagram.com/hajj.rania.co/" target="_blank" rel="noopener noreferrer" className="contact-social-link">
-            <span className="contact-social-icon">
-              <img src={instagramIcon} alt="Instagram" className="contact-social-icon-img" />
-            </span>
-            <span className="contact-social-name">Instagram</span>
-          </a>
 
-          <a href="https://www.linkedin.com/company/pt-rania-almutamayizah-travel/" target="_blank" rel="noopener noreferrer" className="contact-social-link">
-            <span className="contact-social-icon">
-              <img src={linkedinIcon} alt="LinkedIn" className="contact-social-icon-img" />
-            </span>
-            <span className="contact-social-name">LinkedIn</span>
-          </a>
-
-          <a href="https://www.facebook.com/raniaalmutamayizahtravel/" target="_blank" rel="noopener noreferrer" className="contact-social-link">
-            <span className="contact-social-icon">
-              <img src={facebookIcon} alt="Facebook" className="contact-social-icon-img" />
-            </span>
-            <span className="contact-social-name">Facebook</span>
-          </a>
-
-          <a href="https://www.youtube.com/@HajjRania" target="_blank" rel="noopener noreferrer" className="contact-social-link">
-            <span className="contact-social-icon">
-              <img src={youtubeIcon} alt="YouTube" className="contact-social-icon-img" />
-            </span>
-            <span className="contact-social-name">YouTube</span>
-          </a>
-
-          <a href="https://www.tiktok.com/@hajjrania.co?_t=ZS-90RuTBM3OZI&_r=1" target="_blank" rel="noopener noreferrer" className="contact-social-link">
-            <span className="contact-social-icon">
-              <img src={tiktokIcon} alt="TikTok" className="contact-social-icon-img" />
-            </span>
-            <span className="contact-social-name">TikTok</span>
-          </a>
-        </div>
+        {isLoadingSocial ? (
+          <SocialMediaShimmer />
+        ) : socialMedia.length === 0 ? (
+          <div className="contact-social-empty">
+            <div className="contact-social-empty-icon">
+              <svg width="60" height="60" viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="30" cy="30" r="28" stroke="var(--primary-gold)" strokeWidth="2" strokeDasharray="4 4"/>
+                <path d="M30 20L30 40M20 30L40 30" stroke="var(--primary-gold)" strokeWidth="2" strokeLinecap="round"/>
+              </svg>
+            </div>
+            <p className="contact-social-empty-text">
+              Social media links will be available soon. Stay tuned!
+            </p>
+          </div>
+        ) : (
+          <div className="contact-social-links">
+            {socialMedia.map((social) => (
+              <a
+                key={social.id}
+                href={social.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="contact-social-link"
+              >
+                <span className="contact-social-icon">
+                  <img
+                    src={social.icon_url || getFallbackIcon(social.name)}
+                    alt={social.name}
+                    className="contact-social-icon-img"
+                    onError={(e) => {
+                      // If image fails to load, use fallback
+                      e.target.src = getFallbackIcon(social.name);
+                    }}
+                  />
+                </span>
+                <span className="contact-social-name">{social.name}</span>
+              </a>
+            ))}
+          </div>
+        )}
       </section>
 
+      {/* Success Modal */}
+      {showSuccessModal && (
+        <div className="contact-modal-overlay" onClick={closeModal}>
+          <div className="contact-modal" onClick={(e) => e.stopPropagation()}>
+            <div className="contact-modal-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                <polyline points="22 4 12 14.01 9 11.01"></polyline>
+              </svg>
+            </div>
+            <h3 className="contact-modal-title">Thank You!</h3>
+            <p className="contact-modal-message">
+              RANIA will contact you soon by your email or phone number. Please stay tuned!
+            </p>
+            <button className="contact-modal-button" onClick={closeModal}>
+              Got it
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
