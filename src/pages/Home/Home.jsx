@@ -71,7 +71,7 @@ const Home = () => {
   // Fallback hero slides (keep for development/error cases)
   const fallbackHeroSlides = [
     {
-      title: "Weekly Departure From Jakarta To ...",
+      title: "Weekly Departure From Jakarta To Makkah",
       subtitle: "The Sacred Umrah Journey Crafted For Your Heart",
       image_url: hero1
     },
@@ -131,7 +131,7 @@ const Home = () => {
       description: "Join our complimentary webinar for heartfelt guidance on your upcoming pilgrimage.",
       image_url: upcomingEvent1,
       is_available: true,
-      link: "https://docs.google.com/forms/d/e/1FAIpQLSchCmTZJQ9ZDd9Z6GMCQE2Uy64P9RltS8qUxfkAD5ylm8dFCg/viewform"
+      link: "https://bit.ly/41lq9z0?r=qr"
     },
     {
       title: "Digital Manasik",

@@ -30,6 +30,11 @@ const Header = ({ activeLink = 'Home' }) => {
     setIsMobileMenuOpen(false);
   };
 
+  const handleLogoClick = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    setIsMobileMenuOpen(false);
+  };
+
   useEffect(() => {
     const handleScroll = () => {
       const currentScrollY = window.scrollY;
@@ -59,7 +64,9 @@ const Header = ({ activeLink = 'Home' }) => {
     <header className="header">
       {/* Desktop Header */}
       <div className="header-desktop">
-        <img src={raniaLogo} alt="Rania Logo" className={`header-logo ${isVisible ? 'header-logo-visible' : 'header-logo-hidden'}`} />
+        <Link to="/" onClick={handleLogoClick}>
+          <img src={raniaLogo} alt="Rania Logo" className={`header-logo ${isVisible ? 'header-logo-visible' : 'header-logo-hidden'}`} />
+        </Link>
         <nav className={`header-nav ${isVisible ? 'nav-visible' : 'nav-hidden'}`}>
           {navLinks.map((link) => {
             const isActive = link.isRoute ? location.pathname === link.href : false;
@@ -90,7 +97,9 @@ const Header = ({ activeLink = 'Home' }) => {
       {/* Mobile Header */}
       <div className="header-mobile">
         <div className="header-mobile-top">
-          <img src={raniaLogo} alt="Rania Logo" className="header-mobile-logo" />
+          <Link to="/" onClick={handleLogoClick}>
+            <img src={raniaLogo} alt="Rania Logo" className="header-mobile-logo" />
+          </Link>
           <button
             className={`hamburger-menu ${isMobileMenuOpen ? 'active' : ''}`}
             onClick={toggleMobileMenu}
