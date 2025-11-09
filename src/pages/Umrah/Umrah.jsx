@@ -243,11 +243,18 @@ const Umrah = () => {
                   </div>
                   <div className="umrah-detail-item">
                     <img src={calendar2Icon} alt="Calendar" className="umrah-detail-icon" />
-                    <span className="umrah-detail-text">{pkg.frequency}</span>
+                    <span className="umrah-detail-text">{pkg.departure_schedule}</span>
                   </div>
                   <div className="umrah-detail-airlines">
                     {pkg.airlines && pkg.airlines.map((airline, idx) => (
-                      <img key={idx} src={airline.logo_url || airline.logo} alt={airline.name} className="umrah-airline-logo" />
+                      <div key={idx} className="umrah-airline-wrapper">
+                        <img
+                          src={airline.logo_url || airline.logo}
+                          alt={airline.name}
+                          className="umrah-airline-logo"
+                        />
+                        <span className="umrah-airline-tooltip">{airline.name}</span>
+                      </div>
                     ))}
                   </div>
                 </div>

@@ -457,22 +457,73 @@
 }
 
 .umrah-detail-airlines {
-  width: 107px;
-  height: 30px;
+  min-width: 120px;
+  width: auto;
+  height: 40px;
   background: var(--text-white);
   box-shadow: 0px 7.4px 26px rgba(0, 0, 0, 0.1);
   border-radius: 3px;
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 6px;
-  padding: 0 8px;
+  gap: 10px;
+  padding: 0 16px;
+}
+
+.umrah-airline-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .umrah-airline-logo {
-  height: 18px;
+  height: 28px;
+  max-width: 60px;
   width: auto;
   object-fit: contain;
+  flex-shrink: 0;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  opacity: 0.9;
+}
+
+.umrah-airline-wrapper:hover .umrah-airline-logo {
+  opacity: 1;
+  transform: scale(1.1);
+}
+
+.umrah-airline-tooltip {
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  margin-bottom: 8px;
+  padding: 6px 12px;
+  background: var(--text-primary);
+  color: var(--text-white);
+  font-size: 11px;
+  font-weight: var(--font-weight-medium);
+  white-space: nowrap;
+  border-radius: 4px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity var(--transition-fast);
+  z-index: 100;
+}
+
+.umrah-airline-tooltip::after {
+  content: '';
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  border: 5px solid transparent;
+  border-top-color: var(--text-primary);
+}
+
+.umrah-airline-wrapper:hover .umrah-airline-tooltip {
+  opacity: 1;
 }
 
 .umrah-package-divider {
