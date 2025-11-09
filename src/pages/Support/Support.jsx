@@ -1,8 +1,11 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Header from '../../components/layout/Header';
 import Button from '../../components/common/Button/Button';
 import SEO from '../../components/common/SEO';
 import { StructuredData } from '../../components/common/SEO';
+import { FAQShimmer } from '../../components/common/Shimmer';
+import { getFAQs } from '../../services/api';
+import logger from '../../utils/logger';
 import './Support.css';
 
 // Import hero image
@@ -11,36 +14,47 @@ import heroSupport from '../../assets/images/support-help/support-help-hero.webp
 const Support = () => {
   const [expandedFaq, setExpandedFaq] = useState(null);
 
-  const faqs = [
-    {
-      question: "What is RANIA's role in the visa application process?",
-      answer: "RANIA provides comprehensive services for Umrah & Haji visa processing. Our professional team will handle the entire administrative process, from document verification and submission to the relevant authorities, to providing assistance in fulfilling any requirements. This allows pilgrims to prepare for their worship with peace of mind, unburdened by visa concerns."
-    },
-    {
-      question: "Does RANIA have special access for Hajj or Umrah visa processing?",
-      answer: "RANIA's key advantage is its status as a travel agency that also serves as an official visa provider exclusively for its pilgrims. This provides priority in the visa application process, freeing our clients from the long queues with thousands of other applicants and eliminating concerns about potential delays."
-    },
-    {
-      question: "What is the refund policy if the visa application is not approved?",
-      answer: "In the event of a visa rejection, the refund process will refer to the terms and conditions applicable at RANIA. Pilgrims/travelers will receive a partial refund after deduction of administrative fees and other costs already incurred. We will provide an official explanation regarding the details of the rejection and the refund. It is important to understand that the decision to reject a visa is the absolute authority of the Embassy or the Government of the Kingdom of Saudi Arabia."
-    },
-    {
-      question: "What is the minimum passport validity required for departure?",
-      answer: "Your passport must have a minimum of 8 months of validity remaining before the date of departure. Renew it immediately if the validity is less than that limit. Additionally, ensure the passport is in good condition (undamaged), the name on the passport must exactly match what is listed on your ID card (KTP) and Family Card (KK), and it must consist of at least 2 words/names, for example: Muhammad Yaser."
-    },
-    {
-      question: "What is the estimated time required for the visa process from start to finish?",
-      answer: "The processing time for an Umrah visa requires 7 to 15 working days after all documents are received complete. Meanwhile, a Special Hajj visa takes longer, which is several weeks up to 1 month, as it depends on the policy of the Ministry of Religious Affairs (Kemenag), the Government of Saudi Arabia, and the completeness of the pilgrims' files."
-    },
-    {
-      question: "What are the administrative requirements that must be fulfilled to register for the Umrah or Hajj program?",
-      answer: "Prospective pilgrims who wish to register for Umrah or Hajj through RANIA need to prepare several important documents, namely: a passport (with a minimum validity of 8 months), National Identity Card (KTP), Family Card (KK), birth certificate or marriage certificate, four 4x6 photographs, the yellow book (if required), a registration form, and a BPJS card (if mandatory)."
-    }
-  ];
+  // API Data States
+  const [faqs, setFaqs] = useState([]);
+  const [isLoadingFaqs, setIsLoadingFaqs] = useState(true);
+  const [faqsError, setFaqsError] = useState(null);
 
   const toggleFaq = (index) => {
     setExpandedFaq(expandedFaq === index ? null : index);
   };
+
+  // Fetch FAQs from API
+  const fetchFAQs = async () => {
+    const logPrefix = '[Support FAQs]';
+
+    try {
+      logger.debug(`${logPrefix} Fetching FAQs...`);
+      setIsLoadingFaqs(true);
+
+      const response = await getFAQs();
+      logger.debug(`${logPrefix} ✅ API Response:`, response);
+
+      if (response.success && response.data) {
+        setFaqs(response.data);
+        logger.info(`${logPrefix} ✅ Loaded ${response.data.length} FAQs`);
+        setFaqsError(null);
+      }
+    } catch (error) {
+      logger.error(`${logPrefix} ❌ API Error:`, error);
+      setFaqsError(error.message);
+      setFaqs([]);
+      logger.warn(`${logPrefix} ⚠️ No FAQs available`);
+    } finally {
+      setIsLoadingFaqs(false);
+      logger.debug(`${logPrefix} Loading complete`);
+    }
+  };
+
+  // Fetch FAQs on component mount
+  useEffect(() => {
+    logger.info('🚀 [Support] Initializing FAQ data fetch...');
+    fetchFAQs();
+  }, []);
 
   const quickHelp = [
     {
@@ -97,25 +111,50 @@ const Support = () => {
       {/* FAQ Section */}
       <section className="support-faq-section">
         <h2 className="support-faq-title">About Visa & Documentation</h2>
-        <div className="support-faq-container">
-          {faqs.map((faq, index) => (
-            <div
-              key={index}
-              className={`support-faq-item ${expandedFaq === index ? 'expanded' : ''}`}
-              onClick={() => toggleFaq(index)}
-            >
-              <div className="support-faq-header">
-                <h3 className="support-faq-question">{faq.question}</h3>
-                <div className={`support-faq-indicator ${expandedFaq === index ? 'active' : ''}`}>
-                  <span className="support-faq-icon"></span>
-                </div>
-              </div>
-              {expandedFaq === index && (
-                <p className="support-faq-answer">{faq.answer}</p>
-              )}
+
+        {isLoadingFaqs ? (
+          <FAQShimmer />
+        ) : faqs.length === 0 ? (
+          <div className="support-empty-state">
+            <div className="support-empty-icon">
+              <svg width="80" height="80" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="40" cy="40" r="38" stroke="var(--primary-gold)" strokeWidth="2" strokeDasharray="4 4"/>
+                <path d="M40 25V40L50 50" stroke="var(--primary-gold)" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"/>
+              </svg>
             </div>
-          ))}
-        </div>
+            <h3 className="support-empty-title">No FAQs Available</h3>
+            <p className="support-empty-description">
+              We're currently updating our FAQ section. If you have questions, please don't hesitate to contact us directly.
+            </p>
+            <Button
+              variant="tertiary"
+              size="small"
+              to="/contact"
+            >
+              Contact Us
+            </Button>
+          </div>
+        ) : (
+          <div className="support-faq-container">
+            {faqs.map((faq, index) => (
+              <div
+                key={faq.id || index}
+                className={`support-faq-item ${expandedFaq === index ? 'expanded' : ''}`}
+                onClick={() => toggleFaq(index)}
+              >
+                <div className="support-faq-header">
+                  <h3 className="support-faq-question">{faq.question}</h3>
+                  <div className={`support-faq-indicator ${expandedFaq === index ? 'active' : ''}`}>
+                    <span className="support-faq-icon"></span>
+                  </div>
+                </div>
+                {expandedFaq === index && (
+                  <p className="support-faq-answer">{faq.answer}</p>
+                )}
+              </div>
+            ))}
+          </div>
+        )}
       </section>
       
 

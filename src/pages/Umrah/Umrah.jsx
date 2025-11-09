@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import './Umrah.css';
 import Header from '../../components/layout/Header/Header';
 import Footer from '../../components/layout/Footer/Footer';
@@ -8,6 +8,9 @@ import SignatureCard from '../../components/common/SignatureCard';
 import SEO from '../../components/common/SEO';
 import { StructuredData } from '../../components/common/SEO';
 import { openWhatsAppUmrah, whatsappMessages } from '../../utils/whatsapp';
+import { UmrahShimmer } from '../../components/common/Shimmer';
+import { getUmrahPackages } from '../../services/api';
+import logger from '../../utils/logger';
 
 // Import wave divider
 import waveImage from '../../assets/utils/wave-light.webp';
@@ -24,10 +27,6 @@ import locationIcon from '../../assets/icons/location.svg';
 import starIcon from '../../assets/icons/start.svg';
 import calendarIcon from '../../assets/icons/calendar.svg';
 import calendar2Icon from '../../assets/icons/calendar-2.svg';
-
-// Import airline logos
-import saudiaLogo from '../../assets/logo/saudia-logo.webp';
-import emiratesLogo from '../../assets/logo/emirates-logo.webp';
 
 // Import value/feature icons
 import value1 from '../../assets/images/umrah/value/value-1.webp';
@@ -47,16 +46,13 @@ import knowMoreImage from '../../assets/images/umrah/know_more_image.webp';
 // Import signature card image
 import customizeYourUmrah from '../../assets/images/umrah/customize_your_umrah.webp';
 
-// Import package card images
-import umrahDubai1 from '../../assets/images/umrah/packages/umrah-1.webp';
-import umrahRegular from '../../assets/images/umrah/packages/umrah-2.webp';
-import umrahDubai2 from '../../assets/images/umrah/packages/umrah-3.webp';
-import umrahDubai3 from '../../assets/images/umrah/packages/umrah-4.webp';
-import umrahTurkiye1 from '../../assets/images/umrah/packages/umrah-5.webp';
-import umrahTurkiye2 from '../../assets/images/umrah/packages/umrah-6.webp';
-
 const Umrah = () => {
   const [email, setEmail] = useState('');
+
+  // API Data States
+  const [umrahPackages, setUmrahPackages] = useState([]);
+  const [isLoadingPackages, setIsLoadingPackages] = useState(true);
+  const [packagesError, setPackagesError] = useState(null);
 
   // Features/Benefits data
   const features = [
@@ -71,117 +67,38 @@ const Umrah = () => {
     { title: "Travel Insurance", icon: value9 },
   ];
 
-  // Package data for Umrah
-  const packages = [
-    {
-      title: "Umrah Regular",
-      description: "Discover Your Sacred Umrah Journey",
-      image: umrahDubai1,
-      hotels: [
-        { name: "Maden Hotel madinah", stars: 5 },
-        { name: "Marwa Rotana hotel Makkah", stars: 5 }
-      ],
-      departure: "Soekarno-Hatta airport (CGK) Jakarta",
-      duration: "9 Days",
-      frequency: "Weekly",
-      airlines: [
-        { name: "Saudia", logo: saudiaLogo },
-        { name: "Emirates", logo: emiratesLogo }
-      ],
-      price: "54.800.000,00",
-      currency: "Rp"
-    },
-    {
-      title: "Umrah Regular",
-      description: "Discover Your Sacred Umrah Journey",
-      image: umrahRegular,
-      hotels: [
-        { name: "Ansar Golden Tulip", stars: 4 },
-        { name: "Makarem Ajyad Hotel", stars: 4 }
-      ],
-      departure: "Soekarno-Hatta airport (CGK) Jakarta",
-      duration: "9 Days",
-      frequency: "Weekly",
-      airlines: [
-        { name: "Saudia", logo: saudiaLogo },
-        { name: "Emirates", logo: emiratesLogo }
-      ],
-      price: "43.800.000,00",
-      currency: "Rp"
-    },
-    {
-      title: "Umrah Dubai",
-      description: "Discover Your Sacred Umrah Journey and Amazing Dubai",
-      image: umrahDubai2,
-      hotels: [
-        { name: "Maden Hotel madinah", stars: 5 },
-        { name: "Marwa Rotana hotel Makkah", stars: 5 }
-      ],
-      departure: "Soekarno-Hatta airport (CGK) Jakarta",
-      duration: "12 Days",
-      frequency: "Weekly",
-      airlines: [
-        { name: "Saudia", logo: saudiaLogo },
-        { name: "Emirates", logo: emiratesLogo }
-      ],
-      price: "57.000.000,00",
-      currency: "Rp"
-    },
-    {
-      title: "Umrah Dubai",
-      description: "Discover Your Sacred Umrah Journey and Amazing Dubai",
-      image: umrahDubai3,
-      hotels: [
-        { name: "Ansar Golden Tulip", stars: 4 },
-        { name: "Makarem Ajyad Hotel", stars: 4 }
-      ],
-      departure: "Soekarno-Hatta airport (CGK) Jakarta",
-      duration: "12 Days",
-      frequency: "Weekly",
-      airlines: [
-        { name: "Saudia", logo: saudiaLogo },
-        { name: "Emirates", logo: emiratesLogo }
-      ],
-      price: "46.100.000,00",
-      currency: "Rp"
-    },
-    {
-      title: "Umrah Turkiye",
-      description: "Discover Your Sacred Umrah and Wonderful Turkiye",
-      image: umrahTurkiye1,
-      hotels: [
-        { name: "Maden Hotel madinah", stars: 5 },
-        { name: "Marwa Rotana hotel Makkah", stars: 5 }
-      ],
-      departure: "Soekarno-Hatta airport (CGK) Jakarta",
-      duration: "14 Days",
-      frequency: "Weekly",
-      airlines: [
-        { name: "Saudia", logo: saudiaLogo },
-        { name: "Emirates", logo: emiratesLogo }
-      ],
-      price: "68.800.000,00",
-      currency: "Rp"
-    },
-    {
-      title: "Umrah Turkiye",
-      description: "Discover Your Sacred Umrah and Wonderful Turkiye",
-      image: umrahTurkiye2,
-      hotels: [
-        { name: "Ansar Golden Tulip", stars: 4 },
-        { name: "Makarem Ajyad Hotel", stars: 4 }
-      ],
-      departure: "Soekarno-Hatta airport (CGK) Jakarta",
-      duration: "14 Days",
-      frequency: "Weekly",
-      airlines: [
-        { name: "Saudia", logo: saudiaLogo },
-        { name: "Emirates", logo: emiratesLogo }
-      ],
-      price: "57.900.000,00",
-      currency: "Rp"
+  // Fetch umrah packages from API
+  const fetchUmrahPackages = async () => {
+    const logPrefix = '[Umrah Packages]';
+
+    try {
+      logger.debug(`${logPrefix} Fetching packages...`);
+      setIsLoadingPackages(true);
+
+      const response = await getUmrahPackages();
+      logger.debug(`${logPrefix} ✅ API Response:`, response);
+
+      if (response.success && response.data) {
+        setUmrahPackages(response.data);
+        logger.info(`${logPrefix} ✅ Loaded ${response.data.length} packages`);
+        setPackagesError(null);
+      }
+    } catch (error) {
+      logger.error(`${logPrefix} ❌ API Error:`, error);
+      setPackagesError(error.message);
+      setUmrahPackages([]);
+      logger.warn(`${logPrefix} ⚠️ No packages available`);
+    } finally {
+      setIsLoadingPackages(false);
+      logger.debug(`${logPrefix} Loading complete`);
     }
-  ];
+  };
+
+  // Fetch packages on component mount
+  useEffect(() => {
+    logger.info('🚀 [Umrah] Initializing API data fetch...');
+    fetchUmrahPackages();
+  }, []);
 
   const handleSubscribe = (e) => {
     e.preventDefault();
@@ -262,78 +179,108 @@ const Umrah = () => {
           </div>
         </div>
 
-        <div className="umrah-packages-container">
-          {packages.map((pkg, index) => (
-            <div key={index} className="umrah-package-card">
-              <img src={pkg.image} alt={pkg.title} className="umrah-package-image" />
-
-              <h3 className="umrah-package-title">{pkg.title}</h3>
-
-              <p className="umrah-package-description">{pkg.description}</p>
-
-              <div className="umrah-package-hotels">
-                {pkg.hotels.map((hotel, idx) => (
-                  <div key={idx} className="umrah-hotel-item">
-                    <div className="umrah-hotel-icon">
-                      <img src={hotelIcon} alt="Hotel" />
-                    </div>
-                    <span className="umrah-hotel-name">{hotel.name}</span>
-                    <div className="umrah-hotel-stars">
-                      {[...Array(hotel.stars)].map((_, i) => (
-                        <img key={i} src={starIcon} alt="Star" className="umrah-star" />
-                      ))}
-                    </div>
-                  </div>
-                ))}
-
-                <div className="umrah-departure-item">
-                  <div className="umrah-departure-icon">
-                    <img src={locationIcon} alt="Location" />
-                  </div>
-                  <span className="umrah-departure-text">{pkg.departure}</span>
-                </div>
-              </div>
-
-
-              <div className="umrah-package-details">
-                <div className="umrah-detail-item">
-                  <img src={calendarIcon} alt="Calendar" className="umrah-detail-icon" />
-                  <span className="umrah-detail-text">{pkg.duration}</span>
-                </div>
-                <div className="umrah-detail-item">
-                  <img src={calendar2Icon} alt="Calendar" className="umrah-detail-icon" />
-                  <span className="umrah-detail-text">{pkg.frequency}</span>
-                </div>
-                <div className="umrah-detail-airlines">
-                  {pkg.airlines.map((airline, idx) => (
-                    <img key={idx} src={airline.logo} alt={airline.name} className="umrah-airline-logo" />
-                  ))}
-                </div>
-              </div>
-
-              <div className="umrah-package-price">
-                <span className="umrah-price-label">Start From</span>
-                <div className="umrah-price-amount">
-                  <span className="umrah-price-currency">{pkg.currency}</span>
-                  <span className="umrah-price-value">{pkg.price}</span>
-                </div>
-              </div>
-
-              <div className="umrah-package-divider"></div>
-
-              <div className="umrah-package-actions">
-                <Button
-                  variant="secondary"
-                  size="medium"
-                  className="umrah-interest-button"
-                  onClick={() => openWhatsAppUmrah(whatsappMessages.umrahInterest(pkg.title))}
-                >
-                  I am Interest
-                </Button>
-              </div>
+        {isLoadingPackages ? (
+          <UmrahShimmer />
+        ) : umrahPackages.length === 0 ? (
+          <div className="umrah-empty-state">
+            <div className="umrah-empty-icon">
+              <svg width="80" height="80" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="40" cy="40" r="38" stroke="var(--primary-gold)" strokeWidth="2" strokeDasharray="4 4"/>
+                <path d="M40 25V40L50 50" stroke="var(--primary-gold)" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"/>
+              </svg>
             </div>
-          ))}
-        </div>
+            <h3 className="umrah-empty-title">No Umrah Available</h3>
+            <p className="umrah-empty-description">
+              We're currently updating our Umrah offerings. Please check back soon or contact us for personalized Umrah inquiries.
+            </p>
+            <Button
+              variant="tertiary"
+              size="small"
+              onClick={() => openWhatsAppUmrah(whatsappMessages.umrahCustomize())}
+            >
+              Contact Rania
+            </Button>
+          </div>
+        ) : (
+          <div className="umrah-packages-container">
+            {umrahPackages.map((pkg, index) => (
+              <div key={pkg.id || index} className="umrah-package-card">
+                <img src={pkg.image_url || pkg.image} alt={pkg.title} className="umrah-package-image" />
+
+                <h3 className="umrah-package-title">{pkg.title}</h3>
+
+                <p className="umrah-package-description">{pkg.description}</p>
+
+                <div className="umrah-package-hotels">
+                  {pkg.hotels && pkg.hotels.map((hotel, idx) => (
+                    <div key={idx} className="umrah-hotel-item">
+                      <div className="umrah-hotel-icon">
+                        <img src={hotelIcon} alt="Hotel" />
+                      </div>
+                      <span className="umrah-hotel-name">{hotel.name}</span>
+                      <div className="umrah-hotel-stars">
+                        {[...Array(hotel.stars)].map((_, i) => (
+                          <img key={i} src={starIcon} alt="Star" className="umrah-star" />
+                        ))}
+                      </div>
+                    </div>
+                  ))}
+
+                  <div className="umrah-departure-item">
+                    <div className="umrah-departure-icon">
+                      <img src={locationIcon} alt="Location" />
+                    </div>
+                    <span className="umrah-departure-text">{pkg.departure}</span>
+                  </div>
+                </div>
+
+
+                <div className="umrah-package-details">
+                  <div className="umrah-detail-item">
+                    <img src={calendarIcon} alt="Calendar" className="umrah-detail-icon" />
+                    <span className="umrah-detail-text">{pkg.duration}</span>
+                  </div>
+                  <div className="umrah-detail-item">
+                    <img src={calendar2Icon} alt="Calendar" className="umrah-detail-icon" />
+                    <span className="umrah-detail-text">{pkg.frequency}</span>
+                  </div>
+                  <div className="umrah-detail-airlines">
+                    {pkg.airlines && pkg.airlines.map((airline, idx) => (
+                      <img key={idx} src={airline.logo_url || airline.logo} alt={airline.name} className="umrah-airline-logo" />
+                    ))}
+                  </div>
+                </div>
+
+                <div className="umrah-package-price">
+                  <span className="umrah-price-label">Start From</span>
+                  <div className="umrah-price-amount">
+                    <span className="umrah-price-currency">{pkg.currency}</span>
+                    <span className="umrah-price-value">{pkg.price}</span>
+                  </div>
+                </div>
+
+                <div className="umrah-package-divider"></div>
+
+                <div className="umrah-package-actions">
+                  <Button
+                    variant="secondary"
+                    size="medium"
+                    className="umrah-interest-button"
+                    onClick={() => {
+                      if (pkg.link) {
+                        window.open(pkg.link, '_blank', 'noopener,noreferrer');
+                      } else {
+                        openWhatsAppUmrah(whatsappMessages.umrahInterest(pkg.title));
+                      }
+                    }}
+                  >
+                    I am Interest
+                  </Button>
+                </div>
+              </div>
+            ))}
+          </div>
+        )}
       </section>
 
       {/* Customize Your Umrah Plan */}

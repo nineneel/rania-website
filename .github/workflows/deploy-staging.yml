@@ -25,10 +25,10 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Create staging .env file
+      - name: Create staging .env.staging file
         run: |
-          echo "VITE_API_BASE_URL=${{ secrets.VITE_API_BASE_URL }}" > .env
-          echo "VITE_BASE_PATH=${{ secrets.VITE_BASE_PATH }}" >> .env
+          echo "VITE_API_BASE_URL=${{ secrets.VITE_API_BASE_URL }}" > .env.staging
+          echo "VITE_BASE_PATH=${{ secrets.VITE_BASE_PATH }}" >> .env.staging
 
       - name: Build staging
         run: npm run build:staging
@@ -48,4 +48,4 @@ jobs:
             **/.git*
             **/.git*/**
             **/node_modules/**
-            **/.env
+            **/.env*

@@ -1,8 +1,10 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import './Footer.css';
 import raniaLogo from '../../../assets/icons/rania-logo.webp';
 import Button from '../../common/Button/Button';
+import { getSocialMedia, subscribeNewsletter } from '../../../services/api';
+import logger from '../../../utils/logger';
 import facebookIcon from '../../../assets/icons/Facebook.svg';
 import instagramIcon from '../../../assets/icons/Instagram.svg';
 import linkedinIcon from '../../../assets/icons/LinkedIn.svg';
@@ -11,6 +13,34 @@ import tiktokIcon from '../../../assets/icons/tiktok.svg';
 
 const Footer = () => {
   const [email, setEmail] = useState('');
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState({ type: '', message: '' });
+
+  // API Data States
+  const [socialMedia, setSocialMedia] = useState([]);
+  const [isLoadingSocial, setIsLoadingSocial] = useState(true);
+  const [socialError, setSocialError] = useState(null);
+
+  // Fallback icons for social media
+  const fallbackIcons = {
+    instagram: instagramIcon,
+    facebook: facebookIcon,
+    youtube: youtubeIcon,
+    linkedin: linkedinIcon,
+    tiktok: tiktokIcon,
+  };
+
+  // Helper function to get fallback icon for social media
+  const getFallbackIcon = (name) => {
+    const lowerName = name?.toLowerCase() || '';
+    for (const [key, icon] of Object.entries(fallbackIcons)) {
+      if (lowerName.includes(key)) {
+        return icon;
+      }
+    }
+    // Return first available icon as default fallback
+    return Object.values(fallbackIcons)[0];
+  };
 
   const footerLinks = {
     home: [
@@ -45,18 +75,97 @@ const Footer = () => {
     ]
   };
 
-  const socialLinks = [
-    { name: 'Facebook', href: 'https://www.facebook.com/raniaalmutamayizahtravel/', icon: facebookIcon },
-    { name: 'Instagram', href: 'https://www.instagram.com/hajj.rania.co/', icon: instagramIcon },
-    { name: 'LinkedIn', href: 'https://www.linkedin.com/company/pt-rania-almutamayizah-travel/', icon: linkedinIcon },
-    { name: 'YouTube', href: 'https://www.youtube.com/@HajjRania', icon: youtubeIcon },
-    { name: 'TikTok', href: 'https://www.tiktok.com/@hajjrania.co?_t=ZS-90RuTBM3OZI&_r=1', icon: tiktokIcon }
-  ];
+  // Fetch social media links from API
+  const fetchSocialMedia = async () => {
+    const logPrefix = '[Footer Social Media]';
 
-  const handleNewsletterSubmit = (e) => {
+    try {
+      logger.debug(`${logPrefix} Fetching social media links...`);
+      setIsLoadingSocial(true);
+      setSocialError(null);
+
+      const response = await getSocialMedia();
+      logger.debug(`${logPrefix} ✅ API Response:`, response);
+
+      if (response.success && response.data) {
+        setSocialMedia(response.data);
+        logger.info(`${logPrefix} ✅ Loaded ${response.data.length} social media links`);
+      }
+    } catch (error) {
+      logger.error(`${logPrefix} ❌ API Error:`, error);
+      setSocialError(error.message);
+      setSocialMedia([]);
+      logger.warn(`${logPrefix} ⚠️ Using empty social media links`);
+    } finally {
+      setIsLoadingSocial(false);
+      logger.debug(`${logPrefix} Loading complete`);
+    }
+  };
+
+  // Fetch data on component mount
+  useEffect(() => {
+    logger.info('🚀 [Footer] Initializing social media fetch...');
+    fetchSocialMedia();
+  }, []);
+
+  const handleNewsletterSubmit = async (e) => {
     e.preventDefault();
-    console.log('Newsletter subscription:', email);
-    setEmail('');
+    const logPrefix = '[Newsletter]';
+
+    setIsSubmitting(true);
+    setSubmitStatus({ type: '', message: '' });
+
+    try {
+      logger.debug(`${logPrefix} Submitting subscription...`);
+
+      const response = await subscribeNewsletter(email);
+      logger.debug(`${logPrefix} ✅ API Response:`, response);
+
+      if (response.success) {
+        setSubmitStatus({
+          type: 'success',
+          message: response.message || 'Thank you for subscribing! Please check your email to verify your subscription.',
+        });
+        logger.info(`${logPrefix} ✅ Subscription successful`);
+
+        // Reset form
+        setEmail('');
+      } else {
+        setSubmitStatus({
+          type: 'error',
+          message: response.message || 'Something went wrong. Please try again.',
+        });
+        logger.error(`${logPrefix} ❌ Subscription failed:`, response.message);
+      }
+    } catch (error) {
+      logger.error(`${logPrefix} ❌ Error:`, error);
+
+      // Check if error has validation errors
+      if (error.message.includes('already subscribed')) {
+        setSubmitStatus({
+          type: 'error',
+          message: 'This email is already subscribed to our newsletter.',
+        });
+      } else if (error.message.includes('validation') || error.message.includes('invalid')) {
+        setSubmitStatus({
+          type: 'error',
+          message: error.message,
+        });
+      } else if (error.message.includes('connect') || error.message.includes('network')) {
+        setSubmitStatus({
+          type: 'error',
+          message: 'Network error. Please check your connection and try again.',
+        });
+      } else {
+        setSubmitStatus({
+          type: 'error',
+          message: 'Failed to subscribe. Please try again later.',
+        });
+      }
+    } finally {
+      setIsSubmitting(false);
+      logger.debug(`${logPrefix} Subscription complete`);
+    }
   };
 
   return (
@@ -76,10 +185,23 @@ const Footer = () => {
                 onChange={(e) => setEmail(e.target.value)}
                 className="newsletter-input"
                 required
+                disabled={isSubmitting}
               />
             </div>
-            <Button type="submit" variant="subscribe" size="small">Subscribe</Button>
+            <Button
+              type="submit"
+              variant="subscribe"
+              size="small"
+              disabled={isSubmitting}
+            >
+              {isSubmitting ? 'Subscribing...' : 'Subscribe'}
+            </Button>
           </form>
+          {submitStatus.message && (
+            <div className={`newsletter-message newsletter-message-${submitStatus.type}`}>
+              {submitStatus.message}
+            </div>
+          )}
         </div>
       </div>
 
@@ -94,18 +216,37 @@ const Footer = () => {
               Kota Jakarta Selatan, 12870
             </p>
             <div className="footer-social">
-              {socialLinks.map((social) => (
-                <a
-                  key={social.name}
-                  href={social.href}
-                  className="social-icon"
-                  aria-label={social.name}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  <img src={social.icon} alt={social.name} className="social-icon-img" />
-                </a>
-              ))}
+              {isLoadingSocial ? (
+                <div className="footer-social-loading">
+                  {/* Show loading shimmer placeholders */}
+                  {[1, 2, 3, 4, 5].map((i) => (
+                    <div key={i} className="social-icon-loading"></div>
+                  ))}
+                </div>
+              ) : socialMedia.length > 0 ? (
+                socialMedia.map((social) => (
+                  <a
+                    key={social.id}
+                    href={social.url}
+                    className="social-icon"
+                    aria-label={social.name}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <img
+                      src={social.icon_url || getFallbackIcon(social.name)}
+                      alt={social.name}
+                      className="social-icon-img"
+                      onError={(e) => {
+                        // If image fails to load, use fallback icon
+                        e.target.src = getFallbackIcon(social.name);
+                      }}
+                    />
+                  </a>
+                ))
+              ) : (
+                <p className="footer-social-empty">No social links available</p>
+              )}
             </div>
           </div>
 
