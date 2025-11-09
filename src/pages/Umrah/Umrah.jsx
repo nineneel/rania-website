@@ -255,7 +255,12 @@ const Umrah = () => {
                   <span className="umrah-price-label">Start From</span>
                   <div className="umrah-price-amount">
                     <span className="umrah-price-currency">{pkg.currency}</span>
-                    <span className="umrah-price-value">{pkg.price}</span>
+                    <span className="umrah-price-value">
+                      {new Intl.NumberFormat('id-ID', {
+                        minimumFractionDigits: 2,
+                        maximumFractionDigits: 2
+                      }).format(pkg.price)}
+                    </span>
                   </div>
                 </div>
 
