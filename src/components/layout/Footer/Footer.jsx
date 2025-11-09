@@ -291,7 +291,7 @@ const Footer = () => {
         <div className="footer-divider"></div>
 
         <div className="footer-bottom">
-          <p className="footer-copyright">Copyright © 2025 Rania</p>
+          <p className="footer-copyright">Copyright © 2025 PT Rania Almutamayizah Travel</p>
           <div className="footer-legal">
             <span>All Rights Reserved</span>
             {/* <a href="#terms">Terms and Conditions</a>
