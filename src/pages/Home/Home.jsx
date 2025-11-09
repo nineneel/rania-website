@@ -50,7 +50,7 @@ const Home = () => {
 
   const heroSlides = [
     {
-      title: "Weekly Departure From Jakarta To ...",
+      title: "Weekly Departure From Jakarta To Makkah",
       subtitle: "The Sacred Umrah Journey Crafted For Your Heart",
       image: hero1
     },
@@ -109,7 +109,7 @@ const Home = () => {
       description: "Join our complimentary webinar for heartfelt guidance on your upcoming pilgrimage.",
       image: upcomingEvent1,
       available: true,
-      link: "https://docs.google.com/forms/d/e/1FAIpQLSchCmTZJQ9ZDd9Z6GMCQE2Uy64P9RltS8qUxfkAD5ylm8dFCg/viewform"
+      link: "https://bit.ly/41lq9z0?r=qr"
     },
     {
       title: "Digital Manasik",
@@ -298,10 +298,7 @@ const Home = () => {
       </div>
 
       {/* Testimonial Section */}
-      <Testimonial />
-
-      {/* Footer */}
-      <Footer />
+      {/* <Testimonial /> */}
     </div>
   );
 };
