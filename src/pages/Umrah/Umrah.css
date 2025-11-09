@@ -301,13 +301,23 @@
 }
 
 .umrah-package-title {
-  padding: 0 24px;
-  margin-top: 19px;
+  padding: 0 20px;
+  margin-top: 20px;
   color: var(--text-primary);
   font-size: 32px;
   font-family: var(--font-family-primary);
   font-weight: var(--font-weight-extra-bold);
-  line-height: 40px;
+  line-height: 32px;
+}
+
+.umrah-package-subtitle {
+  padding: 0 20px;
+  margin-top: 0;
+  color: var(--text-primary);
+  font-size: 20px;
+  font-family: var(--font-family-primary);
+  font-weight: var(--font-weight-regular);
+  line-height: 28px;
 }
 
 .umrah-package-description {
@@ -912,6 +922,16 @@
   .umrah-section-title,
   .umrah-section-title-dark {
     font-size: 36px;
+  }
+
+  .umrah-package-title {
+    font-size: 28px;
+    line-height: 28px;
+  }
+
+  .umrah-package-subtitle {
+    font-size: 18px;
+    line-height: 24px;
   }
 
   .umrah-package-card {

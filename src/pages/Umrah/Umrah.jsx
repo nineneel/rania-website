@@ -208,6 +208,7 @@ const Umrah = () => {
                 <img src={pkg.image_url || pkg.image} alt={pkg.title} className="umrah-package-image" />
 
                 <h3 className="umrah-package-title">{pkg.title}</h3>
+                {pkg.subtitle && <h4 className="umrah-package-subtitle">({pkg.subtitle})</h4>}
 
                 <p className="umrah-package-description">{pkg.description}</p>
 
