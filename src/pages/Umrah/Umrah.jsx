@@ -208,6 +208,7 @@ const Umrah = () => {
                 <img src={pkg.image_url || pkg.image} alt={pkg.title} className="umrah-package-image" />
 
                 <h3 className="umrah-package-title">{pkg.title}</h3>
+                {pkg.subtitle && <h4 className="umrah-package-subtitle">({pkg.subtitle})</h4>}
 
                 <p className="umrah-package-description">{pkg.description}</p>
 
@@ -242,11 +243,18 @@ const Umrah = () => {
                   </div>
                   <div className="umrah-detail-item">
                     <img src={calendar2Icon} alt="Calendar" className="umrah-detail-icon" />
-                    <span className="umrah-detail-text">{pkg.frequency}</span>
+                    <span className="umrah-detail-text">{pkg.departure_schedule}</span>
                   </div>
                   <div className="umrah-detail-airlines">
                     {pkg.airlines && pkg.airlines.map((airline, idx) => (
-                      <img key={idx} src={airline.logo_url || airline.logo} alt={airline.name} className="umrah-airline-logo" />
+                      <div key={idx} className="umrah-airline-wrapper">
+                        <img
+                          src={airline.logo_url || airline.logo}
+                          alt={airline.name}
+                          className="umrah-airline-logo"
+                        />
+                        <span className="umrah-airline-tooltip">{airline.name}</span>
+                      </div>
                     ))}
                   </div>
                 </div>
@@ -255,7 +263,12 @@ const Umrah = () => {
                   <span className="umrah-price-label">Start From</span>
                   <div className="umrah-price-amount">
                     <span className="umrah-price-currency">{pkg.currency}</span>
-                    <span className="umrah-price-value">{pkg.price}</span>
+                    <span className="umrah-price-value">
+                      {new Intl.NumberFormat('id-ID', {
+                        minimumFractionDigits: 2,
+                        maximumFractionDigits: 2
+                      }).format(pkg.price)}
+                    </span>
                   </div>
                 </div>
 
