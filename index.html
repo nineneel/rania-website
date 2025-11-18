@@ -42,6 +42,93 @@
     <!-- Canonical URL -->
     <link rel="canonical" href="https://www.rania.co.id/" />
 
+    <!-- Static SEO fallbacks for client-side routing -->
+    <script>
+      (function() {
+        const baseUrl = 'https://www.rania.co.id';
+        const seoContent = {
+          '/': {
+            title: 'RANIA | Redefine Hajj Reimagined Journey',
+            description: 'RANIA - Your trusted partner for exclusive Umrah and Hajj pilgrimage services. Premium travel packages with exceptional service, comfort, and spiritual connection. Licensed PPIU & PIHK operator.'
+          },
+          '/about': {
+            title: 'About RANIA - Premium Hajj & Umrah Services',
+            description: "Learn about PT Rania Almutamayizah Travel, your sacred journey partner since 2013. Licensed PPIU & PIHK operator with 'A' accreditation offering premium Hajj and Umrah services with trust, integrity, and heartfelt care."
+          },
+          '/hajj': {
+            title: 'Hajj With Rania - Premium Hajj Packages Without The Wait',
+            description: "Experience unforgettable Hajj with RANIA. Premium hajj packages with direct flights, 5-star hotels in Haram, certified Mutawif, 24/7 support, and flexible payment. PIHK 'A' accredited operator. Book your sacred journey today."
+          },
+          '/umrah': {
+            title: 'Umrah With Rania - Premium Umrah Packages',
+            description: 'Experience unforgettable Umrah with RANIA. Departure from Jakarta with direct flights, 5-star hotels near Haram, certified Mutawif, 24/7 support. PPIU \'A\' accredited. Customize your Umrah package with Dubai or Turkey. Book now!'
+          },
+          '/contact': {
+            title: 'Contact RANIA - Hajj & Umrah Consultation',
+            description: 'Get in touch with RANIA for Hajj and Umrah consultation. Contact us for booking inquiries, package information, and customer support. Office in Jakarta Selatan. Call 0811-8855-489 or visit our office.'
+          },
+          '/support': {
+            title: 'Support - RANIA Help Center & FAQ',
+            description: 'Find answers to common questions about Hajj and Umrah packages with RANIA. Get help with booking, documents, payment plans, and more. 24/7 customer support available.'
+          },
+          '/partnership': {
+            title: 'Partnership - RANIA',
+            description: 'Discover partnership opportunities with PT Rania Almutamayizah Travel. Join us in providing premium Hajj and Umrah services to pilgrims across Indonesia.'
+          }
+        };
+
+        const normalizePath = (path) => {
+          if (!path) return '/';
+          const cleaned = (path.split('?')[0].split('#')[0] || '/').trim();
+          if (!cleaned || cleaned === '/') return '/';
+          return cleaned.endsWith('/') ? cleaned.slice(0, -1) : cleaned;
+        };
+
+        const pathName = normalizePath(window.location.pathname);
+        const seo = seoContent[pathName] || seoContent['/'];
+        const canonicalPath = pathName === '/' ? '/' : pathName;
+        const canonicalUrl = `${baseUrl}${canonicalPath}`;
+
+        if (!seo) return;
+
+        const updates = [
+          ['title', seo.title],
+          ['meta[name="title"]', seo.title],
+          ['meta[name="description"]', seo.description],
+          ['meta[property="og:title"]', seo.title],
+          ['meta[property="og:description"]', seo.description],
+          ['meta[property="twitter:title"]', seo.title],
+          ['meta[property="twitter:description"]', seo.description]
+        ];
+
+        updates.forEach(([selector, value]) => {
+          if (selector === 'title') {
+            document.title = value;
+            return;
+          }
+          const element = document.querySelector(selector);
+          if (element && value) {
+            element.setAttribute('content', value);
+          }
+        });
+
+        const canonicalLink = document.querySelector('link[rel="canonical"]');
+        if (canonicalLink) {
+          canonicalLink.setAttribute('href', canonicalUrl);
+        }
+
+        const ogUrl = document.querySelector('meta[property="og:url"]');
+        if (ogUrl) {
+          ogUrl.setAttribute('content', canonicalUrl);
+        }
+
+        const twitterUrl = document.querySelector('meta[property="twitter:url"]');
+        if (twitterUrl) {
+          twitterUrl.setAttribute('content', canonicalUrl);
+        }
+      })();
+    </script>
+
     <!-- Geo Tags -->
     <meta name="geo.region" content="ID" />
     <meta name="geo.placename" content="Indonesia" />
