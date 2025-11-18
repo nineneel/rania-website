@@ -84,6 +84,10 @@ In this project, you can run the following scripts:
 | npm run build | Builds the app for production to the `dist` folder.     |
 | npm run serve | Serves the production build from the `dist` folder.     |
 
+### Static prerendered build
+
+Running `npm run build` now also prerenders the public routes (`/`, `/about`, `/partnership`, `/hajj`, `/umrah`, `/contact`, `/support`) with headless Chromium via `@prerenderer/rollup-plugin`. Each route gets its own `dist/<route>/index.html` with the correct `<head>` metadata from `SEO.jsx`, so you can upload the whole `dist` directory to shared hosting and have crawlers read the proper SEO tags. When you add a new top-level page, update the `prerenderRoutes` list in `vite.config.js` so it gets exported too.
+
 ## Credits
 
 Vite Template React is built and maintained by [Safdar Jamal](https://safdarjamal.github.io).
