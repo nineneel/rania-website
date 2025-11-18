@@ -86,7 +86,7 @@ In this project, you can run the following scripts:
 
 ### Static prerendered build
 
-Running `npm run build` now also prerenders the public routes (`/`, `/about`, `/partnership`, `/hajj`, `/umrah`, `/contact`, `/support`) with headless Chromium via `@prerenderer/rollup-plugin`. Each route gets its own `dist/<route>/index.html` with the correct `<head>` metadata from `SEO.jsx`, so you can upload the whole `dist` directory to shared hosting and have crawlers read the proper SEO tags. When you add a new top-level page, update the `prerenderRoutes` list in `vite.config.js` so it gets exported too.
+`npm run build` runs the usual Vite build and then executes `scripts/prerender.mjs`, which spins up a local preview server and drives headless Chromium (Puppeteer) through the public routes (`/`, `/about`, `/partnership`, `/hajj`, `/umrah`, `/contact`, `/support`). For each route we snapshot the fully rendered DOM (including the `<head>` tags injected by `SEO.jsx`) and write it to `dist/<route>/index.html`. Upload the entire `dist` folder to shared hosting and every URL will expose its own canonical HTML + meta. If you add a new page, append the route to the `routes` array inside `scripts/prerender.mjs`.
 
 ## Credits
 
