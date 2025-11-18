@@ -38,7 +38,8 @@ const getBaseUrl = (server) => {
   });
 
   const baseUrl = getBaseUrl(previewServer);
-  const browser = await puppeteer.launch({ headless: 'new' });
+  const puppeteerArgs = ['--no-sandbox', '--disable-setuid-sandbox'];
+  const browser = await puppeteer.launch({ headless: 'new', args: puppeteerArgs });
 
   try {
     for (const route of routes) {
