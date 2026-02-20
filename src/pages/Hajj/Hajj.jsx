@@ -84,8 +84,8 @@ const Hajj = () => {
       downPaymentIDR: "25JT",
       features: [
         "Saudia Airlines - Direct Flight",
-        "Hotel Makkah Bintang 5 di Pelataran Haram",
-        "Hotel Madinah Bintang 5 dekat Masjid Nabawi",
+        "Hotel Makkah Bintang 5 Fairmont",
+        "Hotel Madinah Bintang 5 Sofitel",
         "Transportasi Makkah-Madinah Kereta Cepat",
         "Bus Private VIP",
         "Maktab Zona A VIP 111"
