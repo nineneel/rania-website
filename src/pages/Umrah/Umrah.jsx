@@ -208,9 +208,7 @@ const Umrah = () => {
                 <img src={pkg.image_url || pkg.image} alt={pkg.title} className="umrah-package-image" />
 
                 <h3 className="umrah-package-title">{pkg.title}</h3>
-                {pkg.subtitle && <h4 className="umrah-package-subtitle">({pkg.subtitle})</h4>}
-
-                <p className="umrah-package-description">{pkg.description}</p>
+                <p className="umrah-package-description">{pkg.subtitle}</p>
 
                 <div className="umrah-package-hotels">
                   {pkg.hotels && pkg.hotels.map((hotel, idx) => (
@@ -278,14 +276,15 @@ const Umrah = () => {
                   <Button
                     variant="secondary"
                     size="medium"
-                    className="umrah-interest-button"
-                    onClick={() => {
+                    className="umrah-interest-button umrah-interest-button-full"
+                    to={pkg.slug ? `/umrah/${pkg.slug}` : undefined}
+                    onClick={!pkg.slug ? () => {
                       if (pkg.link) {
                         window.open(pkg.link, '_blank', 'noopener,noreferrer');
                       } else {
                         openWhatsAppUmrah(whatsappMessages.umrahInterest(pkg.title));
                       }
-                    }}
+                    } : undefined}
                   >
                     I am Interest
                   </Button>

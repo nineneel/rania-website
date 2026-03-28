@@ -579,6 +579,10 @@
   gap: 12px;
 }
 
+.umrah-detail-button {
+  min-width: 92px;
+}
+
 .umrah-itinerary-button {
   width: 70px;
   height: 34px;
@@ -599,7 +603,7 @@
 }
 
 .umrah-interest-button {
-  width: 170px;
+  width: 145px;
   height: 45.77px;
   background: transparent;
   border-radius: 130.77px;
@@ -616,6 +620,10 @@
 .umrah-interest-button:hover {
   background: #442305;
   color: var(--text-white);
+}
+
+.umrah-interest-button-full {
+  width: 100%;
 }
 
 /* Customize Your Umrah Plan Section */

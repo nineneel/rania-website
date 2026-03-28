@@ -167,6 +167,30 @@ export const getUmrahPackages = async () => {
 };
 
 /**
+ * Get umrah package detail by slug
+ * @param {string} slug - Package slug
+ * @returns {Promise<{success: boolean, data: Object}>}
+ */
+export const getUmrahPackageDetail = async (slug) => {
+  const logPrefix = '[Umrah Package Detail]';
+  const endpoint = `${API_ENDPOINTS.UMRAH_PACKAGE_DETAIL}/${slug}`;
+
+  try {
+    logger.debug(`📡 [API] GET ${endpoint}`);
+    const response = await apiRequest(endpoint);
+    logger.info(`✅ ${logPrefix} Response:`, {
+      success: response.success,
+      packageId: response.data?.id,
+      packageTitle: response.data?.title
+    });
+    return response;
+  } catch (error) {
+    logger.error(`❌ ${logPrefix} Error:`, error.message);
+    throw error;
+  }
+};
+
+/**
  * Get all active social media links
  * @returns {Promise<{success: boolean, data: Array}>}
  */

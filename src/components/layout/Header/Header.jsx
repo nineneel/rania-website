@@ -69,7 +69,11 @@ const Header = ({ activeLink = 'Home' }) => {
         </Link>
         <nav className={`header-nav ${isVisible ? 'nav-visible' : 'nav-hidden'}`}>
           {navLinks.map((link) => {
-            const isActive = link.isRoute ? location.pathname === link.href : false;
+            const isActive = link.isRoute
+              ? (link.href === '/'
+                ? location.pathname === '/'
+                : location.pathname === link.href || location.pathname.startsWith(`${link.href}/`))
+              : false;
             return link.isRoute ? (
               <Link
                 key={link.id}
@@ -115,7 +119,11 @@ const Header = ({ activeLink = 'Home' }) => {
         <div className={`mobile-menu ${isMobileMenuOpen ? 'open' : ''}`}>
           <nav className="mobile-nav">
             {navLinks.map((link, index) => {
-              const isActive = link.isRoute ? location.pathname === link.href : false;
+              const isActive = link.isRoute
+                ? (link.href === '/'
+                  ? location.pathname === '/'
+                  : location.pathname === link.href || location.pathname.startsWith(`${link.href}/`))
+                : false;
               return (
                 <div key={link.id}>
                   {link.isRoute ? (
