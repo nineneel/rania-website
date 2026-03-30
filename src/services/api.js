@@ -191,6 +191,37 @@ export const getUmrahPackageDetail = async (slug) => {
 };
 
 /**
+ * Get other additional services not included in a specific package
+ * @param {string} slug - Package slug
+ * @param {Object} params - Query parameters
+ * @param {number} params.per_page - Items per page (default: 12)
+ * @param {number} params.page - Page number (default: 1)
+ * @returns {Promise<{success: boolean, data: Array, meta: Object, links: Object}>}
+ */
+export const getOtherAdditionalServices = async (slug, params = {}) => {
+  const logPrefix = '[Other Additional Services]';
+  const { per_page = 12, page = 1 } = params;
+  const queryParams = new URLSearchParams({
+    per_page: per_page.toString(),
+    page: page.toString(),
+  });
+  const endpoint = `${API_ENDPOINTS.UMRAH_OTHER_ADDITIONAL_SERVICES}/${slug}/other-additional-services?${queryParams}`;
+
+  try {
+    logger.debug(`📡 [API] GET ${endpoint}`);
+    const response = await apiRequest(endpoint);
+    logger.info(`✅ ${logPrefix} Response:`, {
+      success: response.success,
+      dataCount: response.data?.length,
+    });
+    return response;
+  } catch (error) {
+    logger.error(`❌ ${logPrefix} Error:`, error.message);
+    throw error;
+  }
+};
+
+/**
  * Get all active social media links
  * @returns {Promise<{success: boolean, data: Array}>}
  */

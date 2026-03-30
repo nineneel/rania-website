@@ -5,7 +5,7 @@ import SEO from '../../components/common/SEO';
 import { StructuredData } from '../../components/common/SEO';
 import Button from '../../components/common/Button/Button';
 import Carousel from '../../components/common/Carousel/Carousel';
-import { getUmrahPackageDetail } from '../../services/api';
+import { getUmrahPackageDetail, getOtherAdditionalServices } from '../../services/api';
 import { openWhatsAppUmrah, whatsappMessages } from '../../utils/whatsapp';
 import locationIcon from '../../assets/icons/location.svg';
 import calendarIcon from '../../assets/icons/calendar.svg';
@@ -53,6 +53,12 @@ const UmrahDetail = () => {
   const [error, setError] = useState(null);
   const [stickyVisible, setStickyVisible] = useState(true);
 
+  const [otherServices, setOtherServices] = useState([]);
+  const [otherServicesPage, setOtherServicesPage] = useState(1);
+  const [hasMoreServices, setHasMoreServices] = useState(true);
+  const [isLoadingMore, setIsLoadingMore] = useState(false);
+  const [showOtherServices, setShowOtherServices] = useState(false);
+
   useEffect(() => {
     let lastY = window.scrollY;
     const onScroll = () => {
@@ -93,6 +99,35 @@ const UmrahDetail = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
     fetchDetail();
   }, [slug]);
+
+  const fetchOtherServices = async (page = 1) => {
+    if (!slug) return;
+    try {
+      setIsLoadingMore(true);
+      const response = await getOtherAdditionalServices(slug, { page, per_page: 12 });
+      if (response.success && response.data) {
+        setOtherServices((prev) => page === 1 ? response.data : [...prev, ...response.data]);
+        setOtherServicesPage(page);
+        const meta = response.meta;
+        setHasMoreServices(meta ? meta.current_page < meta.last_page : false);
+      }
+    } catch {
+      setHasMoreServices(false);
+    } finally {
+      setIsLoadingMore(false);
+    }
+  };
+
+  const handleSeeMore = () => {
+    if (!showOtherServices) {
+      setShowOtherServices(true);
+      if (otherServices.length === 0) {
+        fetchOtherServices(1);
+      }
+    } else {
+      setShowOtherServices(false);
+    }
+  };
 
   const hotels = useMemo(() => sortByOrder(umrahPackage?.hotels), [umrahPackage]);
   const transportations = useMemo(() => sortByOrder(umrahPackage?.transportations), [umrahPackage]);
@@ -347,18 +382,19 @@ const UmrahDetail = () => {
             </div>
 
             <section className="umrah-detail-block-section">
-              <h3 className="umrah-detail-block-title">Additional Services</h3>
-              <Carousel
-                slidesPerView={1}
-                spaceBetween={20}
-                navigation={false}
-                pagination={true}
-                breakpoints={{
-                  640: { slidesPerView: 1, spaceBetween: 20 },
-                  768: { slidesPerView: 3, spaceBetween: 20 },
-                  1024: { slidesPerView: 3, spaceBetween: 24 },
-                }}
-              >
+              <div className="umrah-detail-block-header">
+                <h3 className="umrah-detail-block-title">Additional Services</h3>
+                <button
+                  className={`umrah-detail-see-more-btn${showOtherServices ? ' active' : ''}`}
+                  onClick={handleSeeMore}
+                >
+                  {showOtherServices ? 'See Less' : 'See More'}
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M6 9l6 6 6-6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                  </svg>
+                </button>
+              </div>
+              <div className="umrah-detail-services-grid">
                 {additionalServices.map((service) => (
                   <article key={service.id} className="umrah-detail-service-card">
                     <div className="umrah-detail-service-card-image-wrap">
@@ -377,7 +413,44 @@ const UmrahDetail = () => {
                     </div>
                   </article>
                 ))}
-              </Carousel>
+              </div>
+              {showOtherServices && otherServices.length > 0 && (
+                <>
+                  <hr className="umrah-detail-services-divider" />
+                  <div className="umrah-detail-services-grid">
+                    {otherServices.map((service) => (
+                      <article key={`other-${service.id}`} className="umrah-detail-service-card">
+                        <div className="umrah-detail-service-card-image-wrap">
+                          {service.image_url ? (
+                            <img src={service.image_url} alt={service.title} className="umrah-detail-service-card-image" loading="lazy" />
+                          ) : (
+                            <div className="umrah-detail-image-fallback">No image</div>
+                          )}
+                        </div>
+                        <div className="umrah-detail-service-card-body">
+                          <h4 className="umrah-detail-service-card-name">{service.title}</h4>
+                          {service.subtitle && (
+                            <p className="umrah-detail-service-card-subtitle"></p>
+                          )}
+                          <p className="umrah-detail-service-card-desc">{service.description}</p>
+                        </div>
+                      </article>
+                    ))}
+                  </div>
+                  {hasMoreServices && (
+                    <button
+                      className="umrah-detail-load-more-btn"
+                      onClick={() => fetchOtherServices(otherServicesPage + 1)}
+                      disabled={isLoadingMore}
+                    >
+                      {isLoadingMore ? 'Loading...' : 'Load More'}
+                    </button>
+                  )}
+                </>
+              )}
+              {showOtherServices && isLoadingMore && otherServices.length === 0 && (
+                <p className="umrah-detail-services-loading">Loading additional services...</p>
+              )}
             </section>
 
             <section className="umrah-detail-services-section">

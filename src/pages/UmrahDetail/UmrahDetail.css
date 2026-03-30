@@ -679,6 +679,89 @@
   margin: 0;
 }
 
+.umrah-detail-block-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
+
+.umrah-detail-block-header .umrah-detail-block-title {
+  margin-bottom: 0;
+}
+
+.umrah-detail-see-more-btn {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  background: none;
+  border: none;
+  color: #1A243D;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  padding: 4px 0;
+  white-space: nowrap;
+  transition: opacity 0.2s;
+}
+
+.umrah-detail-see-more-btn svg {
+  transition: transform 0.3s ease;
+}
+
+.umrah-detail-see-more-btn.active svg {
+  transform: rotate(180deg);
+}
+
+.umrah-detail-see-more-btn:hover {
+  opacity: 0.7;
+}
+
+.umrah-detail-services-divider {
+  border: none;
+  border-top: 1px solid #e5e7eb;
+  margin: 32px 0;
+}
+
+.umrah-detail-services-loading {
+  text-align: center;
+  color: #6b7280;
+  font-size: 14px;
+  margin-top: 24px;
+}
+
+.umrah-detail-services-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+.umrah-detail-load-more-btn {
+  display: block;
+  margin: 24px auto 0;
+  padding: 10px 32px;
+  background: none;
+  border: 1.5px solid #1A243D;
+  border-radius: 24px;
+  color: #1A243D;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+}
+
+.umrah-detail-load-more-btn:hover {
+  background: #1A243D;
+  color: #ffffff;
+}
+
+.umrah-detail-load-more-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
 .umrah-detail-services-section {
   margin-top: 28px;
   background: #d8dadd;
@@ -925,6 +1008,10 @@
   .umrah-detail-card-desc,
   .umrah-detail-transport-card p {
     font-size: 12px;
+  }
+
+  .umrah-detail-services-grid {
+    grid-template-columns: 1fr;
   }
 }
 
