@@ -317,7 +317,7 @@ const Hajj = () => {
               <Button
                 variant="change"
                 size="small"
-                onClick={() => openWhatsAppHajj(whatsappMessages.hajjChange())}
+                to="/hajj/upgrade"
               >
                 Change Now
               </Button>

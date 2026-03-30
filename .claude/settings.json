@@ -3,7 +3,20 @@
     "allow": [
       "Bash(find /Users/nineneel/coding/work/rania-website/frontend/src/pages/Umrah -type f -name *.css -o -name *.scss -o -name *.sass)",
       "Bash(npm run:*)",
-      "WebFetch(domain:claude.ai)"
+      "WebFetch(domain:claude.ai)",
+      "Bash(npx vite:*)",
+      "Bash(mv \"coveradge\" \"logos\")",
+      "Bash(mv \"diliput media\" \"gallery\")",
+      "Bash(mv 'liputan6$2019$svg$1$$1x.webp' 'liputan6.webp')",
+      "Bash(mv 'rvybczlnrksvdwdchvuaggtqpko$1$1$$1x.webp' 'suara.webp')",
+      "Bash(mv 'sindonews$2024$1$1$$1x.webp' 'sindonews.webp')",
+      "Bash(mv 'logo$times$indonesia$1$$1x.webp' 'times-indonesia.webp')",
+      "Bash(mv 'right-side-image-1.webp' 'gallery-1.webp')",
+      "Bash(mv 'right-side-image-2.webp' 'gallery-2.webp')",
+      "Bash(mv 'right-side-image-3.webp' 'gallery-3.webp')",
+      "Bash(mv 'right-side-image-4.webp' 'gallery-4.webp')",
+      "Bash(git add:*)",
+      "Bash(git commit:*)"
     ]
   }
 }

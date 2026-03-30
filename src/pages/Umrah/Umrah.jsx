@@ -140,7 +140,7 @@ const Umrah = () => {
         <div className="umrah-hero-overlay"></div>
         <div className="umrah-hero-content">
           <h1 className="umrah-hero-title">
-            Unforgotten Umrah<br/>Journey With Comfort
+            Weekly Journey <br/>From Jakarta To Baitullah
           </h1>
         </div>
       </section>
