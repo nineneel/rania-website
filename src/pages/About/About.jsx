@@ -26,6 +26,16 @@ import value3 from '../../assets/images/home/value/value-3.webp';
 import value4 from '../../assets/images/home/value/value-4.webp';
 import value5 from '../../assets/images/home/value/value-5.webp';
 
+// Import coverage/media images
+import logoLiputan6 from '../../assets/images/about/coverage/logos/liputan6.webp';
+import logoSuara from '../../assets/images/about/coverage/logos/suara.webp';
+import logoSindonews from '../../assets/images/about/coverage/logos/sindonews.webp';
+import logoTimesIndonesia from '../../assets/images/about/coverage/logos/times-indonesia.webp';
+import coverageGallery1 from '../../assets/images/about/coverage/gallery/gallery-1.webp';
+import coverageGallery2 from '../../assets/images/about/coverage/gallery/gallery-2.webp';
+import coverageGallery3 from '../../assets/images/about/coverage/gallery/gallery-3.webp';
+import coverageGallery4 from '../../assets/images/about/coverage/gallery/gallery-4.webp';
+
 // Import wave divider
 import waveImage from '../../assets/utils/wave.webp';
 
@@ -89,6 +99,21 @@ const About = () => {
     { name: 'Syed Mohd Naquib Alattas', role: 'Chief Commercial Officer', image: expert3 }
   ];
 
+  // Media coverage data
+  const mediaCoverage = [
+    { logo: logoLiputan6, alt: 'Liputan6', description: 'Rania Travel hadirkan layanan haji dan umrah premium dengan standar internasional.' },
+    { logo: logoSuara, alt: 'Suara.com', description: 'Perjalanan ibadah eksklusif bersama Rania, kenyamanan dan kekhusyukan terjamin.', dark: true },
+    { logo: logoSindonews, alt: 'SindoNews', description: 'Rania Travel raih akreditasi A sebagai penyelenggara haji khusus terpercaya.' },
+    { logo: logoTimesIndonesia, alt: 'Times Indonesia', description: 'Layanan premium Rania Travel jadi pilihan utama jamaah haji dan umrah Indonesia.' }
+  ];
+
+  const coverageGalleryImages = [
+    { image: coverageGallery1, alt: 'Rania media coverage' },
+    { image: coverageGallery2, alt: 'Rania hajj journey' },
+    { image: coverageGallery3, alt: 'Rania umrah experience' },
+    { image: coverageGallery4, alt: 'Rania premium service' }
+  ];
+
   // Gallery images data
   const galleryImages = [
     { image: life1, alt: 'Life With Rania - Office Culture' },
@@ -145,6 +170,45 @@ const About = () => {
 
       {/* Partners Carousel Section */}
       <Partners />
+
+      {/* Media Coverage Section */}
+      <section className="about-coverage-section about-section">
+        <h2 className="about-coverage-title">Telah diliput oleh</h2>
+        <div className="about-coverage-left">
+          <p className="about-coverage-description">
+            Rania Travel telah dipercaya dan diliput oleh berbagai media nasional sebagai penyelenggara haji dan umrah premium terkemuka di Indonesia
+          </p>
+          <div className="about-coverage-cards">
+            {mediaCoverage.map((media, index) => (
+              <div key={index} className={`about-coverage-card ${media.dark ? 'about-coverage-card--dark' : ''}`}>
+                <div className="about-coverage-card-logo">
+                  <img src={media.logo} alt={media.alt} loading="lazy" />
+                </div>
+                <p className="about-coverage-card-text">{media.description}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+        <div className="about-coverage-right">
+          <div className="about-coverage-badge about-coverage-badge--top">
+            <span className="about-coverage-badge-title">Diliput</span>
+            <span className="about-coverage-badge-subtitle">Berbagai Media</span>
+          </div>
+          <div className="about-coverage-badge about-coverage-badge--bottom">
+            <span className="about-coverage-badge-title">Hajj Without</span>
+            <span className="about-coverage-badge-title">Wait</span>
+          </div>
+          {coverageGalleryImages.map((item, index) => (
+            <img
+              key={index}
+              src={item.image}
+              alt={item.alt}
+              className={`about-coverage-gallery-img about-coverage-gallery-img--${index + 1}`}
+              loading="lazy"
+            />
+          ))}
+        </div>
+      </section>
 
       {/* Values Section */}
       <section className="values-section about-section">
