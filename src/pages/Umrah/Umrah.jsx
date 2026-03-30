@@ -38,7 +38,9 @@ import value6 from '../../assets/images/umrah/value/value-6.webp';
 import value7 from '../../assets/images/umrah/value/value-7.webp';
 import value8 from '../../assets/images/umrah/value/value-8.webp';
 import value9 from '../../assets/images/umrah/value/value-9.webp';
-import value10 from '../../assets/images/umrah/value/value-10.webp';
+
+// Import discover section background
+import discoverBg from '../../assets/images/umrah/discover-private-umrah.webp';
 
 // Import know more image
 import knowMoreImage from '../../assets/images/umrah/know_more_image.webp';
@@ -148,36 +150,40 @@ const Umrah = () => {
         <Partners />
       </div>
 
-      {/* Features/Benefits Section */}
-      <section className="umrah-features-section">
-        <div className="umrah-features-grid">
-          {features.map((feature, index) => (
-            <div key={index} className="umrah-feature-item">
-              <div className="umrah-feature-icon-wrapper">
-                <img src={feature.icon} alt={feature.title} className="umrah-feature-icon" loading="lazy" />
+      {/* Discover Your Private Umrah Section */}
+      <section className="umrah-discover-section">
+        <img src={discoverBg} alt="Discover Your Private Umrah" className="umrah-discover-bg" loading="lazy" />
+        <div className="umrah-discover-overlay-top"></div>
+        <div className="umrah-discover-overlay-bottom"></div>
+        <div className="umrah-discover-overlay-left"></div>
+        <div className="umrah-discover-content">
+          <h2 className="umrah-discover-title">Discover Your Private Umrah</h2>
+          <div className="umrah-features-grid">
+            {features.map((feature, index) => (
+              <div key={index} className="umrah-feature-item">
+                <div className="umrah-feature-icon-wrapper">
+                  <img src={feature.icon} alt={feature.title} className="umrah-feature-icon" loading="lazy" />
+                </div>
+                <p className="umrah-feature-title">{feature.title}</p>
               </div>
-              <p className="umrah-feature-title">{feature.title}</p>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      {/* Packages Section */}
-      <section id="packages" className="umrah-packages-section">
-        <div className="umrah-packages-header">
-          <h2 className="umrah-section-title">Discover Your Private Umrah</h2>
+            ))}
+          </div>
           <div className="umrah-certification-badge">
-           <div className='umrah-cert-title-wrap'>
-            <div className="umrah-cert-icon">
-              <img src={verifiedIcon} alt="Verified" />
+            <div className='umrah-cert-title-wrap'>
+              <div className="umrah-cert-icon">
+                <img src={verifiedIcon} alt="Verified" />
+              </div>
+              <div className="umrah-cert-title">PPIU Certification<br/>(Official Umrah License)</div>
             </div>
-            <div className="umrah-cert-title">PPIU Certification<br/>(Official Umrah License)</div>
-            </div> 
             <div className="umrah-cert-desc">
               <span className="umrah-cert-a">'A'</span> Accredited Umrah Pilgrimage Organizer<br/>License Number: 02202041807930001
             </div>
           </div>
         </div>
+      </section>
+
+      {/* Packages Section */}
+      <section id="packages" className="umrah-packages-section">
 
         {isLoadingPackages ? (
           <UmrahShimmer />
