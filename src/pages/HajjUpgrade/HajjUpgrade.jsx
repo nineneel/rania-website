@@ -7,7 +7,7 @@ import SEO from '../../components/common/SEO';
 import { openWhatsAppHajj, whatsappMessages } from '../../utils/whatsapp';
 
 // Import hero image
-import heroImage from '../../assets/images/hajj/hero.webp';
+import heroImage from '../../assets/images/umrah/additional-service-hero.webp';
 
 // Import wave divider
 import waveImage from '../../assets/utils/wave.webp';
