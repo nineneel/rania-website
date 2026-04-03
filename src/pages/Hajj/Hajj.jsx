@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import './Hajj.css';
 import Header from '../../components/layout/Header/Header';
 import Footer from '../../components/layout/Footer/Footer';
@@ -39,20 +40,21 @@ import knowMoreImage from '../../assets/images/hajj/know_more_image.webp';
 import signatureCardImage from '../../assets/images/home/signature-card.webp';
 
 const Hajj = () => {
+  const { t } = useTranslation();
   const [email, setEmail] = useState('');
 
   // Features/Benefits data
   const features = [
-    { title: "Direct Flights", icon: value1 },
-    { title: "Exclusive Kit", icon: value2 },
-    { title: "Certified Mutawif", icon: value3 },
-    { title: "Professional Photography", icon: value4 },
-    { title: "Team Support 24/7", icon: value5 },
-    { title: "Hotels in Prime Locations", icon: value6 },
-    { title: "Dedicated Tour Leader", icon: value7 },
-    { title: "Flexible Payment", icon: value8 },
-    { title: "Travel Insurance", icon: value9 },
-    { title: "Exclusive Card", icon: value10 }
+    { title: t('hajj.directFlights'), icon: value1 },
+    { title: t('hajj.exclusiveKit'), icon: value2 },
+    { title: t('hajj.certifiedMutawif'), icon: value3 },
+    { title: t('hajj.professionalPhotography'), icon: value4 },
+    { title: t('hajj.teamSupport'), icon: value5 },
+    { title: t('hajj.hotelsPrime'), icon: value6 },
+    { title: t('hajj.dedicatedTourLeader'), icon: value7 },
+    { title: t('hajj.flexiblePayment'), icon: value8 },
+    { title: t('hajj.travelInsurance'), icon: value9 },
+    { title: t('hajj.exclusiveCard'), icon: value10 }
   ];
 
   // Package data
@@ -155,7 +157,7 @@ const Hajj = () => {
         <div className="hajj-hero-overlay"></div>
         <div className="hajj-hero-content">
           <h1 className="hajj-hero-title">
-            Unforgotten Hajj<br/>Without The Wait
+            {t('hajj.heroTitle')}
           </h1>
         </div>
       </section>
@@ -182,16 +184,16 @@ const Hajj = () => {
       {/* Packages Section */}
       <section id="packages" className="hajj-packages-section">
         <div className="hajj-packages-header">
-          <h2 className="hajj-section-title">Discover Your Hajj</h2>
+          <h2 className="hajj-section-title">{t('hajj.discoverHajj')}</h2>
           <div className="hajj-certification-badge">
            <div className='hajj-cert-title-wrap'>
             <div className="hajj-cert-icon">
               <img src={verifiedIcon} alt="Verified" />
             </div>
-            <div className="hajj-cert-title">PIHK Certification<br/>(Official Special Hajj License)</div>
+            <div className="hajj-cert-title">{t('hajj.pihkCert')}<br/>{t('hajj.pihkCertSub')}</div>
             </div>
             <div className="hajj-cert-desc">
-              <span className="hajj-cert-a">'A'</span> Accredited Special Hajj Pilgrimage Organizer<br/>License No. 02202041807930002
+              <span className="hajj-cert-a">'A'</span> {t('hajj.pihkCertDesc')}<br/>{t('hajj.pihkCertDetail')}
             </div>
           </div>
         </div>
@@ -231,7 +233,7 @@ const Hajj = () => {
                 className="hajj-package-button"
                 onClick={() => openWhatsAppHajj(whatsappMessages.hajjInterest(pkg.name))}
               >
-                I am Interest
+                {t('hajj.iAmInterested')}
               </Button>
 
               <div className="hajj-package-divider"></div>
@@ -272,16 +274,16 @@ const Hajj = () => {
       {/* CTA Section */}
       <section className="hajj-cta-section">
         <div className="hajj-cta-content">
-          <h2 className="hajj-cta-title">Have Questions? Get Answers in Minutes</h2>
+          <h2 className="hajj-cta-title">{t('hajj.ctaTitle')}</h2>
           <p className="hajj-cta-description">
-            Rania is ready to provide immediate answers about your Hajj preparations
+            {t('hajj.ctaDesc')}
           </p>
           <Button
             variant="tertiary-filled"
             size="small"
             onClick={() => openWhatsAppHajj(whatsappMessages.hajjCTA())}
           >
-            Contact Rania
+            {t('hajj.contactRania')}
           </Button>
         </div>
         <div className="hajj-cta-image">
@@ -291,12 +293,12 @@ const Hajj = () => {
 
       {/* Manage Plan Section */}
       <section id="manage" className="hajj-manage-section">
-        <h2 className="hajj-section-title-dark">Manage Your Hajj</h2>
+        <h2 className="hajj-section-title-dark">{t('hajj.manageHajj')}</h2>
         <div className="hajj-manage-container">
           <div className="hajj-manage-card hajj-manage-card-brown">
-            <h3 className="hajj-manage-title">Upgrade My Plan</h3>
+            <h3 className="hajj-manage-title">{t('hajj.upgradePlan')}</h3>
             <p className="hajj-manage-description">
-              Enhance Your Spiritual Journey with Added Comfort
+              {t('hajj.upgradeDesc')}
             </p>
             <div className="hajj-manage-button">
               <Button
@@ -304,14 +306,14 @@ const Hajj = () => {
                 size="small"
                 to="/hajj/upgrade"
               >
-                Upgrade Now
+                {t('hajj.upgradeNow')}
               </Button>
             </div>
           </div>
           <div className="hajj-manage-card hajj-manage-card-gold">
-            <h3 className="hajj-manage-title">Change My Plan</h3>
+            <h3 className="hajj-manage-title">{t('hajj.changePlan')}</h3>
             <p className="hajj-manage-description">
-              Find a Hajj Package That's the Right Fit for You
+              {t('hajj.changeDesc')}
             </p>
             <div className="hajj-manage-button">
               <Button
@@ -319,7 +321,7 @@ const Hajj = () => {
                 size="small"
                 to="/hajj/upgrade"
               >
-                Change Now
+                {t('hajj.changeNow')}
               </Button>
             </div>
           </div>

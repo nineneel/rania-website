@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 import PropTypes from 'prop-types';
 import './Footer.css';
 import raniaLogo from '../../../assets/icons/rania-logo.webp';
@@ -12,6 +13,7 @@ import youtubeIcon from '../../../assets/icons/YouTube.svg';
 import tiktokIcon from '../../../assets/icons/tiktok.svg';
 
 const Footer = () => {
+  const { t } = useTranslation();
   const [email, setEmail] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState({ type: '', message: '' });
@@ -44,34 +46,34 @@ const Footer = () => {
 
   const footerLinks = {
     home: [
-      { label: 'Home', href: '/' },
-      { label: 'Partners', href: '/#partners' },
-      { label: 'Programs', href: '/#programs' },
-      { label: 'Upcoming Events', href: '/#events' },
-      { label: 'Signature Card', href: '/#signature-card' }
+      { label: t('footer.columnHome'), href: '/' },
+      { label: t('footer.partners'), href: '/#partners' },
+      { label: t('footer.programs'), href: '/#programs' },
+      { label: t('footer.upcomingEvents'), href: '/#events' },
+      { label: t('footer.signatureCard'), href: '/#signature-card' }
     ],
     hajj: [
-      { label: 'Hajj With Rania', href: '/hajj' },
-      { label: 'Partners', href: '/hajj#partners' },
-      { label: 'Discover', href: '/hajj#packages' },
-      { label: 'Manage', href: '/hajj#manage' },
-      { label: 'Signature Card', href: '/hajj#signature-card' }
+      { label: t('footer.hajjWithRania'), href: '/hajj' },
+      { label: t('footer.partners'), href: '/hajj#partners' },
+      { label: t('footer.discover'), href: '/hajj#packages' },
+      { label: t('footer.manage'), href: '/hajj#manage' },
+      { label: t('footer.signatureCard'), href: '/hajj#signature-card' }
     ],
     umrah: [
-      { label: 'Umrah With Rania', href: '/umrah' },
-      { label: 'Partners', href: '/umrah#partners' },
-      { label: 'Discover', href: '/umrah#packages' },
-      { label: 'Manage', href: '/umrah#manage' }
+      { label: t('footer.umrahWithRania'), href: '/umrah' },
+      { label: t('footer.partners'), href: '/umrah#partners' },
+      { label: t('footer.discover'), href: '/umrah#packages' },
+      { label: t('footer.manage'), href: '/umrah#manage' }
     ],
     company: [
-      { label: 'About Rania', href: '/about' },
-      { label: 'Contact Us', href: '/contact' }
+      { label: t('footer.aboutRania'), href: '/about' },
+      { label: t('footer.contactUs'), href: '/contact' }
     ],
     support: [
-      { label: 'FAQ', href: '#faq' },
-      { label: 'Visa', href: '#visa' },
-      { label: 'Passpor', href: '#passport' },
-      { label: 'Feedback', href: '#feedback' }
+      { label: t('footer.faq'), href: '#faq' },
+      { label: t('footer.visa'), href: '#visa' },
+      { label: t('footer.passport'), href: '#passport' },
+      { label: t('footer.feedback'), href: '#feedback' }
     ]
   };
 
@@ -124,7 +126,7 @@ const Footer = () => {
       if (response.success) {
         setSubmitStatus({
           type: 'success',
-          message: response.message || 'Thank you for subscribing! Please check your email to verify your subscription.',
+          message: response.message || t('footer.subscribeSuccess'),
         });
         logger.info(`${logPrefix} ✅ Subscription successful`);
 
@@ -133,7 +135,7 @@ const Footer = () => {
       } else {
         setSubmitStatus({
           type: 'error',
-          message: response.message || 'Something went wrong. Please try again.',
+          message: response.message || t('footer.subscribeError'),
         });
         logger.error(`${logPrefix} ❌ Subscription failed:`, response.message);
       }
@@ -144,7 +146,7 @@ const Footer = () => {
       if (error.message.includes('already subscribed')) {
         setSubmitStatus({
           type: 'error',
-          message: 'This email is already subscribed to our newsletter.',
+          message: t('footer.alreadySubscribed'),
         });
       } else if (error.message.includes('validation') || error.message.includes('invalid')) {
         setSubmitStatus({
@@ -154,12 +156,12 @@ const Footer = () => {
       } else if (error.message.includes('connect') || error.message.includes('network')) {
         setSubmitStatus({
           type: 'error',
-          message: 'Network error. Please check your connection and try again.',
+          message: t('footer.networkError'),
         });
       } else {
         setSubmitStatus({
           type: 'error',
-          message: 'Failed to subscribe. Please try again later.',
+          message: t('footer.subscribeFailed'),
         });
       }
     } finally {
@@ -174,13 +176,13 @@ const Footer = () => {
       <div className="newsletter-section">
         <div className="newsletter-container">
           <div className="newsletter-content">
-            <h2 className="newsletter-title">Subscribe to our weekly email newsletter!</h2>
+            <h2 className="newsletter-title">{t('footer.newsletterTitle')}</h2>
           </div>
           <form className="newsletter-form" onSubmit={handleNewsletterSubmit}>
             <div className="newsletter-input-wrapper">
               <input
                 type="email"
-                placeholder="Enter your email"
+                placeholder={t('footer.emailPlaceholder')}
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 className="newsletter-input"
@@ -194,7 +196,7 @@ const Footer = () => {
               size="small"
               disabled={isSubmitting}
             >
-              {isSubmitting ? 'Subscribing...' : 'Subscribe'}
+              {isSubmitting ? t('footer.subscribing') : t('footer.subscribe')}
             </Button>
           </form>
           {submitStatus.message && (
@@ -245,42 +247,42 @@ const Footer = () => {
                   </a>
                 ))
               ) : (
-                <p className="footer-social-empty">No social links available</p>
+                <p className="footer-social-empty">{t('footer.noSocialLinks')}</p>
               )}
             </div>
           </div>
 
           <div className="footer-links">
             <div className="footer-column">
-              <h3 className="footer-column-title">Home</h3>
+              <h3 className="footer-column-title">{t('footer.columnHome')}</h3>
               {footerLinks.home.map((link, index) => (
                 <a key={index} href={link.href}>{link.label}</a>
               ))}
             </div>
 
             <div className="footer-column">
-              <h3 className="footer-column-title">Hajj</h3>
+              <h3 className="footer-column-title">{t('footer.columnHajj')}</h3>
               {footerLinks.hajj.map((link, index) => (
                 <a key={index} href={link.href}>{link.label}</a>
               ))}
             </div>
 
             <div className="footer-column">
-              <h3 className="footer-column-title">Umrah</h3>
+              <h3 className="footer-column-title">{t('footer.columnUmrah')}</h3>
               {footerLinks.umrah.map((link, index) => (
                 <a key={index} href={link.href}>{link.label}</a>
               ))}
             </div>
 
             <div className="footer-column">
-              <h3 className="footer-column-title">Company</h3>
+              <h3 className="footer-column-title">{t('footer.columnCompany')}</h3>
               {footerLinks.company.map((link, index) => (
                 <a key={index} href={link.href}>{link.label}</a>
               ))}
             </div>
 
             <div className="footer-column">
-              <h3 className="footer-column-title">Support</h3>
+              <h3 className="footer-column-title">{t('footer.columnSupport')}</h3>
               {footerLinks.support.map((link, index) => (
                 <a key={index} href={link.href}>{link.label}</a>
               ))}
@@ -291,9 +293,9 @@ const Footer = () => {
         <div className="footer-divider"></div>
 
         <div className="footer-bottom">
-          <p className="footer-copyright">Copyright © 2025 PT Rania Almutamayizah Travel</p>
+          <p className="footer-copyright">{t('footer.copyright')}</p>
           <div className="footer-legal">
-            <span>All Rights Reserved</span>
+            <span>{t('footer.allRightsReserved')}</span>
             {/* <a href="#terms">Terms and Conditions</a>
             <span> | </span>
             <a href="#privacy">Privacy Policy</a> */}

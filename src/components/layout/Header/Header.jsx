@@ -1,25 +1,52 @@
 import { useState, useEffect, useRef } from 'react';
 import { Link, useLocation } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import PropTypes from 'prop-types';
 import './Header.css';
 import raniaLogo from '../../../assets/icons/rania-logo.webp';
 
+const languages = [
+  { code: 'en', label: 'English', flag: '🇬🇧' },
+  { code: 'id', label: 'Bahasa Indonesia', flag: '🇮🇩' },
+];
+
 const Header = ({ activeLink = 'Home' }) => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isVisible, setIsVisible] = useState(true);
+  const [isLangOpen, setIsLangOpen] = useState(false);
   const lastScrollY = useRef(0);
+  const langRef = useRef(null);
   const location = useLocation();
+  const { t, i18n } = useTranslation();
+
+  const currentLang = languages.find((l) => l.code === i18n.language) || languages[0];
+
+  const selectLanguage = (code) => {
+    i18n.changeLanguage(code);
+    setIsLangOpen(false);
+  };
+
+  // Close dropdown when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (e) => {
+      if (langRef.current && !langRef.current.contains(e.target)) {
+        setIsLangOpen(false);
+      }
+    };
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
 
   const navLinks = [
-    { id: 'home', label: 'Home', href: '/', isRoute: true },
-    { id: 'about', label: 'About Rania', href: '/about', isRoute: true },
-    { id: 'hajj', label: 'Hajj With Rania', href: '/hajj', isRoute: true },
-    { id: 'umrah', label: 'Umrah With Rania', href: '/umrah', isRoute: true},
-    { id: 'world', label: 'Rania To The World', href: '#world', isRoute: false, comingSoon: true },
-    { id: 'webinar', label: 'Webinar With Rania', href: '#webinar', isRoute: false, comingSoon: true },
-    { id: 'partnership', label: 'Partnership', href: '/partnership', isRoute: false},
-    { id: 'contact', label: 'Contact Us', href: '/contact', isRoute: true },
-    { id: 'support', label: 'Support & Help', href: '/support', isRoute: true }
+    { id: 'home', label: t('nav.home'), href: '/', isRoute: true },
+    { id: 'about', label: t('nav.aboutRania'), href: '/about', isRoute: true },
+    { id: 'hajj', label: t('nav.hajjWithRania'), href: '/hajj', isRoute: true },
+    { id: 'umrah', label: t('nav.umrahWithRania'), href: '/umrah', isRoute: true},
+    { id: 'world', label: t('nav.raniaToTheWorld'), href: '#world', isRoute: false, comingSoon: true },
+    { id: 'webinar', label: t('nav.webinarWithRania'), href: '#webinar', isRoute: false, comingSoon: true },
+    { id: 'partnership', label: t('nav.partnership'), href: '/partnership', isRoute: false},
+    { id: 'contact', label: t('nav.contactUs'), href: '/contact', isRoute: true },
+    { id: 'support', label: t('nav.supportHelp'), href: '/support', isRoute: true }
   ];
 
   const toggleMobileMenu = () => {
@@ -91,10 +118,36 @@ const Header = ({ activeLink = 'Home' }) => {
                 data-tooltip={link.comingSoon ? 'Coming Soon' : undefined}
               >
                 {link.label}
-                {link.comingSoon && <span className="coming-soon-badge">Coming Soon</span>}
+                {link.comingSoon && <span className="coming-soon-badge">{t('nav.comingSoon')}</span>}
               </a>
             );
           })}
+          <div className="lang-dropdown" ref={langRef}>
+            <button
+              className="lang-toggle"
+              onClick={() => setIsLangOpen(!isLangOpen)}
+              aria-label="Select language"
+            >
+              <span className="lang-flag">{currentLang.flag}</span>
+              <svg className={`lang-arrow ${isLangOpen ? 'open' : ''}`} width="10" height="6" viewBox="0 0 10 6" fill="none">
+                <path d="M1 1L5 5L9 1" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+              </svg>
+            </button>
+            {isLangOpen && (
+              <div className="lang-menu">
+                {languages.map((lang) => (
+                  <button
+                    key={lang.code}
+                    className={`lang-option ${lang.code === i18n.language ? 'active' : ''}`}
+                    onClick={() => selectLanguage(lang.code)}
+                  >
+                    <span className="lang-flag">{lang.flag}</span>
+                    <span className="lang-option-label">{lang.label}</span>
+                  </button>
+                ))}
+              </div>
+            )}
+          </div>
         </nav>
       </div>
 
@@ -147,13 +200,29 @@ const Header = ({ activeLink = 'Home' }) => {
                       }}
                     >
                       {link.label}
-                      {link.comingSoon && <span className="coming-soon-badge">Coming Soon</span>}
+                      {link.comingSoon && <span className="coming-soon-badge">{t('nav.comingSoon')}</span>}
                     </a>
                   )}
                   {index < navLinks.length - 1 && <div className="mobile-nav-divider"></div>}
                 </div>
               );
             })}
+            <div className="mobile-nav-divider"></div>
+            <div className="mobile-lang-selector">
+              {languages.map((lang) => (
+                <button
+                  key={lang.code}
+                  className={`mobile-lang-option ${lang.code === i18n.language ? 'active' : ''}`}
+                  onClick={() => {
+                    selectLanguage(lang.code);
+                    handleLinkClick();
+                  }}
+                >
+                  <span className="lang-flag">{lang.flag}</span>
+                  <span>{lang.label}</span>
+                </button>
+              ))}
+            </div>
           </nav>
         </div>
       </div>

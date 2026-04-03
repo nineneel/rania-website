@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useParams } from 'react-router-dom';
 import Header from '../../components/layout/Header/Header';
 import SEO from '../../components/common/SEO';
@@ -46,6 +47,7 @@ const buildGallery = (pkg) => {
 };
 
 const UmrahDetail = () => {
+  const { t } = useTranslation();
   const { slug } = useParams();
 
   const [umrahPackage, setUmrahPackage] = useState(null);
@@ -160,19 +162,19 @@ const UmrahDetail = () => {
       <main className="umrah-detail-content">
         {isLoading ? (
           <section className="umrah-detail-state-card">
-            <h2>Loading package detail...</h2>
-            <p>Please wait while we prepare your Umrah package information.</p>
+            <h2>{t('umrahDetail.loading')}</h2>
+            <p>{t('umrahDetail.loadingDesc')}</p>
           </section>
         ) : error ? (
           <section className="umrah-detail-state-card umrah-detail-state-error">
-            <h2>Unable to load package</h2>
+            <h2>{t('umrahDetail.errorTitle')}</h2>
             <p>{error}</p>
             <Button
               variant="tertiary"
               size="small"
               onClick={() => openWhatsAppUmrah(whatsappMessages.umrahCTA())}
             >
-              Contact Rania
+              {t('umrahDetail.contactRania')}
             </Button>
           </section>
         ) : (
@@ -183,7 +185,7 @@ const UmrahDetail = () => {
                   {umrahPackage?.image_url ? (
                     <img src={umrahPackage.image_url} alt={umrahPackage.title || 'Umrah package hero'} />
                   ) : (
-                    <div className="umrah-detail-image-fallback">No image</div>
+                    <div className="umrah-detail-image-fallback">{t('umrahDetail.noImage')}</div>
                   )}
                 </figure>
                 <div className="umrah-detail-hero-gradient" aria-hidden="true"></div>
@@ -195,14 +197,14 @@ const UmrahDetail = () => {
                   </header>
                   <dl className="umrah-detail-hero-details">
                     <div className="umrah-detail-hero-detail">
-                      <dt>Starting From</dt>
+                      <dt>{t('umrahDetail.startingFrom')}</dt>
                       <dd className="umrah-detail-hero-price">
                         <span className="umrah-detail-hero-price-currency">{umrahPackage?.currency || 'Rp'}.</span>
                         <span className="umrah-detail-hero-price-value">{heroPrice}</span>
                       </dd>
                     </div>
                     <div className="umrah-detail-hero-detail">
-                      <dt className="umrah-detail-sr-only">Capacity</dt>
+                      <dt className="umrah-detail-sr-only">{t('umrahDetail.capacity')}</dt>
                       <dd className="umrah-detail-hero-capacity">{heroCapacity}</dd>
                     </div>
                   </dl>
@@ -219,35 +221,35 @@ const UmrahDetail = () => {
                     </div>
                   ))
                 ) : (
-                  <div className="umrah-detail-gallery-empty">Gallery is unavailable.</div>
+                  <div className="umrah-detail-gallery-empty">{t('umrahDetail.galleryUnavailable')}</div>
                 )}
               </div>
             </section>
 
             <section className="umrah-detail-overview-section">
-              <h2 className="umrah-detail-section-title">Package Overview</h2>
+              <h2 className="umrah-detail-section-title">{t('umrahDetail.packageOverview')}</h2>
               <p className="umrah-detail-overview-text">{umrahPackage?.description}</p>
               <div className="umrah-detail-overview-info">
                 <div className="umrah-detail-overview-item">
                   <span className="umrah-detail-overview-icon"><img src={locationIcon} alt="Departure" /></span>
-                  <span className="umrah-detail-overview-label">Departure</span>
+                  <span className="umrah-detail-overview-label">{t('umrahDetail.departure')}</span>
                   <span>{umrahPackage?.departure || '-'}</span>
                 </div>
                 <div className="umrah-detail-overview-item">
                   <span className="umrah-detail-overview-icon"><img src={calendarIcon} alt="Duration" /></span>
-                  <span className="umrah-detail-overview-label">Number of Nights</span>
+                  <span className="umrah-detail-overview-label">{t('umrahDetail.numberOfNights')}</span>
                   <span>{umrahPackage?.duration || '-'}</span>
                 </div>
                 <div className="umrah-detail-overview-item">
                   <span className="umrah-detail-overview-icon"><img src={calendar2Icon} alt="Schedule" /></span>
-                  <span className="umrah-detail-overview-label">Pax</span>
+                  <span className="umrah-detail-overview-label">{t('umrahDetail.pax')}</span>
                   <span>{umrahPackage?.departure_schedule || '-'}</span>
                 </div>
               </div>
             </section>
 
             <section className="umrah-detail-block-section">
-              <h3 className="umrah-detail-block-title">Accomodation</h3>
+              <h3 className="umrah-detail-block-title">{t('umrahDetail.accommodation')}</h3>
               <Carousel
                 slidesPerView={1}
                 spaceBetween={20}
@@ -265,7 +267,7 @@ const UmrahDetail = () => {
                       {hotel.image_url ? (
                         <img src={hotel.image_url} alt={hotel.name} className="umrah-detail-hotel-card-image" loading="lazy" />
                       ) : (
-                        <div className="umrah-detail-image-fallback">No image</div>
+                        <div className="umrah-detail-image-fallback">{t('umrahDetail.noImage')}</div>
                       )}
                     </div>
                     <div className="umrah-detail-hotel-card-body">
@@ -276,7 +278,7 @@ const UmrahDetail = () => {
                         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                           <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" stroke="#242d44" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
                         </svg>
-                        <span>{hotel.stars} Nights</span>
+                        <span>{hotel.stars} {t('umrahDetail.nights')}</span>
                       </div>
                     </div>
                   </article>
@@ -285,7 +287,7 @@ const UmrahDetail = () => {
             </section>
 
             <section className="umrah-detail-block-section">
-              <h3 className="umrah-detail-block-title">Transportation</h3>
+              <h3 className="umrah-detail-block-title">{t('umrahDetail.transportation')}</h3>
               <div className="umrah-detail-grid-cards two-col transportation-grid">
                 {transportations.map((transportation) => (
                   <article key={transportation.id} className="umrah-detail-transport-card">
@@ -313,7 +315,7 @@ const UmrahDetail = () => {
             </section>
 
             <section className="umrah-detail-block-section">
-              <h3 className="umrah-detail-block-title">Itinerary</h3>
+              <h3 className="umrah-detail-block-title">{t('umrahDetail.itinerary')}</h3>
               <Carousel
                 slidesPerView={1}
                 spaceBetween={20}
@@ -331,13 +333,13 @@ const UmrahDetail = () => {
                       {itinerary.image_url ? (
                         <img src={itinerary.image_url} alt={itinerary.title} className="umrah-detail-itinerary-card-image" loading="lazy" />
                       ) : (
-                        <div className="umrah-detail-image-fallback">No image</div>
+                        <div className="umrah-detail-image-fallback">{t('umrahDetail.noImage')}</div>
                       )}
                     </div>
                     <div className="umrah-detail-itinerary-card-body">
                       <h4 className="umrah-detail-itinerary-card-name">{itinerary.title}</h4>
                       {itinerary.location && (
-                        <p className="umrah-detail-itinerary-card-subtitle">Itinerary in {itinerary.location}</p>
+                        <p className="umrah-detail-itinerary-card-subtitle">{t('umrahDetail.itineraryIn', { location: itinerary.location })}</p>
                       )}
                       <p className="umrah-detail-itinerary-card-desc">{itinerary.description}</p>
                       {itinerary.duration && (
@@ -346,7 +348,7 @@ const UmrahDetail = () => {
                             <circle cx="12" cy="12" r="9" stroke="#242d44" strokeWidth="2"/>
                             <path d="M12 7v5l3 3" stroke="#242d44" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
                           </svg>
-                          <span>Average activity duration: {itinerary.duration}</span>
+                          <span>{t('umrahDetail.avgDuration', { duration: itinerary.duration })}</span>
                         </div>
                       )}
                       {itinerary.location && (
@@ -359,7 +361,7 @@ const UmrahDetail = () => {
                           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z" fill="currentColor"/>
                           </svg>
-                          Location
+                          {t('umrahDetail.location')}
                         </a>
                       )}
                     </div>
@@ -373,22 +375,22 @@ const UmrahDetail = () => {
               <div className="umrah-detail-addon-banner-overlay" />
               <div className="umrah-detail-addon-banner-content">
                 <h3 className="umrah-detail-addon-banner-title">
-                  Bikin Umrahmu Lebih Spesial dengan &quot;Add-On&quot; Suka-Suka!
+                  {t('umrahDetail.addonBannerTitle')}
                 </h3>
                 <p className="umrah-detail-addon-banner-desc">
-                  {umrahPackage?.additional_services_description || <>Paket sudah oke, tapi masih ingin tambah fasilitas lain? Bisa banget! Di sini, Anda adalah penentunya. Semua layanan tambahan (additional services) di bawah ini bersifat <strong>100% Customizable</strong>. Anda bisa menambahkan layanan VIP Airport, upgrade transportasi ke GMC, hingga city tour tambahan ke dalam paket mana pun yang Anda pilih.</>}
+                  {umrahPackage?.additional_services_description || t('umrahDetail.addonBannerDesc')}
                 </p>
               </div>
             </div>
 
             <section className="umrah-detail-block-section">
               <div className="umrah-detail-block-header">
-                <h3 className="umrah-detail-block-title">Additional Services</h3>
+                <h3 className="umrah-detail-block-title">{t('umrahDetail.additionalServices')}</h3>
                 <button
                   className={`umrah-detail-see-more-btn${showOtherServices ? ' active' : ''}`}
                   onClick={handleSeeMore}
                 >
-                  {showOtherServices ? 'See Less' : 'See More'}
+                  {showOtherServices ? t('umrahDetail.seeLess') : t('umrahDetail.seeMore')}
                   <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M6 9l6 6 6-6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
                   </svg>
@@ -401,7 +403,7 @@ const UmrahDetail = () => {
                       {service.image_url ? (
                         <img src={service.image_url} alt={service.title} className="umrah-detail-service-card-image" loading="lazy" />
                       ) : (
-                        <div className="umrah-detail-image-fallback">No image</div>
+                        <div className="umrah-detail-image-fallback">{t('umrahDetail.noImage')}</div>
                       )}
                     </div>
                     <div className="umrah-detail-service-card-body">
@@ -424,7 +426,7 @@ const UmrahDetail = () => {
                           {service.image_url ? (
                             <img src={service.image_url} alt={service.title} className="umrah-detail-service-card-image" loading="lazy" />
                           ) : (
-                            <div className="umrah-detail-image-fallback">No image</div>
+                            <div className="umrah-detail-image-fallback">{t('umrahDetail.noImage')}</div>
                           )}
                         </div>
                         <div className="umrah-detail-service-card-body">
@@ -443,36 +445,36 @@ const UmrahDetail = () => {
                       onClick={() => fetchOtherServices(otherServicesPage + 1)}
                       disabled={isLoadingMore}
                     >
-                      {isLoadingMore ? 'Loading...' : 'Load More'}
+                      {isLoadingMore ? t('umrahDetail.loadingMore') : t('umrahDetail.loadMore')}
                     </button>
                   )}
                 </>
               )}
               {showOtherServices && isLoadingMore && otherServices.length === 0 && (
-                <p className="umrah-detail-services-loading">Loading additional services...</p>
+                <p className="umrah-detail-services-loading">{t('umrahDetail.loadingAdditional')}</p>
               )}
             </section>
 
             <section className="umrah-detail-services-section">
               <div className="umrah-detail-section-shell">
-                <h3>Package Services</h3>
+                <h3>{t('umrahDetail.packageServices')}</h3>
                 <div className="umrah-detail-services-legend">
                   <span className="umrah-detail-services-legend-item">
                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
                       <circle cx="12" cy="12" r="10" stroke="#4ade80" strokeWidth="2"/>
                       <path d="M7.5 12l3 3 6-6" stroke="#4ade80" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"/>
                     </svg>
-                    Included
+                    {t('umrahDetail.included')}
                   </span>
                   <span className="umrah-detail-services-legend-item">
                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
                       <circle cx="12" cy="12" r="12" fill="#f59e0b"/>
                       <text x="12" y="17" textAnchor="middle" fill="white" fontSize="13" fontWeight="bold" fontFamily="sans-serif">$</text>
                     </svg>
-                    Available at additional fees
+                    {t('umrahDetail.additionalFees')}
                   </span>
                 </div>
-                <h4 className="umrah-detail-services-category">Essential Services</h4>
+                <h4 className="umrah-detail-services-category">{t('umrahDetail.essentialServices')}</h4>
                 <ul>
                   {packageServices.map((service) => (
                     <li key={service.id}>
@@ -499,36 +501,36 @@ const UmrahDetail = () => {
 
             <section className="umrah-detail-cancellation-section">
               <div className="umrah-detail-section-shell">
-                <h3>Cancellation Policy</h3>
+                <h3>{t('umrahDetail.cancellationPolicy')}</h3>
 
                 <div className="umrah-detail-cancellation-table-wrap">
                   <table className="umrah-detail-cancellation-table">
                     <thead>
                       <tr>
-                        <th>Refund rate in case of cancellation</th>
-                        <th>Within the first (1) hours</th>
-                        <th>Before the last (0) Day/Days of the package</th>
-                        <th>Within the last (0) Day/Days of the package</th>
-                        <th>In the last 72 hours</th>
+                        <th>{t('umrahDetail.cancellationRefundRate')}</th>
+                        <th>{t('umrahDetail.cancellationFirstHours')}</th>
+                        <th>{t('umrahDetail.cancellationBeforeLast')}</th>
+                        <th>{t('umrahDetail.cancellationWithinLast')}</th>
+                        <th>{t('umrahDetail.cancellationLast72')}</th>
                       </tr>
                     </thead>
                     <tbody>
                       <tr>
-                        <td className="umrah-detail-cancellation-label">Package fees</td>
+                        <td className="umrah-detail-cancellation-label">{t('umrahDetail.cancellationPackageFees')}</td>
                         <td>0%</td>
                         <td>0%</td>
                         <td>0%</td>
                         <td>0%</td>
                       </tr>
                       <tr>
-                        <td className="umrah-detail-cancellation-label">Visa</td>
-                        <td colSpan={3} className="umrah-detail-cancellation-span">Within the first (72) hours</td>
+                        <td className="umrah-detail-cancellation-label">{t('umrahDetail.cancellationVisa')}</td>
+                        <td colSpan={3} className="umrah-detail-cancellation-span">{t('umrahDetail.cancellationVisaSpan')}</td>
                         <td>0%</td>
                       </tr>
                       <tr>
-                        <td className="umrah-detail-cancellation-label">Flight reservation value (customs flights)</td>
+                        <td className="umrah-detail-cancellation-label">{t('umrahDetail.cancellationFlight')}</td>
                         <td colSpan={4} className="umrah-detail-cancellation-span">
-                          <a href="#" className="umrah-detail-cancellation-link">Based on the cancellation policy of flight reservation</a>
+                          <a href="#" className="umrah-detail-cancellation-link">{t('umrahDetail.cancellationFlightLink')}</a>
                         </td>
                       </tr>
                     </tbody>
@@ -537,13 +539,13 @@ const UmrahDetail = () => {
 
                 <div className="umrah-detail-cancellation-note">
                   <ul>
-                    <li>0% of the package value will be refunded in case of cancellation within (1) hours from the time of booking.</li>
-                    <li>0% of the value of the package services will be refunded in case of cancellation after (1) hours, and before the last (0) Day/Days. An exception to this rule is the visa application processing fee, which is non-refundable after the 1-hour period.</li>
-                    <li>Policy Msg 7</li>
-                    <li>No refunds will be made in case of cancellation within the last (72) hours.</li>
-                    <li>The above rules apply to flight reservations organized by the service provider, and do not apply to custom flight reservations designated by the airline system for which specific cancellation policies apply to each reservation.</li>
-                    <li>3.45% processing fees &amp; its VAT will be deducted when the amounts are withdrawn from the wallet.</li>
-                    <li>Currency exchange rates may result in differences in the amounts deposited and withdrawn from digital wallets.</li>
+                    <li>{t('umrahDetail.cancellationNote1')}</li>
+                    <li>{t('umrahDetail.cancellationNote2')}</li>
+                    <li>{t('umrahDetail.cancellationNote3')}</li>
+                    <li>{t('umrahDetail.cancellationNote4')}</li>
+                    <li>{t('umrahDetail.cancellationNote5')}</li>
+                    <li>{t('umrahDetail.cancellationNote6')}</li>
+                    <li>{t('umrahDetail.cancellationNote7')}</li>
                   </ul>
                 </div>
               </div>
@@ -557,10 +559,10 @@ const UmrahDetail = () => {
           <div className="umrah-detail-sticky-inner">
             <div className="umrah-detail-sticky-info">
               <h2 className="umrah-detail-sticky-title">{umrahPackage.title}</h2>
-              <p className="umrah-detail-sticky-subtitle">Premium Service Agency for Umrah Services</p>
+              <p className="umrah-detail-sticky-subtitle">{t('umrahDetail.stickySubtitle')}</p>
             </div>
             <div className="umrah-detail-sticky-price">
-              <span className="umrah-detail-sticky-price-label">Starting From</span>
+              <span className="umrah-detail-sticky-price-label">{t('umrahDetail.startingFrom')}</span>
               <span className="umrah-detail-sticky-price-value">
                 {umrahPackage.currency || 'Rp'}. {heroPrice}
               </span>
@@ -569,7 +571,7 @@ const UmrahDetail = () => {
               className="umrah-detail-sticky-btn"
               onClick={() => openWhatsAppUmrah(whatsappMessages.umrahCTA())}
             >
-              Book Package
+              {t('umrahDetail.bookPackage')}
             </button>
           </div>
         </div>

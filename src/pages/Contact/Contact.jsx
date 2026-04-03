@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 import Header from '../../components/layout/Header';
 import SEO from '../../components/common/SEO';
 import { StructuredData } from '../../components/common/SEO';
@@ -13,6 +14,7 @@ import linkedinIcon from '../../assets/icons/LinkedIn.svg';
 import tiktokIcon from '../../assets/icons/tiktok.svg';
 
 const Contact = () => {
+  const { t } = useTranslation();
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -129,7 +131,7 @@ const Contact = () => {
         // Handle errors from API
         setSubmitStatus({
           type: 'error',
-          message: response.message || 'Something went wrong. Please try again.',
+          message: response.message || t('contact.submitError'),
         });
         logger.error(`${logPrefix} ❌ Submission failed:`, response.message);
       }
@@ -145,12 +147,12 @@ const Contact = () => {
       } else if (error.message.includes('connect') || error.message.includes('network')) {
         setSubmitStatus({
           type: 'error',
-          message: 'Network error. Please check your connection and try again.',
+          message: t('contact.networkError'),
         });
       } else {
         setSubmitStatus({
           type: 'error',
-          message: 'Failed to submit form. Please try again later.',
+          message: t('contact.submitFailed'),
         });
       }
     } finally {
@@ -181,9 +183,9 @@ const Contact = () => {
 
       {/* Title Section */}
       <section className="contact-title-section">
-        <h1 className="contact-main-title">Let's Start Your Sacred Journey</h1>
+        <h1 className="contact-main-title">{t('contact.heroTitle')}</h1>
         <p className="contact-main-subtitle">
-          Have questions? We're here to help you every step of the way
+          {t('contact.heroSubtitle')}
         </p>
       </section>
 
@@ -192,21 +194,21 @@ const Contact = () => {
         <div className="contact-main-container">
           {/* Contact Form */}
           <div className="contact-form-wrapper">
-            <h2 className="contact-form-title">Send Us a Message</h2>
+            <h2 className="contact-form-title">{t('contact.sendMessage')}</h2>
             <p className="contact-form-description">
-              Fill out the form below and we'll get back to you as soon as possible
+              {t('contact.formDesc')}
             </p>
 
             <form className="contact-form" onSubmit={handleSubmit}>
             <div className="contact-form-row">
               <div className="contact-form-group">
-                <label htmlFor="name" className="contact-form-label">Full Name</label>
+                <label htmlFor="name" className="contact-form-label">{t('contact.fullName')}</label>
                 <input
                   type="text"
                   id="name"
                   name="name"
                   className="contact-form-input"
-                  placeholder="Enter your full name"
+                  placeholder={t('contact.fullNamePlaceholder')}
                   value={formData.name}
                   onChange={handleChange}
                   required
@@ -214,13 +216,13 @@ const Contact = () => {
               </div>
 
               <div className="contact-form-group">
-                <label htmlFor="email" className="contact-form-label">Email Address</label>
+                <label htmlFor="email" className="contact-form-label">{t('contact.emailAddress')}</label>
                 <input
                   type="email"
                   id="email"
                   name="email"
                   className="contact-form-input"
-                  placeholder="Enter your email"
+                  placeholder={t('contact.emailPlaceholder')}
                   value={formData.email}
                   onChange={handleChange}
                   required
@@ -230,13 +232,13 @@ const Contact = () => {
 
             <div className="contact-form-row">
               <div className="contact-form-group">
-                <label htmlFor="phone" className="contact-form-label">Phone Number</label>
+                <label htmlFor="phone" className="contact-form-label">{t('contact.phoneNumber')}</label>
                 <input
                   type="tel"
                   id="phone"
                   name="phone"
                   className="contact-form-input"
-                  placeholder="Enter your phone number"
+                  placeholder={t('contact.phonePlaceholder')}
                   value={formData.phone}
                   onChange={handleChange}
                   required
@@ -244,13 +246,13 @@ const Contact = () => {
               </div>
 
               <div className="contact-form-group">
-                <label htmlFor="subject" className="contact-form-label">Subject</label>
+                <label htmlFor="subject" className="contact-form-label">{t('contact.subject')}</label>
                 <input
                   type="text"
                   id="subject"
                   name="subject"
                   className="contact-form-input"
-                  placeholder="What is this regarding?"
+                  placeholder={t('contact.subjectPlaceholder')}
                   value={formData.subject}
                   onChange={handleChange}
                   required
@@ -259,12 +261,12 @@ const Contact = () => {
             </div>
 
             <div className="contact-form-group">
-              <label htmlFor="message" className="contact-form-label">Message</label>
+              <label htmlFor="message" className="contact-form-label">{t('contact.message')}</label>
               <textarea
                 id="message"
                 name="message"
                 className="contact-form-textarea"
-                placeholder="Tell us more about your inquiry..."
+                placeholder={t('contact.messagePlaceholder')}
                 rows="6"
                 value={formData.message}
                 onChange={handleChange}
@@ -283,21 +285,21 @@ const Contact = () => {
                 className="contact-form-button"
                 disabled={isSubmitting}
               >
-                {isSubmitting ? 'Sending...' : 'Send Message'}
+                {isSubmitting ? t('contact.sending') : t('contact.sendBtn')}
               </button>
             </form>
           </div>
 
           {/* Why Contact Us */}
           <div className="contact-why-wrapper">
-            <h2 className="contact-why-title">Why Choose Rania?</h2>
+            <h2 className="contact-why-title">{t('contact.whyChoose')}</h2>
             <div className="contact-why-items">
               <div className="contact-why-item">
                 <div className="contact-why-number">01</div>
                 <div className="contact-why-content">
-                  <h3 className="contact-why-item-title">Expert Guidance</h3>
+                  <h3 className="contact-why-item-title">{t('contact.expertGuidance')}</h3>
                   <p className="contact-why-item-text">
-                    Our experienced team provides personalized support for your spiritual journey
+                    {t('contact.expertGuidanceDesc')}
                   </p>
                 </div>
               </div>
@@ -305,9 +307,9 @@ const Contact = () => {
               <div className="contact-why-item">
                 <div className="contact-why-number">02</div>
                 <div className="contact-why-content">
-                  <h3 className="contact-why-item-title">24/7 Support</h3>
+                  <h3 className="contact-why-item-title">{t('contact.support247')}</h3>
                   <p className="contact-why-item-text">
-                    We're always available to answer your questions and address your concerns
+                    {t('contact.support247Desc')}
                   </p>
                 </div>
               </div>
@@ -315,9 +317,9 @@ const Contact = () => {
               <div className="contact-why-item">
                 <div className="contact-why-number">03</div>
                 <div className="contact-why-content">
-                  <h3 className="contact-why-item-title">Trusted Partner</h3>
+                  <h3 className="contact-why-item-title">{t('contact.trustedPartner')}</h3>
                   <p className="contact-why-item-text">
-                    Certified and accredited travel provider with years of experience
+                    {t('contact.trustedPartnerDesc')}
                   </p>
                 </div>
               </div>
@@ -325,9 +327,9 @@ const Contact = () => {
               <div className="contact-why-item">
                 <div className="contact-why-number">04</div>
                 <div className="contact-why-content">
-                  <h3 className="contact-why-item-title">Premium Service</h3>
+                  <h3 className="contact-why-item-title">{t('contact.premiumService')}</h3>
                   <p className="contact-why-item-text">
-                    Exclusive packages designed for comfort, security, and serene worship
+                    {t('contact.premiumServiceDesc')}
                   </p>
                 </div>
               </div>
@@ -346,7 +348,7 @@ const Contact = () => {
                 <circle cx="12" cy="10" r="3"></circle>
               </svg>
             </div>
-            <h3 className="contact-info-title">Office Address</h3>
+            <h3 className="contact-info-title">{t('contact.officeAddress')}</h3>
             <p className="contact-info-text">
               Mall Kota Kasablanka, Prudential Centre,<br />
               Kav No.88 Floor 7N,<br />
@@ -360,7 +362,7 @@ const Contact = () => {
                 <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
               </svg>
             </div>
-            <h3 className="contact-info-title">Hotline</h3>
+            <h3 className="contact-info-title">{t('contact.hotline')}</h3>
             <p className="contact-info-text">
               <a href="tel:08118855489" className="contact-info-link">0811-8855-489</a>
             </p>
@@ -375,10 +377,9 @@ const Contact = () => {
                 <line x1="3" y1="10" x2="21" y2="10"></line>
               </svg>
             </div>
-            <h3 className="contact-info-title">Working Hours</h3>
-            <p className="contact-info-text">
-              Monday - Friday: 8.00 am – 7.00 pm<br />
-              Saturday & Sunday: 8.00 am – 6.00 pm
+            <h3 className="contact-info-title">{t('contact.workingHours')}</h3>
+            <p className="contact-info-text" style={{ whiteSpace: 'pre-line' }}>
+              {t('contact.workingHoursText')}
             </p>
           </div>
         </div>
@@ -386,7 +387,7 @@ const Contact = () => {
 
       {/* Social Media Section */}
       <section className="contact-social-section">
-        <h2 className="contact-social-title">Connect With Us</h2>
+        <h2 className="contact-social-title">{t('contact.connectWithUs')}</h2>
 
         {isLoadingSocial ? (
           <SocialMediaShimmer />
@@ -399,7 +400,7 @@ const Contact = () => {
               </svg>
             </div>
             <p className="contact-social-empty-text">
-              Social media links will be available soon. Stay tuned!
+              {t('contact.socialEmpty')}
             </p>
           </div>
         ) : (
@@ -440,12 +441,12 @@ const Contact = () => {
                 <polyline points="22 4 12 14.01 9 11.01"></polyline>
               </svg>
             </div>
-            <h3 className="contact-modal-title">Thank You!</h3>
+            <h3 className="contact-modal-title">{t('contact.thankYou')}</h3>
             <p className="contact-modal-message">
-              RANIA will contact you soon by your email or phone number. Please stay tuned!
+              {t('contact.thankYouMsg')}
             </p>
             <button className="contact-modal-button" onClick={closeModal}>
-              Got it
+              {t('contact.gotIt')}
             </button>
           </div>
         </div>

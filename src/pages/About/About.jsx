@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 import Button from '../../components/common/Button';
 import Header from '../../components/layout/Header';
 import Carousel from '../../components/common/Carousel/Carousel';
@@ -40,54 +41,55 @@ import coverageGallery4 from '../../assets/images/about/coverage/gallery/gallery
 import waveImage from '../../assets/utils/wave.webp';
 
 const About = () => {
+  const { t } = useTranslation();
   const [activeSection, setActiveSection] = useState('');
 
   // Values data (same as Home page)
   const values = [
-    { title: "Trust", subtitle: "With Integrity", icon: value1 },
-    { title: "Heartfelt", subtitle: "Care", icon: value2 },
-    { title: "Excellence", subtitle: "End-to-end Service", icon: value3 },
-    { title: "Spirituality", subtitle: "Best Service", icon: value4 },
-    { title: "Elevation", subtitle: "Journey", icon: value5 }
+    { title: t('home.values.trust'), subtitle: t('home.values.trustSub'), icon: value1 },
+    { title: t('home.values.heartfelt'), subtitle: t('home.values.heartfeltSub'), icon: value2 },
+    { title: t('home.values.excellence'), subtitle: t('home.values.excellenceSub'), icon: value3 },
+    { title: t('home.values.spirituality'), subtitle: t('home.values.spiritualitySub'), icon: value4 },
+    { title: t('home.values.elevation'), subtitle: t('home.values.elevationSub'), icon: value5 }
   ];
 
   // Milestone data
   const milestones = [
     {
       year: '2013',
-      title: 'PT Zamzam Travel Provider'
+      title: t('about.milestone2013')
     },
     {
       year: '2021',
-      title: 'Transformasi Menuju Travel Premium'
+      title: t('about.milestone2021')
     },
     {
       year: '2025',
-      title: 'PT Rania Almutamayizah Travel'
+      title: t('about.milestone2025')
     }
   ];
 
   // Certification data
   const certifications = [
     {
-      title: 'PPIU Certification',
-      subtitle: '(Official Umrah License)',
-      description: "'A' Accredited Umrah Pilgrimage Organizer",
-      detail: 'License Number: 02202041807930001',
+      title: t('about.ppiu'),
+      subtitle: t('about.ppiuSub'),
+      description: t('about.ppiuDesc'),
+      detail: t('about.ppiuDetail'),
       icon: '⭐'
     },
     {
-      title: 'IATA',
-      subtitle: 'Accreditation',
-      description: 'Accreditation No. 15334782',
+      title: t('about.iata'),
+      subtitle: t('about.iataSub'),
+      description: t('about.iataDesc'),
       detail: '',
       icon: '⭐'
     },
     {
-      title: 'PIHK Certification',
-      subtitle: '(Official Special Hajj License)',
-      description: "'A' Accredited Special Hajj Pilgrimage Organizer",
-      detail: 'License No. 02202041807930002',
+      title: t('about.pihk'),
+      subtitle: t('about.pihkSub'),
+      description: t('about.pihkDesc'),
+      detail: t('about.pihkDetail'),
       icon: '⭐'
     }
   ];
@@ -101,10 +103,10 @@ const About = () => {
 
   // Media coverage data
   const mediaCoverage = [
-    { logo: logoLiputan6, alt: 'Liputan6', description: 'Rania Travel hadirkan layanan haji dan umrah premium dengan standar internasional.' },
-    { logo: logoSuara, alt: 'Suara.com', description: 'Perjalanan ibadah eksklusif bersama Rania, kenyamanan dan kekhusyukan terjamin.', dark: true },
-    { logo: logoSindonews, alt: 'SindoNews', description: 'Rania Travel raih akreditasi A sebagai penyelenggara haji khusus terpercaya.' },
-    { logo: logoTimesIndonesia, alt: 'Times Indonesia', description: 'Layanan premium Rania Travel jadi pilihan utama jamaah haji dan umrah Indonesia.' }
+    { logo: logoLiputan6, alt: 'Liputan6', description: t('about.coverageMedia1') },
+    { logo: logoSuara, alt: 'Suara.com', description: t('about.coverageMedia2'), dark: true },
+    { logo: logoSindonews, alt: 'SindoNews', description: t('about.coverageMedia3') },
+    { logo: logoTimesIndonesia, alt: 'Times Indonesia', description: t('about.coverageMedia4') }
   ];
 
   const coverageGalleryImages = [
@@ -163,7 +165,7 @@ const About = () => {
         <div className="about-hero-overlay"></div>
         <div className="about-hero-content">
           <h1 className="about-hero-title">
-            Secure Journeys, Personal Service, Perfect Worship
+            {t('about.heroTitle')}
           </h1>
         </div>
       </section>
@@ -173,10 +175,10 @@ const About = () => {
 
       {/* Media Coverage Section */}
       <section className="about-coverage-section about-section">
-        <h2 className="about-coverage-title">Telah diliput oleh</h2>
+        <h2 className="about-coverage-title">{t('about.coverageTitle')}</h2>
         <div className="about-coverage-left">
           <p className="about-coverage-description">
-            Rania Travel telah dipercaya dan diliput oleh berbagai media nasional sebagai penyelenggara haji dan umrah premium terkemuka di Indonesia
+            {t('about.coverageDesc')}
           </p>
           <div className="about-coverage-cards">
             {mediaCoverage.map((media, index) => (
@@ -191,12 +193,11 @@ const About = () => {
         </div>
         <div className="about-coverage-right">
           <div className="about-coverage-badge about-coverage-badge--top">
-            <span className="about-coverage-badge-title">Diliput</span>
-            <span className="about-coverage-badge-subtitle">Berbagai Media</span>
+            <span className="about-coverage-badge-title">{t('about.coverageBadgeTitle')}</span>
+            <span className="about-coverage-badge-subtitle">{t('about.coverageBadgeSub')}</span>
           </div>
           <div className="about-coverage-badge about-coverage-badge--bottom">
-            <span className="about-coverage-badge-title">Hajj Without</span>
-            <span className="about-coverage-badge-title">Wait</span>
+            <span className="about-coverage-badge-title">{t('about.hajjWithoutWait')}</span>
           </div>
           {coverageGalleryImages.map((item, index) => (
             <img
@@ -234,9 +235,9 @@ const About = () => {
 
       {/* Milestone Section */}
       <section className="about-milestone-section about-section">
-        <h2 className="about-section-title">Milestone</h2>
+        <h2 className="about-section-title">{t('about.milestone')}</h2>
         <p className="about-milestone-description">
-          Rania offers an exclusive Hajj and Umrah experience focused on comfort, security, and serene worship. With premium facilities and personal care, we are the dedicated 'Your Sacred Journey Partner' to the Baitullah
+          {t('about.milestoneDesc')}
         </p>
         <div className="about-milestone-timeline">
           {milestones.map((milestone, index) => (
@@ -250,7 +251,7 @@ const About = () => {
 
       {/* Certification Section */}
       <section className="about-certification-section about-section">
-        <h2 className="about-section-title">Our Certification</h2>
+        <h2 className="about-section-title">{t('about.ourCertification')}</h2>
         <div className="about-certification-container">
           {certifications.map((cert, index) => (
             <div key={index} className="about-certification-card">
@@ -277,9 +278,9 @@ const About = () => {
 
       {/* Vision Section */}
       <section className="about-vision-section about-section">
-        <h2 className="about-vision-title">Our Vision</h2>
+        <h2 className="about-vision-title">{t('about.ourVision')}</h2>
         <p className="about-vision-text">
-          To become Indonesia's most trusted companion for exclusive Hajj and Umrah journeys, crafting pilgrimages defined by serenity, exceptional service, and a profound spiritual connection
+          {t('about.visionText')}
         </p>
         {/* Wave Divider */}
       </section>
@@ -292,7 +293,7 @@ const About = () => {
         {/* Know More Video Section */}
         <section className="about-video-section about-section">
           <div className="about-video-container">
-            <h2 className="about-video-title">Know More About Rania</h2>
+            <h2 className="about-video-title">{t('about.knowMore')}</h2>
             <div className="about-video-wrapper">
               <iframe
                 className="about-video-iframe"
@@ -309,7 +310,7 @@ const About = () => {
 
         {/* Meet Our Experts Section */}
         <section className="about-experts-section about-section">
-          <h2 className="about-section-title about-expert-title">Meet Our Experts</h2>
+          <h2 className="about-section-title about-expert-title">{t('about.meetExperts')}</h2>
           <div className="about-experts-desktop">
             {teamMembers.map((expert, index) => (
               <div key={index} className="about-expert-card">
@@ -352,7 +353,7 @@ const About = () => {
 
         {/* Life With Rania Gallery */}
         <section className="about-gallery-section about-section">
-          <h2 className="about-section-title about-gallery-title">Life With Rania</h2>
+          <h2 className="about-section-title about-gallery-title">{t('about.lifeWithRania')}</h2>
           <div className="about-gallery-desktop">
             {galleryImages.map((item, index) => (
               <div key={index} className="about-gallery-item">

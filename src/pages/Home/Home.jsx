@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
-
+import { useTranslation } from 'react-i18next';
 import './Home.css';
 import Button from '../../components/common/Button/Button';
 import Header from '../../components/layout/Header/Header';
@@ -42,6 +42,7 @@ import value4 from '../../assets/images/home/value/value-4.webp';
 import value5 from '../../assets/images/home/value/value-5.webp';
 
 const Home = () => {
+  const { t } = useTranslation();
   const [currentSlide, setCurrentSlide] = useState(0);
   const [bgColor, setBgColor] = useState('var(--primary-dark)');
   const [textColor, setTextColor] = useState('white');
@@ -71,53 +72,53 @@ const Home = () => {
   // Fallback hero slides (keep for development/error cases)
   const fallbackHeroSlides = [
     {
-      title: "Weekly Departure From Jakarta To Makkah",
-      subtitle: "The Sacred Umrah Journey Crafted For Your Heart",
+      title: t('home.fallbackHero.title1'),
+      subtitle: t('home.fallbackHero.subtitle1'),
       image_url: hero1
     },
     {
-      title: "Hajj Without Wait, Hajj With Rania",
-      subtitle: "We remove the worry. You receive the blessing",
+      title: t('home.fallbackHero.title2'),
+      subtitle: t('home.fallbackHero.subtitle2'),
       image_url: hero2
     },
     {
-      title: "Webinar With Rania",
-      subtitle: "Let us help you replace your worries with wisdom",
+      title: t('home.fallbackHero.title3'),
+      subtitle: t('home.fallbackHero.subtitle3'),
       image_url: hero3
     },
     {
-      title: "Rania To The World",
-      subtitle: "Discover the world through personalized journeys that reveal the authentic soul of each destination",
+      title: t('home.fallbackHero.title4'),
+      subtitle: t('home.fallbackHero.subtitle4'),
       image_url: hero4
     }
   ];
 
   const values = [
-    { title: "Trust", subtitle: "With Integrity", icon: value1 },
-    { title: "Heartfelt", subtitle: "Care", icon: value2 },
-    { title: "Excellence", subtitle: "End-to-end Service", icon: value3 },
-    { title: "Spirituality", subtitle: "Best Service", icon: value4 },
-    { title: "Elevation", subtitle: "Journey", icon: value5 }
+    { title: t('home.values.trust'), subtitle: t('home.values.trustSub'), icon: value1 },
+    { title: t('home.values.heartfelt'), subtitle: t('home.values.heartfeltSub'), icon: value2 },
+    { title: t('home.values.excellence'), subtitle: t('home.values.excellenceSub'), icon: value3 },
+    { title: t('home.values.spirituality'), subtitle: t('home.values.spiritualitySub'), icon: value4 },
+    { title: t('home.values.elevation'), subtitle: t('home.values.elevationSub'), icon: value5 }
   ];
 
   const services = [
     {
-      title: "Hajj With Rania",
-      description: "Journey with a serene soul, ready to receive the immense blessings of Hajj.",
+      title: t('home.hajjWithRania'),
+      description: t('home.hajjDesc'),
       image: journey1,
       available: true,
       link: "/hajj"
     },
     {
-      title: "Umrah With Rania",
-      description: "Take the first step toward the journey your heart has been yearning for.",
+      title: t('home.umrahWithRania'),
+      description: t('home.umrahDesc'),
       image: journey2,
       available: true,
       link: "/umrah"
     },
     {
-      title: "World With Rania",
-      description: "Discover the world through personalized journeys that reveal the authentic soul of each destination.",
+      title: t('home.worldWithRania'),
+      description: t('home.worldDesc'),
       image: journey3,
       available: false,
       link: null
@@ -340,8 +341,8 @@ const Home = () => {
                   <h1 className="hero-title">{slide.title}</h1>
                   <p className="hero-subtitle">{slide.subtitle}</p>
                   <div className="hero-buttons">
-                    <Button variant="primary" size="small" onClick={scrollToServices}>See Details</Button>
-                    <Button variant="tertiary" size="small" to='/contact'>Contact Rania</Button>
+                    <Button variant="primary" size="small" onClick={scrollToServices}>{t('home.seeDetails')}</Button>
+                    <Button variant="tertiary" size="small" to='/contact'>{t('home.contactRania')}</Button>
                   </div>
                 </div>
               </div>
@@ -380,7 +381,7 @@ const Home = () => {
 
       {/* Services Section */}
       <section id="programs" ref={servicesRef} className="services-section">
-        <h2 className="service-section-title" style={{ color: textColor, transition: 'color 0.5s ease' }}>Redefine Your Journey</h2>
+        <h2 className="service-section-title" style={{ color: textColor, transition: 'color 0.5s ease' }}>{t('home.redefineJourney')}</h2>
         <Carousel className="services-carousel">
           {services.map((service, index) => (
             <div key={index} className="service-card">
@@ -395,7 +396,7 @@ const Home = () => {
                     disabled={!service.available}
                     to={service.available ? service.link : undefined}
                   >
-                    {service.available ? 'See Details' : 'Coming Soon'}
+                    {service.available ? t('home.seeDetails') : t('nav.comingSoon')}
                   </Button>
                 </div>
               </div>
@@ -411,7 +412,7 @@ const Home = () => {
 
       {/* Upcoming Events */}
       <section id="events" ref={eventsRef} className="events-section">
-        <h2 className="section-title" style={{ color: textColor, transition: 'color 0.5s ease' }}>Upcoming Events</h2>
+        <h2 className="section-title" style={{ color: textColor, transition: 'color 0.5s ease' }}>{t('home.upcomingEvents')}</h2>
         {isLoadingEvents ? (
           <EventShimmer />
         ) : (
@@ -429,7 +430,7 @@ const Home = () => {
                       disabled={!event.is_available}
                       to={event.is_available ? event.link : undefined}
                     >
-                      {event.is_available ? 'I\'m Interest' : 'Coming Soon'}
+                      {event.is_available ? t('home.imInterested') : t('nav.comingSoon')}
                     </Button>
                   </div>
                 </div>

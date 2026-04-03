@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 import './HajjUpgrade.css';
 import '../Hajj/Hajj.css';
 import Header from '../../components/layout/Header/Header';
@@ -164,6 +165,7 @@ const whySwitchData = [
 ];
 
 const HajjUpgrade = () => {
+  const { t } = useTranslation();
   const [stickyVisible, setStickyVisible] = useState(true);
 
   useEffect(() => {
@@ -193,18 +195,17 @@ const HajjUpgrade = () => {
         <div className="hajj-upgrade-hero-overlay"></div>
         <div className="hajj-upgrade-hero-content">
           <h1 className="hajj-upgrade-hero-title">
-            Wujudkan Panggilan Baitullah Lebih<br />Awal, dengan Haji Plus by Rania
+            {t('hajjUpgrade.heroTitle')}
           </h1>
           <p className="hajj-upgrade-hero-subtitle">
-            Temukan alasan mengapa beralih ke Haji Khusus (Haji Plus) by RANIA adalah
-            keputusan terbaik untuk ketenangan ibadah
+            {t('hajjUpgrade.heroSubtitle')}
           </p>
           <Button
             variant="tertiary-filled"
             size="small"
             onClick={() => openWhatsAppHajj(whatsappMessages.hajjUpgrade())}
           >
-            Konsultasi
+            {t('hajjUpgrade.konsultasi')}
           </Button>
         </div>
       </section>
@@ -212,7 +213,7 @@ const HajjUpgrade = () => {
       {/* Why Switch Section */}
       <section className="hajj-upgrade-why-section">
         <h2 className="hajj-upgrade-why-title">
-          Mengapa Harus Beralih ke Haji Plus by Rania?
+          {t('hajjUpgrade.whyTitle')}
         </h2>
         <div className="hajj-upgrade-why-list">
           {whySwitchData.map((item, index) => {
@@ -246,7 +247,7 @@ const HajjUpgrade = () => {
       <div className="hajj-upgrade-gradient-wave">
         <section className="hajj-upgrade-signature-section">
           <h2 className="hajj-upgrade-signature-title">
-            Sentuhan Eksklusif dengan RANIA Signature Collection
+            {t('hajjUpgrade.signatureTitle')}
           </h2>
           <div className="hajj-upgrade-signature-images">
             <div className="hajj-upgrade-signature-img hajj-upgrade-signature-img--up">
@@ -278,7 +279,7 @@ const HajjUpgrade = () => {
       {/* Hajj Packages Section */}
       <section id="packages" className="hajj-packages-section">
         <div className="hajj-packages-header">
-          <h2 className="hajj-section-title">Temukan Paket Haji<br />Khusus Anda</h2>
+          <h2 className="hajj-section-title">{t('hajjUpgrade.findPackage')}</h2>
           <div className="hajj-certification-badge">
             <div className="hajj-cert-title-wrap">
               <div className="hajj-cert-icon">
@@ -327,7 +328,7 @@ const HajjUpgrade = () => {
                 className="hajj-package-button"
                 onClick={() => openWhatsAppHajj(whatsappMessages.hajjInterest(pkg.name))}
               >
-                I am Interest
+                {t('hajj.iAmInterested')}
               </Button>
 
               <div className="hajj-package-divider"></div>
@@ -354,14 +355,14 @@ const HajjUpgrade = () => {
       <div className={`hajj-upgrade-sticky-bar${stickyVisible ? ' visible' : ''}`}>
         <div className="hajj-upgrade-sticky-inner">
           <div className="hajj-upgrade-sticky-info">
-            <h2 className="hajj-upgrade-sticky-title">Ada Pertanyaan?</h2>
-            <p className="hajj-upgrade-sticky-subtitle">Jangan ragu hubungi tim Rania</p>
+            <h2 className="hajj-upgrade-sticky-title">{t('hajjUpgrade.stickyTitle')}</h2>
+            <p className="hajj-upgrade-sticky-subtitle">{t('hajjUpgrade.stickySubtitle')}</p>
           </div>
           <button
             className="hajj-upgrade-sticky-btn"
             onClick={() => openWhatsAppHajj(whatsappMessages.hajjUpgrade())}
           >
-            Upgrade Rencana Haji Sekarang!
+            {t('hajjUpgrade.stickyBtn')}
           </button>
         </div>
       </div>
