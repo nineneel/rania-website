@@ -1,6 +1,6 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { HelmetProvider } from 'react-helmet-async';
-import Footer from './components/layout/Footer';
+import MainLayout from './components/layout/MainLayout';
 import Home from './pages/Home';
 import About from './pages/About';
 import Partnership from './pages/Partnership';
@@ -10,6 +10,7 @@ import Umrah from './pages/Umrah';
 import UmrahDetail from './pages/UmrahDetail';
 import Contact from './pages/Contact';
 import Support from './pages/Support';
+import Linktree from './pages/Linktree';
 import './styles/App.css';
 
 const App = () => {
@@ -17,17 +18,22 @@ const App = () => {
     <HelmetProvider>
       <Router>
         <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/about" element={<About />} />
-          <Route path="/partnership" element={<Partnership />} />
-          <Route path="/hajj" element={<Hajj />} />
-          <Route path="/hajj/upgrade" element={<HajjUpgrade />} />
-          <Route path="/umrah" element={<Umrah />} />
-          <Route path="/umrah/:slug" element={<UmrahDetail />} />
-          <Route path="/contact" element={<Contact />} />
-          <Route path="/support" element={<Support />} />
+          {/* Pages with Footer */}
+          <Route element={<MainLayout />}>
+            <Route path="/" element={<Home />} />
+            <Route path="/about" element={<About />} />
+            <Route path="/partnership" element={<Partnership />} />
+            <Route path="/hajj" element={<Hajj />} />
+            <Route path="/hajj/upgrade" element={<HajjUpgrade />} />
+            <Route path="/umrah" element={<Umrah />} />
+            <Route path="/umrah/:slug" element={<UmrahDetail />} />
+            <Route path="/contact" element={<Contact />} />
+            <Route path="/support" element={<Support />} />
+          </Route>
+
+          {/* Standalone pages (no Header/Footer) */}
+          <Route path="/links" element={<Linktree />} />
         </Routes>
-        <Footer />
       </Router>
     </HelmetProvider>
   );
