@@ -34,6 +34,9 @@ import upcomingEvent3 from '../../assets/images/home/upcoming-event/upcoming-eve
 // Import signature card image
 import signatureCard from '../../assets/images/home/signature-card.webp';
 
+// Import discover background
+import discoverBg from '../../assets/images/umrah/discover-private-umrah.webp';
+
 // Import value images
 import value1 from '../../assets/images/home/value/value-1.webp';
 import value2 from '../../assets/images/home/value/value-2.webp';
@@ -95,10 +98,10 @@ const Home = () => {
 
   const values = [
     { title: t('home.values.trust'), subtitle: t('home.values.trustSub'), icon: value1 },
-    { title: t('home.values.heartfelt'), subtitle: t('home.values.heartfeltSub'), icon: value2 },
-    { title: t('home.values.excellence'), subtitle: t('home.values.excellenceSub'), icon: value3 },
     { title: t('home.values.spirituality'), subtitle: t('home.values.spiritualitySub'), icon: value4 },
-    { title: t('home.values.elevation'), subtitle: t('home.values.elevationSub'), icon: value5 }
+    { title: t('home.values.excellence'), subtitle: t('home.values.excellenceSub'), icon: value3 },
+    { title: t('home.values.elevation'), subtitle: t('home.values.elevationSub'), icon: value5 },
+    { title: t('home.values.heartfelt'), subtitle: t('home.values.heartfeltSub'), icon: value2 }
   ];
 
   const services = [
@@ -362,23 +365,6 @@ const Home = () => {
         )}
       </section>
 
-      {/* Values Section */}
-      <section className="values-section">
-        <div className="values-container">
-          {values.map((value, index) => (
-            <div key={index} className="value-card">
-              <div className="value-icon-wrapper">
-                <img src={value.icon} alt={value.title} className="value-icon" />
-              </div>
-              <div className="value-text">
-                <h3 className="value-title">{value.title}</h3>
-                <p className="value-subtitle">{value.subtitle}</p>
-              </div>
-            </div>
-          ))}
-        </div>
-      </section>
-
       {/* Services Section */}
       <section id="programs" ref={servicesRef} className="services-section">
         <h2 className="service-section-title" style={{ color: textColor, transition: 'color 0.5s ease' }}>{t('home.redefineJourney')}</h2>
@@ -438,6 +424,26 @@ const Home = () => {
             ))}
           </Carousel>
         )}
+      </section>
+
+      {/* Values Section */}
+      <section className="home-values-section">
+        <img src={discoverBg} alt="Our Values" className="values-bg" loading="lazy" />
+        <div className="values-overlay-top"></div>
+        <div className="values-overlay-bottom"></div>
+        <div className="values-content">
+          <h2 className="values-title">{t('home.valuesTitle')}</h2>
+          <div className="values-grid">
+            {values.map((value, index) => (
+              <div key={index} className="value-card">
+                <div className="value-icon-wrapper">
+                  <img src={value.icon} alt={value.title} className="value-icon" loading="lazy" />
+                </div>
+                <p className="value-card-title">{value.title}</p>
+              </div>
+            ))}
+          </div>
+        </div>
       </section>
 
       {/* Signature Card Section */}

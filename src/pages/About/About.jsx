@@ -212,7 +212,7 @@ const About = () => {
       </section>
 
       {/* Values Section */}
-      <section className="values-section about-section">
+      <section className="about-values-section">
         <div className="about-values-container">
           {values.map((value, index) => (
             <div key={index} className="about-value-card">
