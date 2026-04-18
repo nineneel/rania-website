@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 import Button from '../../components/common/Button';
 import Header from '../../components/layout/Header';
 import Carousel from '../../components/common/Carousel/Carousel';
@@ -26,58 +27,69 @@ import value3 from '../../assets/images/home/value/value-3.webp';
 import value4 from '../../assets/images/home/value/value-4.webp';
 import value5 from '../../assets/images/home/value/value-5.webp';
 
+// Import coverage/media images
+import logoLiputan6 from '../../assets/images/about/coverage/logos/liputan6.webp';
+import logoSuara from '../../assets/images/about/coverage/logos/suara.webp';
+import logoSindonews from '../../assets/images/about/coverage/logos/sindonews.webp';
+import logoTimesIndonesia from '../../assets/images/about/coverage/logos/times-indonesia.webp';
+import coverageGallery1 from '../../assets/images/about/coverage/gallery/gallery-1.webp';
+import coverageGallery2 from '../../assets/images/about/coverage/gallery/gallery-2.webp';
+import coverageGallery3 from '../../assets/images/about/coverage/gallery/gallery-3.webp';
+import coverageGallery4 from '../../assets/images/about/coverage/gallery/gallery-4.webp';
+
 // Import wave divider
 import waveImage from '../../assets/utils/wave.webp';
 
 const About = () => {
+  const { t } = useTranslation();
   const [activeSection, setActiveSection] = useState('');
 
   // Values data (same as Home page)
   const values = [
-    { title: "Trust", subtitle: "With Integrity", icon: value1 },
-    { title: "Heartfelt", subtitle: "Care", icon: value2 },
-    { title: "Excellence", subtitle: "End-to-end Service", icon: value3 },
-    { title: "Spirituality", subtitle: "Best Service", icon: value4 },
-    { title: "Elevation", subtitle: "Journey", icon: value5 }
+    { title: t('home.values.trust'), subtitle: t('home.values.trustSub'), icon: value1 },
+    { title: t('home.values.heartfelt'), subtitle: t('home.values.heartfeltSub'), icon: value2 },
+    { title: t('home.values.excellence'), subtitle: t('home.values.excellenceSub'), icon: value3 },
+    { title: t('home.values.spirituality'), subtitle: t('home.values.spiritualitySub'), icon: value4 },
+    { title: t('home.values.elevation'), subtitle: t('home.values.elevationSub'), icon: value5 }
   ];
 
   // Milestone data
   const milestones = [
     {
       year: '2013',
-      title: 'PT Zamzam Travel Provider'
+      title: t('about.milestone2013')
     },
     {
       year: '2021',
-      title: 'Transformasi Menuju Travel Premium'
+      title: t('about.milestone2021')
     },
     {
       year: '2025',
-      title: 'PT Rania Almutamayizah Travel'
+      title: t('about.milestone2025')
     }
   ];
 
   // Certification data
   const certifications = [
     {
-      title: 'PPIU Certification',
-      subtitle: '(Official Umrah License)',
-      description: "'A' Accredited Umrah Pilgrimage Organizer",
-      detail: 'License Number: 02202041807930001',
+      title: t('about.ppiu'),
+      subtitle: t('about.ppiuSub'),
+      description: t('about.ppiuDesc'),
+      detail: t('about.ppiuDetail'),
       icon: '⭐'
     },
     {
-      title: 'IATA',
-      subtitle: 'Accreditation',
-      description: 'Accreditation No. 15334782',
+      title: t('about.iata'),
+      subtitle: t('about.iataSub'),
+      description: t('about.iataDesc'),
       detail: '',
       icon: '⭐'
     },
     {
-      title: 'PIHK Certification',
-      subtitle: '(Official Special Hajj License)',
-      description: "'A' Accredited Special Hajj Pilgrimage Organizer",
-      detail: 'License No. 02202041807930002',
+      title: t('about.pihk'),
+      subtitle: t('about.pihkSub'),
+      description: t('about.pihkDesc'),
+      detail: t('about.pihkDetail'),
       icon: '⭐'
     }
   ];
@@ -87,6 +99,21 @@ const About = () => {
     { name: 'Fadhal Faisal Sa’di', role: 'VP Chief Financial Officer', image: expert1 },
     { name: 'Antar Helmi Alkathiri', role: 'Chief Executive Officer', image: expert2 },
     { name: 'Syed Mohd Naquib Alattas', role: 'Chief Commercial Officer', image: expert3 }
+  ];
+
+  // Media coverage data
+  const mediaCoverage = [
+    { logo: logoLiputan6, alt: 'Liputan6', description: t('about.coverageMedia1'), link: 'https://www.liputan6.com/islami/read/6116187/calon-jemaah-bisa-berangkat-haji-lebih-cepat-tanpa-tunggu-antrean-lama' },
+    { logo: logoSuara, alt: 'Suara.com', description: t('about.coverageMedia2'), dark: true, link: 'https://www.suara.com/lifestyle/2025/12/15/164041/jamaah-bukan-sekadar-peserta-mengapa-pendekatan-humanis-dibutuhkan-saat-umrah-dan-haji' },
+    { logo: logoSindonews, alt: 'SindoNews', description: t('about.coverageMedia3'), link: 'https://lifestyle.sindonews.com/read/1652299/156/transformasi-industri-travel-perjalanan-ibadah-kini-dituntut-lebih-personal-dan-bermakna-1764951127?showpage=all' },
+    { logo: logoTimesIndonesia, alt: 'Times Indonesia', description: t('about.coverageMedia4'), link: 'https://timesindonesia.co.id/indonesia-positif/571250/bangun-kepercayaan-publik-rania-perkuat-ekosistem-haji-premium-lewat-kolaborasi-syariah-strategis' }
+  ];
+
+  const coverageGalleryImages = [
+    { image: coverageGallery1, alt: 'Rania media coverage' },
+    { image: coverageGallery2, alt: 'Rania hajj journey' },
+    { image: coverageGallery3, alt: 'Rania umrah experience' },
+    { image: coverageGallery4, alt: 'Rania premium service' }
   ];
 
   // Gallery images data
@@ -138,7 +165,7 @@ const About = () => {
         <div className="about-hero-overlay"></div>
         <div className="about-hero-content">
           <h1 className="about-hero-title">
-            Secure Journeys, Personal Service, Perfect Worship
+            {t('about.heroTitle')}
           </h1>
         </div>
       </section>
@@ -146,8 +173,46 @@ const About = () => {
       {/* Partners Carousel Section */}
       <Partners />
 
+      {/* Media Coverage Section */}
+      <section className="about-coverage-section about-section">
+        <h2 className="about-coverage-title">{t('about.coverageTitle')}</h2>
+        <div className="about-coverage-left">
+          <p className="about-coverage-description">
+            {t('about.coverageDesc')}
+          </p>
+          <div className="about-coverage-cards">
+            {mediaCoverage.map((media, index) => (
+              <a key={index} href={media.link} target="_blank" rel="noopener noreferrer" className={`about-coverage-card ${media.dark ? 'about-coverage-card--dark' : ''}`}>
+                <div className="about-coverage-card-logo">
+                  <img src={media.logo} alt={media.alt} loading="lazy" />
+                </div>
+                <p className="about-coverage-card-text">{media.description}</p>
+              </a>
+            ))}
+          </div>
+        </div>
+        <div className="about-coverage-right">
+          <div className="about-coverage-badge about-coverage-badge--top">
+            <span className="about-coverage-badge-title">{t('about.coverageBadgeTitle')}</span>
+            <span className="about-coverage-badge-subtitle">{t('about.coverageBadgeSub')}</span>
+          </div>
+          <div className="about-coverage-badge about-coverage-badge--bottom">
+            <span className="about-coverage-badge-title">{t('about.hajjWithoutWait')}</span>
+          </div>
+          {coverageGalleryImages.map((item, index) => (
+            <img
+              key={index}
+              src={item.image}
+              alt={item.alt}
+              className={`about-coverage-gallery-img about-coverage-gallery-img--${index + 1}`}
+              loading="lazy"
+            />
+          ))}
+        </div>
+      </section>
+
       {/* Values Section */}
-      <section className="values-section about-section">
+      <section className="about-values-section">
         <div className="about-values-container">
           {values.map((value, index) => (
             <div key={index} className="about-value-card">
@@ -170,9 +235,9 @@ const About = () => {
 
       {/* Milestone Section */}
       <section className="about-milestone-section about-section">
-        <h2 className="about-section-title">Milestone</h2>
+        <h2 className="about-section-title">{t('about.milestone')}</h2>
         <p className="about-milestone-description">
-          Rania offers an exclusive Hajj and Umrah experience focused on comfort, security, and serene worship. With premium facilities and personal care, we are the dedicated 'Your Sacred Journey Partner' to the Baitullah
+          {t('about.milestoneDesc')}
         </p>
         <div className="about-milestone-timeline">
           {milestones.map((milestone, index) => (
@@ -186,7 +251,7 @@ const About = () => {
 
       {/* Certification Section */}
       <section className="about-certification-section about-section">
-        <h2 className="about-section-title">Our Certification</h2>
+        <h2 className="about-section-title">{t('about.ourCertification')}</h2>
         <div className="about-certification-container">
           {certifications.map((cert, index) => (
             <div key={index} className="about-certification-card">
@@ -213,9 +278,9 @@ const About = () => {
 
       {/* Vision Section */}
       <section className="about-vision-section about-section">
-        <h2 className="about-vision-title">Our Vision</h2>
+        <h2 className="about-vision-title">{t('about.ourVision')}</h2>
         <p className="about-vision-text">
-          To become Indonesia's most trusted companion for exclusive Hajj and Umrah journeys, crafting pilgrimages defined by serenity, exceptional service, and a profound spiritual connection
+          {t('about.visionText')}
         </p>
         {/* Wave Divider */}
       </section>
@@ -228,7 +293,7 @@ const About = () => {
         {/* Know More Video Section */}
         <section className="about-video-section about-section">
           <div className="about-video-container">
-            <h2 className="about-video-title">Know More About Rania</h2>
+            <h2 className="about-video-title">{t('about.knowMore')}</h2>
             <div className="about-video-wrapper">
               <iframe
                 className="about-video-iframe"
@@ -245,7 +310,7 @@ const About = () => {
 
         {/* Meet Our Experts Section */}
         <section className="about-experts-section about-section">
-          <h2 className="about-section-title about-expert-title">Meet Our Experts</h2>
+          <h2 className="about-section-title about-expert-title">{t('about.meetExperts')}</h2>
           <div className="about-experts-desktop">
             {teamMembers.map((expert, index) => (
               <div key={index} className="about-expert-card">
@@ -288,7 +353,7 @@ const About = () => {
 
         {/* Life With Rania Gallery */}
         <section className="about-gallery-section about-section">
-          <h2 className="about-section-title about-gallery-title">Life With Rania</h2>
+          <h2 className="about-section-title about-gallery-title">{t('about.lifeWithRania')}</h2>
           <div className="about-gallery-desktop">
             {galleryImages.map((item, index) => (
               <div key={index} className="about-gallery-item">
@@ -314,8 +379,26 @@ const About = () => {
             </Carousel>
           </div>
         </section>
-      
+
       </div>
+
+      {/* Google Maps Section */}
+      <section className="about-map-section about-section">
+        <h2 className="about-section-title">{t('about.findUs')}</h2>
+        <div className="about-map-wrapper">
+          <iframe
+            className="about-map-iframe"
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3966.2845!2d106.8430!3d-6.2245!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e69f3e94c09c0e7%3A0x31a0f5e0c9e8e1a0!2sMall%20Kota%20Kasablanka!5e0!3m2!1sen!2sid!4v1700000000000"
+            title="Rania Office Location - Mall Kota Kasablanka"
+            allowFullScreen
+            loading="lazy"
+            referrerPolicy="no-referrer-when-downgrade"
+          ></iframe>
+        </div>
+        <p className="about-map-address">
+          Mall Kota Kasablanka, Prudential Centre, Kav No.88 Floor 7N, Kota Jakarta Selatan, 12870
+        </p>
+      </section>
     </div>
   );
 };

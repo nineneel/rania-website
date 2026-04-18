@@ -26,7 +26,7 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background: var(--gradient-dark);
+  background: linear-gradient(180deg, rgba(26, 36, 61, 0) 40%, rgba(26, 36, 61, 0.6) 100%);
 }
 
 .umrah-hero-content {
@@ -47,71 +47,89 @@
   line-height: 50px;
 }
 
-/* Features/Benefits Section */
-.umrah-features-section {
+/* Discover Your Private Umrah Section */
+.umrah-discover-section {
   width: 100%;
+  min-height: 835px;
+  position: relative;
+  overflow: hidden;
   background: var(--text-white);
-  padding: 40px var(--section-padding-horizontal);
-  display: flex;
-  align-items: center;
-  justify-content: center;
+}
+
+.umrah-discover-bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+.umrah-discover-overlay-top {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 193px;
+  background: linear-gradient(180deg, white 13%, rgba(255, 255, 255, 0) 100%);
+  z-index: 1;
+}
+
+.umrah-discover-overlay-bottom {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 193px;
+  background: linear-gradient(0deg, white 13%, rgba(255, 255, 255, 0) 100%);
+  z-index: 1;
+}
+
+.umrah-discover-overlay-left {
+  display: none;
+}
+
+.umrah-discover-content {
+  position: relative;
+  z-index: 2;
+  padding: 60px var(--section-padding-horizontal);
+  max-width: var(--container-width);
+  margin: 0 auto;
+}
+
+.umrah-discover-title {
+  text-align: center;
+  color: var(--text-primary);
+  font-size: 56px;
+  font-family: 'Begum Devanagari', serif;
+  font-weight: 700;
+  line-height: 56px;
+  margin: 0 0 40px 0;
 }
 
 .umrah-features-grid {
-  max-width: 766px;
   display: grid;
-  grid-template-columns: repeat(10, 1fr);
-  gap: 12px;
-  align-items: center;
-  justify-content: center;
-}
-
-.umrah-features-grid .umrah-feature-item:nth-child(1) {
-  grid-column: 1 / 3;
-}
-
-.umrah-features-grid .umrah-feature-item:nth-child(2) {
-  grid-column: 3 / 5;
-}
-
-.umrah-features-grid .umrah-feature-item:nth-child(3) {
-  grid-column: 5 / 7;
-}
-
-.umrah-features-grid .umrah-feature-item:nth-child(4) {
-  grid-column: 7 / 9;
-}
-
-.umrah-features-grid .umrah-feature-item:nth-child(5) {
-  grid-column: 9 / 11;
-}
-
-.umrah-features-grid .umrah-feature-item:nth-child(6) {
-  grid-column: 2 / 4;
-}
-
-.umrah-features-grid .umrah-feature-item:nth-child(7) {
-  grid-column: 4 / 6;
-}
-
-.umrah-features-grid .umrah-feature-item:nth-child(8) {
-  grid-column: 6 / 8;
-}
-
-.umrah-features-grid .umrah-feature-item:nth-child(9) {
-  grid-column: 8 / 10;
+  grid-template-columns: repeat(3, 156px);
+  gap: 20px;
+  width: fit-content;
 }
 
 .umrah-feature-item {
-  width: 140px;
-  height: 140px;
+  width: 156px;
+  height: 156px;
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
   gap: 12px;
-  padding: 28px 0;
-  background: linear-gradient(180deg, #1A243D 0%, black 50%, #1A243D 100%);
-  border-radius: 8.32px;
+  padding: 20px 0;
+  background: rgba(255, 255, 255, 0.20);
+  box-shadow: 6px 23px 34px -15px rgba(0, 0, 0, 0.28);
+  border-radius: 28px;
+  border: 1px solid white;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
 }
 
 .umrah-feature-icon-wrapper {
@@ -121,47 +139,25 @@
 }
 
 .umrah-feature-icon {
-  width: 40px;
-  height: 40px;
+  width: 48px;
+  height: 48px;
 }
 
 .umrah-feature-title {
-  color: var(--text-white);
-  font-size: var(--font-size-small);
-  font-weight: var(--font-weight-bold);
-  text-align: center;
-  max-width: 120px;
-  word-wrap: break-word;
-}
-
-/* Packages Section */
-.umrah-packages-section {
-  width: 100%;
-  background: var(--text-white);
-  padding: 60px var(--section-padding-horizontal);
-}
-
-.umrah-packages-header {
-  margin: 0 auto;
-  margin-bottom: 20px;
-  display: flex;
-  flex-direction: row;
-  align-items: flex-end;
-  justify-content: space-between;
-  max-width: var(--container-width);
-  width: 100%;
-}
-
-.umrah-section-title {
   color: var(--text-primary);
-  font-size: 52px;
-  font-weight: var(--font-weight-bold);
-  text-align: start;
-  margin: 0;
+  font-size: var(--font-size-small);
+  font-weight: 600;
+  text-align: center;
+  max-width: 127px;
+  word-wrap: break-word;
+  line-height: 20px;
 }
 
 .umrah-certification-badge {
-  width: 380px;
+  position: absolute;
+  bottom: 100px;
+  right: var(--section-padding-horizontal);
+  width: 398px;
   height: 40px;
   background: #A38447;
   border-radius: 8px;
@@ -171,6 +167,14 @@
   padding: 0 10px;
   gap: 4.5px;
   flex-shrink: 0;
+  z-index: 2;
+}
+
+/* Packages Section */
+.umrah-packages-section {
+  width: 100%;
+  background: var(--text-white);
+  padding: 60px var(--section-padding-horizontal);
 }
 
 .umrah-cert-title-wrap {
@@ -579,6 +583,10 @@
   gap: 12px;
 }
 
+.umrah-detail-button {
+  min-width: 92px;
+}
+
 .umrah-itinerary-button {
   width: 70px;
   height: 34px;
@@ -599,7 +607,7 @@
 }
 
 .umrah-interest-button {
-  width: 170px;
+  width: 145px;
   height: 45.77px;
   background: transparent;
   border-radius: 130.77px;
@@ -616,6 +624,10 @@
 .umrah-interest-button:hover {
   background: #442305;
   color: var(--text-white);
+}
+
+.umrah-interest-button-full {
+  width: 100%;
 }
 
 /* Customize Your Umrah Plan Section */
@@ -761,10 +773,10 @@
 
 .umrah-manage-card {
   width: 600px;
-  height: 188.72px;
-  position: relative;
   border-radius: 14.10px;
   padding: 30.32px 30.52px 30.52px 30.77px;
+  display: flex;
+  flex-direction: column;
 }
 
 .umrah-manage-card-brown {
@@ -776,14 +788,12 @@
 }
 
 .umrah-manage-title {
-  position: absolute;
-  left: 30.52px;
-  top: 30.32px;
   font-size: 24px;
   font-family: var(--font-family-primary);
   font-weight: var(--font-weight-bold);
   line-height: 19.74px;
   word-wrap: break-word;
+  margin-bottom: 12px;
 }
 
 .umrah-manage-card-brown .umrah-manage-title {
@@ -795,15 +805,13 @@
 }
 
 .umrah-manage-description {
-  position: absolute;
-  width: 264px;
-  left: 30.77px;
-  top: 61.72px;
+  max-width: 264px;
   font-size: 15px;
   font-family: var(--font-family-primary);
   font-weight: var(--font-weight-regular);
   line-height: 25px;
   word-wrap: break-word;
+  margin-bottom: 20px;
 }
 
 .umrah-manage-card-brown .umrah-manage-description {
@@ -815,11 +823,7 @@
 }
 
 .umrah-manage-button {
-  position: absolute;
-  left: 30.77px;
-  top: 130.28px;
-  width: 95px;
-  height: 34px;
+  width: fit-content;
 }
 
 /* Responsive Design */
@@ -833,29 +837,23 @@
     line-height: 50px;
   }
 
+  .umrah-discover-section {
+    min-height: 600px;
+  }
+
+  .umrah-discover-title {
+    font-size: 42px;
+    line-height: 42px;
+  }
+
   .umrah-features-grid {
-    grid-template-columns: repeat(3, 1fr);
-    max-width: 100%;
-    justify-items: center;
+    grid-template-columns: repeat(3, 140px);
+    gap: 16px;
   }
 
-  /* Reset grid column placement for responsive layout */
-  .umrah-features-grid .umrah-feature-item:nth-child(1),
-  .umrah-features-grid .umrah-feature-item:nth-child(2),
-  .umrah-features-grid .umrah-feature-item:nth-child(3),
-  .umrah-features-grid .umrah-feature-item:nth-child(4),
-  .umrah-features-grid .umrah-feature-item:nth-child(5),
-  .umrah-features-grid .umrah-feature-item:nth-child(6),
-  .umrah-features-grid .umrah-feature-item:nth-child(7),
-  .umrah-features-grid .umrah-feature-item:nth-child(8),
-  .umrah-features-grid .umrah-feature-item:nth-child(9) {
-    grid-column: auto;
-  }
-
-  .umrah-packages-header {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 20px;
+  .umrah-feature-item {
+    width: 140px;
+    height: 140px;
   }
 
   .umrah-packages-container {
@@ -863,7 +861,7 @@
   }
 
   .umrah-certification-badge {
-    align-self: flex-end;
+    bottom: 60px;
   }
 
   .umrah-cta-section {
@@ -927,18 +925,37 @@
     line-height: 40px;
   }
 
-  .umrah-features-section {
-    padding: 30px 20px;
+  .umrah-discover-section {
+    min-height: 500px;
+  }
+
+  .umrah-discover-content {
+    padding: 40px 20px;
+  }
+
+  .umrah-discover-title {
+    font-size: 32px;
+    line-height: 32px;
+    margin-bottom: 24px;
+  }
+
+  .umrah-discover-overlay-left {
+    width: 200px;
+  }
+
+  .umrah-features-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+  }
+
+  .umrah-feature-item {
+    width: 100%;
+    height: 130px;
+    border-radius: 20px;
   }
 
   .umrah-packages-section {
     padding: 40px 20px;
-  }
-
-  .umrah-packages-header {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 16px;
   }
 
   .umrah-packages-container {
@@ -958,19 +975,6 @@
     font-size: 15px;
   }
 
-  .umrah-features-grid {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 12px;
-    max-width: 100%;
-  }
-
-  .umrah-feature-item {
-    width: 100%;
-    max-width: 140px;
-    height: 140px;
-  }
-
-  .umrah-section-title,
   .umrah-section-title-dark {
     font-size: 36px;
   }
@@ -990,6 +994,9 @@
   }
 
   .umrah-certification-badge {
+    position: relative;
+    bottom: auto;
+    right: auto;
     width: 100%;
     max-width: 100%;
     height: auto;
@@ -998,6 +1005,7 @@
     flex-wrap: wrap;
     justify-content: center;
     text-align: center;
+    margin-top: 24px;
   }
 
   .umrah-cert-title,
@@ -1077,16 +1085,26 @@
 }
 
 @media (max-width: 480px) {
+  .umrah-discover-section {
+    min-height: 400px;
+  }
+
+  .umrah-discover-title {
+    font-size: 24px;
+    line-height: 24px;
+    margin-bottom: 20px;
+  }
+
   .umrah-features-grid {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 10px;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
   }
 
   .umrah-feature-item {
     width: 100%;
-    max-width: 120px;
-    height: 120px;
-    padding: 20px 0;
+    height: 110px;
+    padding: 16px 0;
+    border-radius: 16px;
   }
 
   .umrah-feature-icon {

@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 import Header from '../../components/layout/Header';
 import Button from '../../components/common/Button/Button';
 import SEO from '../../components/common/SEO';
@@ -12,6 +13,7 @@ import './Support.css';
 import heroSupport from '../../assets/images/support-help/support-help-hero.webp';
 
 const Support = () => {
+  const { t } = useTranslation();
   const [expandedFaq, setExpandedFaq] = useState(null);
 
   // API Data States
@@ -58,21 +60,21 @@ const Support = () => {
 
   const quickHelp = [
     {
-      title: "Call Us",
-      description: "Speak directly with our team",
+      title: t('support.callUs'),
+      description: t('support.callUsDesc'),
       action: "0811-8855-489",
       link: "tel:08118855489"
     },
     {
-      title: "Email Support",
-      description: "Send us your questions",
-      action: "Contact Form",
+      title: t('support.emailSupport'),
+      description: t('support.emailSupportDesc'),
+      action: t('support.contactForm'),
       link: "/contact"
     },
     {
-      title: "Office Visit",
-      description: "Meet us in person",
-      action: "View Location",
+      title: t('support.officeVisit'),
+      description: t('support.officeVisitDesc'),
+      action: t('support.viewLocation'),
       link: "/contact"
     }
   ];
@@ -101,16 +103,16 @@ const Support = () => {
       <section className="support-hero-section" style={{ backgroundImage: `url(${heroSupport})` }}>
         <div className="support-hero-overlay"></div>
         <div className="support-hero-content">
-          <h1 className="support-hero-title">How Can We Help You?</h1>
+          <h1 className="support-hero-title">{t('support.heroTitle')}</h1>
           <p className="support-hero-subtitle">
-            Find answers to common questions or reach out to our support team
+            {t('support.heroSubtitle')}
           </p>
         </div>
       </section>
 
       {/* FAQ Section */}
       <section className="support-faq-section">
-        <h2 className="support-faq-title">About Visa & Documentation</h2>
+        <h2 className="support-faq-title">{t('support.faqTitle')}</h2>
 
         {isLoadingFaqs ? (
           <FAQShimmer />
@@ -122,16 +124,16 @@ const Support = () => {
                 <path d="M40 25V40L50 50" stroke="var(--primary-gold)" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"/>
               </svg>
             </div>
-            <h3 className="support-empty-title">No FAQs Available</h3>
+            <h3 className="support-empty-title">{t('support.noFaqTitle')}</h3>
             <p className="support-empty-description">
-              We're currently updating our FAQ section. If you have questions, please don't hesitate to contact us directly.
+              {t('support.noFaqDesc')}
             </p>
             <Button
               variant="tertiary"
               size="small"
               to="/contact"
             >
-              Contact Us
+              {t('support.contactUs')}
             </Button>
           </div>
         ) : (

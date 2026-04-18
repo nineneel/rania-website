@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 import './Umrah.css';
 import Header from '../../components/layout/Header/Header';
 import Footer from '../../components/layout/Footer/Footer';
@@ -38,7 +39,9 @@ import value6 from '../../assets/images/umrah/value/value-6.webp';
 import value7 from '../../assets/images/umrah/value/value-7.webp';
 import value8 from '../../assets/images/umrah/value/value-8.webp';
 import value9 from '../../assets/images/umrah/value/value-9.webp';
-import value10 from '../../assets/images/umrah/value/value-10.webp';
+
+// Import discover section background
+import discoverBg from '../../assets/images/umrah/discover-private-umrah.webp';
 
 // Import know more image
 import knowMoreImage from '../../assets/images/umrah/know_more_image.webp';
@@ -47,6 +50,7 @@ import knowMoreImage from '../../assets/images/umrah/know_more_image.webp';
 import customizeYourUmrah from '../../assets/images/umrah/customize_your_umrah.webp';
 
 const Umrah = () => {
+  const { t } = useTranslation();
   const [email, setEmail] = useState('');
 
   // API Data States
@@ -56,15 +60,15 @@ const Umrah = () => {
 
   // Features/Benefits data
   const features = [
-    { title: "Direct Flights", icon: value1 },
-    { title: "Exclusive Kit", icon: value2 },
-    { title: "Certified Mutawif", icon: value3 },
-    { title: "Professional Photography", icon: value4 },
-    { title: "Team Support 24/7", icon: value5 },
-    { title: "Hotels in Prime Locations", icon: value6 },
-    { title: "Dedicated Tour Leader", icon: value7 },
-    { title: "Flexible Payment", icon: value8 },
-    { title: "Travel Insurance", icon: value9 },
+    { title: t('umrah.directFlights'), icon: value1 },
+    { title: t('umrah.exclusiveKit'), icon: value2 },
+    { title: t('umrah.certifiedMutawif'), icon: value3 },
+    { title: t('umrah.professionalPhotography'), icon: value4 },
+    { title: t('umrah.teamSupport'), icon: value5 },
+    { title: t('umrah.hotelsPrime'), icon: value6 },
+    { title: t('umrah.dedicatedTourLeader'), icon: value7 },
+    { title: t('umrah.flexiblePayment'), icon: value8 },
+    { title: t('umrah.travelInsurance'), icon: value9 },
   ];
 
   // Fetch umrah packages from API
@@ -138,7 +142,7 @@ const Umrah = () => {
         <div className="umrah-hero-overlay"></div>
         <div className="umrah-hero-content">
           <h1 className="umrah-hero-title">
-            Unforgotten Umrah<br/>Journey With Comfort
+            {t('umrah.heroTitle')}
           </h1>
         </div>
       </section>
@@ -148,36 +152,40 @@ const Umrah = () => {
         <Partners />
       </div>
 
-      {/* Features/Benefits Section */}
-      <section className="umrah-features-section">
-        <div className="umrah-features-grid">
-          {features.map((feature, index) => (
-            <div key={index} className="umrah-feature-item">
-              <div className="umrah-feature-icon-wrapper">
-                <img src={feature.icon} alt={feature.title} className="umrah-feature-icon" loading="lazy" />
+      {/* Discover Your Private Umrah Section */}
+      <section className="umrah-discover-section">
+        <img src={discoverBg} alt="Discover Your Private Umrah" className="umrah-discover-bg" loading="lazy" />
+        <div className="umrah-discover-overlay-top"></div>
+        <div className="umrah-discover-overlay-bottom"></div>
+        <div className="umrah-discover-overlay-left"></div>
+        <div className="umrah-discover-content">
+          <h2 className="umrah-discover-title">{t('umrah.discoverTitle')}</h2>
+          <div className="umrah-features-grid">
+            {features.map((feature, index) => (
+              <div key={index} className="umrah-feature-item">
+                <div className="umrah-feature-icon-wrapper">
+                  <img src={feature.icon} alt={feature.title} className="umrah-feature-icon" loading="lazy" />
+                </div>
+                <p className="umrah-feature-title">{feature.title}</p>
               </div>
-              <p className="umrah-feature-title">{feature.title}</p>
+            ))}
+          </div>
+          <div className="umrah-certification-badge">
+            <div className='umrah-cert-title-wrap'>
+              <div className="umrah-cert-icon">
+                <img src={verifiedIcon} alt="Verified" />
+              </div>
+              <div className="umrah-cert-title">{t('umrah.ppiuCert')}<br/>{t('umrah.ppiuCertSub')}</div>
             </div>
-          ))}
+            <div className="umrah-cert-desc">
+              <span className="umrah-cert-a">'A'</span> {t('umrah.ppiuCertDesc')}<br/>{t('umrah.ppiuCertDetail')}
+            </div>
+          </div>
         </div>
       </section>
 
       {/* Packages Section */}
       <section id="packages" className="umrah-packages-section">
-        <div className="umrah-packages-header">
-          <h2 className="umrah-section-title">Discover Your Private Umrah</h2>
-          <div className="umrah-certification-badge">
-           <div className='umrah-cert-title-wrap'>
-            <div className="umrah-cert-icon">
-              <img src={verifiedIcon} alt="Verified" />
-            </div>
-            <div className="umrah-cert-title">PPIU Certification<br/>(Official Umrah License)</div>
-            </div> 
-            <div className="umrah-cert-desc">
-              <span className="umrah-cert-a">'A'</span> Accredited Umrah Pilgrimage Organizer<br/>License Number: 02202041807930001
-            </div>
-          </div>
-        </div>
 
         {isLoadingPackages ? (
           <UmrahShimmer />
@@ -189,16 +197,16 @@ const Umrah = () => {
                 <path d="M40 25V40L50 50" stroke="var(--primary-gold)" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"/>
               </svg>
             </div>
-            <h3 className="umrah-empty-title">No Umrah Available</h3>
+            <h3 className="umrah-empty-title">{t('umrah.noUmrah')}</h3>
             <p className="umrah-empty-description">
-              We're currently updating our Umrah offerings. Please check back soon or contact us for personalized Umrah inquiries.
+              {t('umrah.noUmrahDesc')}
             </p>
             <Button
               variant="tertiary"
               size="small"
               onClick={() => openWhatsAppUmrah(whatsappMessages.umrahCustomize())}
             >
-              Contact Rania
+              {t('umrah.contactRania')}
             </Button>
           </div>
         ) : (
@@ -208,9 +216,7 @@ const Umrah = () => {
                 <img src={pkg.image_url || pkg.image} alt={pkg.title} className="umrah-package-image" />
 
                 <h3 className="umrah-package-title">{pkg.title}</h3>
-                {pkg.subtitle && <h4 className="umrah-package-subtitle">({pkg.subtitle})</h4>}
-
-                <p className="umrah-package-description">{pkg.description}</p>
+                <p className="umrah-package-description">{pkg.subtitle}</p>
 
                 <div className="umrah-package-hotels">
                   {pkg.hotels && pkg.hotels.map((hotel, idx) => (
@@ -260,7 +266,7 @@ const Umrah = () => {
                 </div>
 
                 <div className="umrah-package-price">
-                  <span className="umrah-price-label">Start From</span>
+                  <span className="umrah-price-label">{t('umrah.startFrom')}</span>
                   <div className="umrah-price-amount">
                     <span className="umrah-price-currency">{pkg.currency}</span>
                     <span className="umrah-price-value">
@@ -278,16 +284,17 @@ const Umrah = () => {
                   <Button
                     variant="secondary"
                     size="medium"
-                    className="umrah-interest-button"
-                    onClick={() => {
+                    className="umrah-interest-button umrah-interest-button-full"
+                    to={pkg.slug ? `/umrah/${pkg.slug}` : undefined}
+                    onClick={!pkg.slug ? () => {
                       if (pkg.link) {
                         window.open(pkg.link, '_blank', 'noopener,noreferrer');
                       } else {
                         openWhatsAppUmrah(whatsappMessages.umrahInterest(pkg.title));
                       }
-                    }}
+                    } : undefined}
                   >
-                    I am Interest
+                    {t('umrah.iAmInterested')}
                   </Button>
                 </div>
               </div>
@@ -304,16 +311,16 @@ const Umrah = () => {
               <img src={customizeYourUmrah} alt="Customize Plan" loading="lazy" />
             </div>
             <div className="umrah-customize-content">
-              <h2 className="umrah-customize-title">Customize Your Umrah Plan</h2>
+              <h2 className="umrah-customize-title">{t('umrah.customizeTitle')}</h2>
               <p className="umrah-customize-description">
-                Quickly and easily change hotels, flights, dates, and destinations to match your plan.
+                {t('umrah.customizeDesc')}
               </p>
               <Button
                 variant="tertiary"
                 size="small"
                 onClick={() => openWhatsAppUmrah(whatsappMessages.umrahCustomize())}
               >
-                Contact Rania
+                {t('umrah.contactRania')}
               </Button>
             </div>
           </div>
@@ -323,16 +330,16 @@ const Umrah = () => {
       {/* CTA Section */}
       <section className="umrah-cta-section">
         <div className="umrah-cta-content">
-          <h2 className="umrah-cta-title">Ready to Answer the Call? Let's Plan Your Journey</h2>
+          <h2 className="umrah-cta-title">{t('umrah.ctaTitle')}</h2>
           <p className="umrah-cta-description">
-            Turn your spiritual yearning into a blessed reality. Let us help you plan a seamless and meaningful Umrah journey
+            {t('umrah.ctaDesc')}
           </p>
           <Button
             variant="tertiary-filled"
             size="small"
             onClick={() => openWhatsAppUmrah(whatsappMessages.umrahCTA())}
           >
-            Contact Rania
+            {t('umrah.contactRania')}
           </Button>
         </div>
         <div className="umrah-cta-image">
@@ -342,12 +349,12 @@ const Umrah = () => {
 
       {/* Manage Plan Section */}
       <section id="manage" className="umrah-manage-section">
-        <h2 className="umrah-section-title-dark">Manage Your Umrah</h2>
+        <h2 className="umrah-section-title-dark">{t('umrah.manageUmrah')}</h2>
         <div className="umrah-manage-container">
           <div className="umrah-manage-card umrah-manage-card-gold">
-            <h3 className="umrah-manage-title">Change My Plan</h3>
+            <h3 className="umrah-manage-title">{t('umrah.changePlan')}</h3>
             <p className="umrah-manage-description">
-              Add a Different Journey to Your Umrah Experience. Where Will Your Journey Take You Next?
+              {t('umrah.changeDesc')}
             </p>
             <div className="umrah-manage-button">
               <Button
@@ -355,7 +362,7 @@ const Umrah = () => {
                 size="small"
                 onClick={() => openWhatsAppUmrah(whatsappMessages.umrahChange())}
               >
-                Change Now
+                {t('umrah.changeNow')}
               </Button>
             </div>
           </div>

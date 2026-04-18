@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 import Carousel from '../Carousel';
 import { TestimonialShimmer } from '../Shimmer';
 import { getTestimonials } from '../../../services/api';
@@ -6,10 +7,12 @@ import logger from '../../../utils/logger';
 import './Testimonial.css';
 
 const Testimonial = ({
-  title = "What They Say?",
+  title,
   limit = 12,
   textLimit = 200
 }) => {
+  const { t } = useTranslation();
+  const displayTitle = title || t('common.whatTheySay');
   // API Data States
   const [testimonials, setTestimonials] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -56,7 +59,7 @@ const Testimonial = ({
   }, [limit]);
   return (
     <section className="testimonial-section">
-      <h2 className="testimonial-title">{title}</h2>
+      <h2 className="testimonial-title">{displayTitle}</h2>
       <div className="testimonial-container">
         {isLoading ? (
           <TestimonialShimmer />
@@ -69,9 +72,9 @@ const Testimonial = ({
                 <path d="M25 50H55" stroke="var(--primary-gold)" strokeWidth="3" strokeLinecap="round"/>
               </svg>
             </div>
-            <h3 className="testimonial-empty-title">No Testimonials Yet</h3>
+            <h3 className="testimonial-empty-title">{t('common.noTestimonials')}</h3>
             <p className="testimonial-empty-description">
-              We're gathering feedback from our valued customers. Check back soon to see what they have to say about their journey with us.
+              {t('common.noTestimonialsDesc')}
             </p>
           </div>
         ) : (

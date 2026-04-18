@@ -3,6 +3,8 @@
  * Generates WhatsApp URLs with pre-filled messages
  */
 
+import i18n from '../i18n';
+
 // WhatsApp phone numbers for sales
 const WHATSAPP_HAJJ = '62812561717';
 const WHATSAPP_UMRAH = '628118855489';
@@ -12,85 +14,32 @@ const WHATSAPP_UMRAH = '628118855489';
  */
 export const whatsappMessages = {
   // Hajj Messages
-  hajjInterest: (packageName) => `Assalamu'alaikum Rania, saya ingin informasi lebih lanjut tentang Program Haji Khusus (ONH) 🙏🏻
+  hajjInterest: (packageName) => i18n.t('whatsapp.hajjInterest', { packageName }),
 
-- Nama Jamaah:
-- Domisili:
-- Pekerjaan:
-- Umur:
-- Paket Haji yang diminati: ${packageName}`,
+  hajjCTA: () => i18n.t('whatsapp.hajjCTA'),
 
-  hajjCTA: () => `Assalamu'alaikum Rania, saya ingin informasi lebih lanjut tentang Program Haji Khusus (ONH) 🙏🏻`,
+  hajjUpgrade: () => i18n.t('whatsapp.hajjUpgrade'),
 
-  hajjUpgrade: () => `- nama jamaah:
-- Domisili:
-- Pekerjaan:
-- Umur:
-- Paket haji saat ini:
-- Ganti Kelas haji ke:`,
-
-  hajjChange: () => `- nama jamaah
-- Domisili:
-- Pekerjaan:
-- Umur:
-- kelas haji sekarang:
-- ganti kelas haji ke:`,
+  hajjChange: () => i18n.t('whatsapp.hajjChange'),
 
   // Umrah Messages
-  umrahInterest: (packageName) => `Assalamu'alaikum Rania, saya ingin info lanjut tentang keberangkatan Umroh saat ini 🙏🏻
+  umrahInterest: (packageName) => i18n.t('whatsapp.umrahInterest', { packageName }),
 
-- Nama Jamaah:
-- Domisili:
-- Pekerjaan:
-- Umur:
-- Paket Umrah yang diminati: ${packageName}`,
+  umrahCTA: () => i18n.t('whatsapp.umrahCTA'),
 
-  umrahCTA: () => `Assalamu'alaikum Rania, saya ingin info lanjut tentang keberangkatan Umroh saat ini 🙏🏻`,
+  umrahChange: () => i18n.t('whatsapp.umrahChange'),
 
-  umrahChange: () => `- nama jamaah
-- Domisili:
-- Pekerjaan:
-- umur:
-- rencana umrah:
-- perubahan destinasi:`,
-
-  umrahCustomize: () => `Assalamu'alaikum Rania, saya ingin info untuk kustomisasi paket Umroh 🙏🏻
-
-- Nama Jamaah:
-- Domisili:
-- Pekerjaan:
-- Umur:
-- Detail perubahan yang diinginkan (hotel/penerbangan/tanggal/destinasi):`,
+  umrahCustomize: () => i18n.t('whatsapp.umrahCustomize'),
 
   // Partnership Messages
-  partnershipCompany: () => `Assalamu'alaikum Rania, saya tertarik untuk berkolaborasi dalam Program Haji & Umrah 🙏🏻
+  partnershipCompany: () => i18n.t('whatsapp.partnershipCompany'),
 
-- Nama Perusahaan:
-- Bidang Usaha:
-- Nama PIC:
-- Jabatan:
-- No. Telepon:
-- Jenis Kolaborasi yang diminati: Company Collaboration`,
+  partnershipNGO: () => i18n.t('whatsapp.partnershipNGO'),
 
-  partnershipNGO: () => `Assalamu'alaikum Rania, saya tertarik untuk berkolaborasi dalam Program Haji & Umrah 🙏🏻
-
-- Nama Organisasi:
-- Bidang Kegiatan:
-- Nama PIC:
-- Jabatan:
-- No. Telepon:
-- Jenis Kolaborasi yang diminati: NGO Collaboration`,
-
-  partnershipOther: () => `Assalamu'alaikum Rania, saya tertarik untuk berkolaborasi dalam Program Haji & Umrah 🙏🏻
-
-- Nama:
-- Profesi/Bidang:
-- No. Telepon:
-- Jenis Kolaborasi yang diminati: Other Collaboration
-- Detail kolaborasi yang diinginkan:`,
+  partnershipOther: () => i18n.t('whatsapp.partnershipOther'),
 
   // Contact Rania (general)
-  contactRania: () => `Assalamu'alaikum Rania, saya ingin informasi lebih lanjut tentang layanan Anda 🙏🏻`
+  contactRania: () => i18n.t('whatsapp.contactRania')
 };
 
 /**

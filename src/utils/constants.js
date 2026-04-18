@@ -18,8 +18,12 @@ export const API_ENDPOINTS = {
   FAQS: '/api/faqs',
   SOCIAL_MEDIA: '/api/social-media',
   UMRAH_PACKAGES: '/api/umrah-packages',
+  UMRAH_PACKAGE_DETAIL: '/api/umrah-packages',
+  UMRAH_OTHER_ADDITIONAL_SERVICES: '/api/umrah-packages',
   CONTACT: '/api/contact',
   NEWSLETTER: '/api/newsletter/subscribe',
+  LINKTREE: '/api/linktree',
+  LINKTREE_LINKS: '/api/linktree/links',
 };
 
 export const CONTACT_INFO = {

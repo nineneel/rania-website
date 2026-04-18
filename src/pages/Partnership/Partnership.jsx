@@ -1,4 +1,5 @@
 import { useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 import Button from '../../components/common/Button/Button';
 import Header from '../../components/layout/Header';
 import Partners from '../../components/common/Partners';
@@ -16,26 +17,28 @@ import ngoCollab from '../../assets/images/partnership/partnership-2.webp';
 import otherCollab from '../../assets/images/partnership/partnership-3.webp';
 
 const Partnership = () => {
+  const { t } = useTranslation();
+
   // Collaboration data
   const collaborations = [
     {
       id: 'company',
-      title: 'Company Collaboration',
-      description: 'Share our commitment to providing a seamless and dignified pilgrimage experience',
+      title: t('partnership.companyCollab'),
+      description: t('partnership.companyCollabDesc'),
       image: companyCollab,
       type: 'large'
     },
     {
       id: 'ngo',
-      title: 'NGO Collaboration',
-      description: 'Aiming to make the sacred journey an accessible reality for their members and beneficiaries',
+      title: t('partnership.ngoCollab'),
+      description: t('partnership.ngoCollabDesc'),
       image: ngoCollab,
       type: 'small'
     },
     {
       id: 'other',
-      title: 'Other Collaboration',
-      description: 'For individuals, content creators, and innovators to enrich the pilgrimage experience',
+      title: t('partnership.otherCollab'),
+      description: t('partnership.otherCollabDesc'),
       image: otherCollab,
       type: 'small'
     }
@@ -84,17 +87,16 @@ const Partnership = () => {
         <div className="partnership-hero-overlay"></div>
         <div className="partnership-hero-content">
           <h1 className="partnership-hero-title">
-            Let’s collaborate <br /> With Rania
+            {t('partnership.heroTitle')}
           </h1>
         </div>
       </section>
 
       {/* Collaboration Section */}
       <section className="partnership-collaboration-section partnership-section">
-        <h2 className="partnership-collaboration-title">Become a Partner in a Sacred Journey</h2>
+        <h2 className="partnership-collaboration-title">{t('partnership.becomePartner')}</h2>
         <p className="partnership-collaboration-subtitle">
-          Explore opportunities to work together and make the dream of Hajj and Umrah<br/>
-          more accessible and meaningful for everyone
+          {t('partnership.partnerSubtitle')}
         </p>
 
         <div className="partnership-collaboration-container">
@@ -118,7 +120,7 @@ const Partnership = () => {
                 className="partnership-collab-button"
                 onClick={() => openWhatsAppUmrah(whatsappMessages.partnershipCompany())}
               >
-                Collaborate Now
+                {t('partnership.collaborateNow')}
               </Button>
             </div>
           </div>
@@ -145,7 +147,7 @@ const Partnership = () => {
                   className="partnership-collab-button partnership-collab-button-small"
                   onClick={() => openWhatsAppUmrah(whatsappMessages.partnershipNGO())}
                 >
-                  Collaborate Now
+                  {t('partnership.collaborateNow')}
                 </Button>
               </div>
             </div>
@@ -170,7 +172,7 @@ const Partnership = () => {
                   className="partnership-collab-button partnership-collab-button-small"
                   onClick={() => openWhatsAppUmrah(whatsappMessages.partnershipOther())}
                 >
-                  Collaborate Now
+                  {t('partnership.collaborateNow')}
                 </Button>
               </div>
             </div>

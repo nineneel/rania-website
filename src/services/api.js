@@ -167,6 +167,61 @@ export const getUmrahPackages = async () => {
 };
 
 /**
+ * Get umrah package detail by slug
+ * @param {string} slug - Package slug
+ * @returns {Promise<{success: boolean, data: Object}>}
+ */
+export const getUmrahPackageDetail = async (slug) => {
+  const logPrefix = '[Umrah Package Detail]';
+  const endpoint = `${API_ENDPOINTS.UMRAH_PACKAGE_DETAIL}/${slug}`;
+
+  try {
+    logger.debug(`📡 [API] GET ${endpoint}`);
+    const response = await apiRequest(endpoint);
+    logger.info(`✅ ${logPrefix} Response:`, {
+      success: response.success,
+      packageId: response.data?.id,
+      packageTitle: response.data?.title
+    });
+    return response;
+  } catch (error) {
+    logger.error(`❌ ${logPrefix} Error:`, error.message);
+    throw error;
+  }
+};
+
+/**
+ * Get other additional services not included in a specific package
+ * @param {string} slug - Package slug
+ * @param {Object} params - Query parameters
+ * @param {number} params.per_page - Items per page (default: 12)
+ * @param {number} params.page - Page number (default: 1)
+ * @returns {Promise<{success: boolean, data: Array, meta: Object, links: Object}>}
+ */
+export const getOtherAdditionalServices = async (slug, params = {}) => {
+  const logPrefix = '[Other Additional Services]';
+  const { per_page = 12, page = 1 } = params;
+  const queryParams = new URLSearchParams({
+    per_page: per_page.toString(),
+    page: page.toString(),
+  });
+  const endpoint = `${API_ENDPOINTS.UMRAH_OTHER_ADDITIONAL_SERVICES}/${slug}/other-additional-services?${queryParams}`;
+
+  try {
+    logger.debug(`📡 [API] GET ${endpoint}`);
+    const response = await apiRequest(endpoint);
+    logger.info(`✅ ${logPrefix} Response:`, {
+      success: response.success,
+      dataCount: response.data?.length,
+    });
+    return response;
+  } catch (error) {
+    logger.error(`❌ ${logPrefix} Error:`, error.message);
+    throw error;
+  }
+};
+
+/**
  * Get all active social media links
  * @returns {Promise<{success: boolean, data: Array}>}
  */
@@ -185,6 +240,40 @@ export const getSocialMedia = async () => {
     logger.error(`❌ ${logPrefix} Error:`, error.message);
     throw error;
   }
+};
+
+/**
+ * Get linktree data (links + social media) in a single request
+ * @returns {Promise<{success: boolean, data: {links: Array, social_media: Array}}>}
+ */
+export const getLinktree = async () => {
+  const logPrefix = '[Linktree]';
+
+  try {
+    logger.debug(`📡 [API] GET ${API_ENDPOINTS.LINKTREE}`);
+    const response = await apiRequest(API_ENDPOINTS.LINKTREE);
+    logger.info(`✅ ${logPrefix} Response:`, {
+      success: response.success,
+      linksCount: response.data?.links?.length,
+      socialCount: response.data?.social_media?.length,
+    });
+    return response;
+  } catch (error) {
+    logger.error(`❌ ${logPrefix} Error:`, error.message);
+    throw error;
+  }
+};
+
+/**
+ * Track a linktree link click (fire-and-forget).
+ * Does not throw — failures are logged and swallowed so they never block navigation.
+ * @param {number|string} linkId - The linktree link ID
+ */
+export const trackLinktreeClick = (linkId) => {
+  const endpoint = `${API_ENDPOINTS.LINKTREE_LINKS}/${linkId}/click`;
+  apiRequest(endpoint, { method: 'POST' }).catch((error) => {
+    logger.warn('[Linktree] Click tracking failed:', error.message);
+  });
 };
 
 /**

@@ -23,6 +23,7 @@ Admin dashboard for managing Rania Travel & Umrah website content. Built with La
 - **Testimonials** - Customer testimonials management
 - **FAQs** - Frequently asked questions management
 - **Social Media** - Manage social media links and icons
+- **Linktree** - Manage the bio-link page (links + click analytics)
 
 ### Umrah Packages
 - **Packages** - Complete Umrah package management
@@ -32,10 +33,10 @@ Admin dashboard for managing Rania Travel & Umrah website content. Built with La
 
 ### Communication
 - **Contact Messages** - View and manage contact form submissions
-- **Newsletter Subscribers** - Manage newsletter subscriptions with double opt-in
+- **Newsletter Subscribers** - Manage newsletter subscriptions with instant activation
 - Email notifications for new messages
 - Message status tracking (new, read, replied)
-- Newsletter verification and unsubscribe management
+- Newsletter unsubscribe management
 
 ### User Management
 - Authentication with Laravel Fortify
@@ -188,7 +189,11 @@ The application provides REST API endpoints for the public website to consume.
 | GET | `/api/social-media` | Get active social media links | ❌ |
 | GET | `/api/faqs` | Get active FAQs | ❌ |
 | GET | `/api/testimonials` | Get active testimonials | ✅ |
-| GET | `/api/umrah-packages` | Get packages with hotels & airlines | ❌ |
+| GET | `/api/umrah-packages` | Get active packages list with hotels, airlines & additional services | ✅ |
+| GET | `/api/umrah-packages/{slug}` | Get one active package detail by slug | ❌ |
+| GET | `/api/umrah-packages/{slug}/other-additional-services` | Get additional services not included in a package | ✅ |
+| GET | `/api/linktree` | Get active linktree links and social media | ❌ |
+| POST | `/api/linktree/links/{id}/click` | Track a click event on a linktree link | N/A |
 | POST | `/api/contact` | Submit contact form | N/A |
 | POST | `/api/newsletter/subscribe` | Subscribe to newsletter | N/A |
 
@@ -351,7 +356,9 @@ curl "https://your-domain.com/api/testimonials?per_page=10&page=1"
 
 ### Umrah Packages
 
-Get all active Umrah packages with associated hotels and airlines.
+#### 1) Package List
+
+Get active Umrah packages with hotels, airlines, and additional services for listing cards.
 
 **Endpoint:** `GET /api/umrah-packages`
 
@@ -363,11 +370,13 @@ Get all active Umrah packages with associated hotels and airlines.
     {
       "id": 1,
       "title": "Premium Ramadan Package",
+      "slug": "premium-ramadan-package",
+      "subtitle": "Periode Low Season",
       "description": "5-star accommodation near Haram",
       "image_url": "https://example.com/storage/packages/package1.jpg",
       "departure": "Jeddah",
       "duration": "14 days",
-      "frequency": "Weekly",
+      "departure_schedule": "Weekly",
       "price": "12500.00",
       "currency": "SAR",
       "hotels": [
@@ -387,11 +396,274 @@ Get all active Umrah packages with associated hotels and airlines.
           "name": "Saudia Airlines",
           "logo_url": "https://example.com/storage/airlines/saudia.png"
         }
+      ],
+      "additional_services": [
+        {
+          "id": 7,
+          "title": "Airport Assistance",
+          "description": "Assistance during arrival and departure",
+          "image_url": "https://example.com/storage/umrah/additional-services/airport.jpg",
+          "order": 0
+        }
       ]
     }
-  ]
+  ],
+  "meta": {
+    "current_page": 1,
+    "last_page": 2,
+    "per_page": 10,
+    "total": 12
+  },
+  "links": {
+    "first": "https://your-domain.com/api/umrah-packages?page=1",
+    "last": "https://your-domain.com/api/umrah-packages?page=2",
+    "prev": null,
+    "next": "https://your-domain.com/api/umrah-packages?page=2"
+  }
 }
 ```
+
+#### 2) Package Detail
+
+Get a single active Umrah package detail by `slug`.
+
+**Endpoint:** `GET /api/umrah-packages/{slug}`
+
+**Example:**
+```bash
+curl "https://your-domain.com/api/umrah-packages/royal-hilton-signature"
+```
+
+**Response:**
+```json
+{
+  "success": true,
+  "data": {
+    "id": 1,
+    "title": "Royal Hilton Signature",
+    "slug": "royal-hilton-signature",
+    "subtitle": "Periode Low Season",
+    "description": "Discover Your Sacred Umrah Journey",
+    "image_url": "https://example.com/storage/umrah/packages/example.jpg",
+    "departure": "Soekarno-Hatta airport (CGK) Jakarta",
+    "duration": "9 Days",
+    "departure_schedule": "Weekly",
+    "price": "54800000.00",
+    "currency": "Rp",
+    "link": "https://example.com/package-details",
+    "hotels": [
+      {
+        "id": 10,
+        "name": "Hilton Makkah",
+        "stars": 5,
+        "location": "Makkah",
+        "description": "Near Haram",
+        "image_url": "https://example.com/storage/umrah/hotels/hotel.jpg",
+        "order": 0
+      }
+    ],
+    "airlines": [
+      {
+        "id": 1,
+        "name": "Saudia Airlines",
+        "logo_url": "https://example.com/storage/umrah/airlines/saudia.png"
+      }
+    ],
+    "transportations": [
+      {
+        "id": 3,
+        "name": "Private Car",
+        "description": "Comfortable airport-hotel transfer",
+        "icon_url": "https://example.com/storage/umrah/transportations/private-car.png",
+        "order": 0
+      }
+    ],
+    "itineraries": [
+      {
+        "id": 5,
+        "title": "Masjid Nabawi",
+        "location": "Madinah",
+        "description": "Daily prayer and guided visit",
+        "image_url": "https://example.com/storage/umrah/itineraries/nabawi.jpg",
+        "order": 0
+      }
+    ],
+    "additional_services": [
+      {
+        "id": 7,
+        "title": "Airport Assistance",
+        "description": "Assistance during arrival and departure process",
+        "image_url": "https://example.com/storage/umrah/additional-services/airport.jpg",
+        "order": 0
+      }
+    ],
+    "package_services": [
+      {
+        "id": 21,
+        "title": "Visa Processing",
+        "description": "Handled by our team",
+        "order": 0
+      }
+    ]
+  }
+}
+```
+
+**Additional Services behavior:**
+- By default, `additional_services` comes from the global active services list.
+- If package-specific overrides are configured in `umrah_package_additional_service`, the detail endpoint returns those overrides instead.
+
+#### 3) Other Additional Services
+
+Get all active additional services that are **not** included in a specific package. Use this to display "Other available add-ons" below the package's selected services.
+
+**Endpoint:** `GET /api/umrah-packages/{slug}/other-additional-services`
+
+**Example:**
+```bash
+curl "https://your-domain.com/api/umrah-packages/royal-hilton-signature/other-additional-services"
+```
+
+**Response:**
+```json
+{
+  "success": true,
+  "data": [
+    {
+      "id": 12,
+      "title": "Zam Zam Water Delivery",
+      "description": "5 liters of Zam Zam water delivered to your home",
+      "image_url": "https://example.com/storage/umrah/additional-services/zamzam.jpg",
+      "order": 3
+    },
+    {
+      "id": 15,
+      "title": "Photography Service",
+      "description": "Professional photography during Umrah journey",
+      "image_url": "https://example.com/storage/umrah/additional-services/photo.jpg",
+      "order": 5
+    }
+  ],
+  "meta": {
+    "current_page": 1,
+    "last_page": 1,
+    "per_page": 12,
+    "total": 2
+  },
+  "links": {
+    "first": "https://your-domain.com/api/umrah-packages/royal-hilton-signature/other-additional-services?page=1",
+    "last": "https://your-domain.com/api/umrah-packages/royal-hilton-signature/other-additional-services?page=1",
+    "prev": null,
+    "next": null
+  }
+}
+```
+
+**Behavior:**
+- Returns only active additional services that are **excluded** from the package's selected add-ons.
+- Paginated (12 per page) to support future growth of add-on services.
+- If the package has no selected additional services, all active services are returned.
+- Returns 404 if the package slug is invalid or the package is inactive.
+
+---
+
+### Linktree
+
+Public endpoints that power the bio-link / Linktree page on the main website.
+
+#### 1) Get Linktree Data
+
+Returns all active linktree links along with the site's active social media links in a single response.
+
+**Endpoint:** `GET /api/linktree`
+
+**Example:**
+```bash
+curl "https://your-domain.com/api/linktree"
+```
+
+**Response:**
+```json
+{
+  "success": true,
+  "data": {
+    "links": [
+      {
+        "id": 1,
+        "title": "Official Website",
+        "url": "https://www.rania.co.id",
+        "order": 1
+      },
+      {
+        "id": 2,
+        "title": "Hajj Packages",
+        "url": "https://www.rania.co.id/hajj",
+        "order": 2
+      }
+    ],
+    "social_media": [
+      {
+        "id": 1,
+        "name": "Instagram",
+        "url": "https://instagram.com/rania",
+        "icon_url": "https://example.com/storage/social-media/instagram.png"
+      }
+    ]
+  }
+}
+```
+
+**Error Response (500):**
+```json
+{
+  "success": false,
+  "message": "Failed to fetch linktree data"
+}
+```
+
+**Behavior:**
+- Only returns links with `is_active = true`, sorted by `order` ASC.
+- `social_media` is sourced from the same dataset as `/api/social-media` and is embedded here so the Linktree page only needs one request.
+- Response is safe to cache client-side for 5–15 minutes.
+
+---
+
+#### 2) Track Link Click
+
+Records a click event for a linktree link. Intended to be called in a fire-and-forget manner from the frontend so it does not block the user's navigation to the target URL.
+
+**Endpoint:** `POST /api/linktree/links/{id}/click`
+
+**Path Parameters:**
+- `id` (integer, required) - The linktree link ID.
+
+**Request Body:** None. The server reads the client's `User-Agent`, `Referer` header, and IP address automatically.
+
+**Example:**
+```bash
+curl -X POST "https://your-domain.com/api/linktree/links/1/click"
+```
+
+**Success Response (200):**
+```json
+{
+  "success": true,
+  "message": "Click recorded"
+}
+```
+
+**Error Response (404):**
+```json
+{
+  "success": false,
+  "message": "Link not found"
+}
+```
+
+**Behavior:**
+- Inserts a row into `linktree_link_clicks` (IP, user-agent, referer, timestamp) and increments `linktree_links.click_count` atomically.
+- Rate-limited to **60 requests per minute per IP** to mitigate abuse.
+- Frontend should call this endpoint without awaiting the response, then redirect the user to the target URL.
 
 ---
 
@@ -441,7 +713,7 @@ Submit a contact form message with email notification.
 
 ### Newsletter Subscription
 
-Subscribe to the newsletter with double opt-in verification.
+Subscribe to the newsletter with instant activation.
 
 **Endpoint:** `POST /api/newsletter/subscribe`
 
@@ -459,7 +731,7 @@ Subscribe to the newsletter with double opt-in verification.
 ```json
 {
   "success": true,
-  "message": "Thank you for subscribing! Please check your email to verify your subscription."
+  "message": "Thank you for subscribing to our newsletter!"
 }
 ```
 
@@ -482,18 +754,11 @@ Subscribe to the newsletter with double opt-in verification.
 ```
 
 **Behavior:**
-- Creates a subscriber with `pending` status
-- Sends verification email with verification link
-- Subscriber must click verification link to activate subscription
-- Verification email includes welcome message
+- Creates a subscriber with `active` status immediately
+- No verification email required (single opt-in)
+- Subscriber is instantly added to the newsletter list
 - Duplicate emails are rejected with validation error
-
-**Verification Flow:**
-1. User submits email via API
-2. System sends verification email to provided address
-3. Email contains unique verification link: `GET /newsletter/verify/{token}`
-4. User clicks link to verify and activate subscription
-5. Status changes from `pending` to `active`
+- Unsubscribe token is generated for future unsubscribe requests
 
 **Unsubscribe Flow:**
 - All emails include unsubscribe link: `GET /newsletter/unsubscribe/{token}`
@@ -534,9 +799,13 @@ All successful responses include:
 - All GET endpoints return only active records
 - Records are ordered by their `order` field where applicable
 - Images return absolute URLs
+- `/api/umrah-packages` is paginated and includes `meta` + `links`, with hotels, airlines, and additional services
+- `/api/umrah-packages/{slug}` returns complete package detail sections
+- `/api/umrah-packages/{slug}/other-additional-services` returns paginated add-ons not included in the package
+- Cancellation policy is currently frontend-managed (not part of Umrah API payload)
 - Contact endpoint sends email notifications to admin
-- Newsletter subscription uses double opt-in for security and compliance
-- Verification emails are sent automatically upon subscription
+- Newsletter subscription uses single opt-in (instant activation)
+- Unsubscribe functionality available via unique token
 - CORS enabled for all origins (configure for production)
 
 ## Project Structure
