@@ -3,6 +3,9 @@ import ReactDOM from 'react-dom/client';
 import './styles/index.css';
 import './i18n';
 import App from './App';
+import { initGA } from './utils/analytics';
+
+initGA();
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 

@@ -11,12 +11,19 @@ import UmrahDetail from './pages/UmrahDetail';
 import Contact from './pages/Contact';
 import Support from './pages/Support';
 import Linktree from './pages/Linktree';
+import usePageTracking from './hooks/usePageTracking';
 import './styles/App.css';
+
+const AnalyticsTracker = () => {
+  usePageTracking();
+  return null;
+};
 
 const App = () => {
   return (
     <HelmetProvider>
       <Router>
+        <AnalyticsTracker />
         <Routes>
           {/* Pages with Footer */}
           <Route element={<MainLayout />}>
