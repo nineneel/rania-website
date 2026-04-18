@@ -16,7 +16,9 @@
       "Bash(mv 'right-side-image-3.webp' 'gallery-3.webp')",
       "Bash(mv 'right-side-image-4.webp' 'gallery-4.webp')",
       "Bash(git add:*)",
-      "Bash(git commit:*)"
+      "Bash(git commit:*)",
+      "Bash(wc -l /Users/nineneel/coding/work/rania-website/frontend/src/pages/*/\\\\*.jsx)",
+      "Bash(find /Users/nineneel/coding/work/rania-website/frontend/src/pages -name \"*.jsx\" -type f -exec wc -l {} +)"
     ]
   }
 }
