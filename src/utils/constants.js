@@ -22,6 +22,8 @@ export const API_ENDPOINTS = {
   UMRAH_OTHER_ADDITIONAL_SERVICES: '/api/umrah-packages',
   CONTACT: '/api/contact',
   NEWSLETTER: '/api/newsletter/subscribe',
+  LINKTREE: '/api/linktree',
+  LINKTREE_LINKS: '/api/linktree/links',
 };
 
 export const CONTACT_INFO = {

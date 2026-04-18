@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import SEO from '../../components/common/SEO/SEO';
-import { getSocialMedia } from '../../services/api';
+import { getLinktree, trackLinktreeClick } from '../../services/api';
 import logger from '../../utils/logger';
 import raniaLogo from '../../assets/icons/rania-logo.webp';
 import facebookIcon from '../../assets/icons/Facebook.svg';
@@ -10,41 +10,13 @@ import youtubeIcon from '../../assets/icons/YouTube.svg';
 import tiktokIcon from '../../assets/icons/tiktok.svg';
 import './Linktree.css';
 
-// Temporary data - will be replaced with API
-const TEMP_LINKS = [
-  {
-    id: 1,
-    title: 'Official Website',
-    url: 'https://www.rania.co.id',
-  },
-  {
-    id: 2,
-    title: 'Hajj Packages',
-    url: 'https://www.rania.co.id/hajj',
-  },
-  {
-    id: 3,
-    title: 'Umrah Packages',
-    url: 'https://www.rania.co.id/umrah',
-  },
-  {
-    id: 4,
-    title: 'About Rania',
-    url: 'https://www.rania.co.id/about',
-  },
-  {
-    id: 5,
-    title: 'Contact Us',
-    url: 'https://www.rania.co.id/contact',
-  },
-];
-
-const TEMP_PROFILE = {
+const PROFILE = {
   name: 'RANIA',
   tagline: 'Redefine Hajj, Reimagined Journey',
 };
 
 const Linktree = () => {
+  const [links, setLinks] = useState([]);
   const [socialMedia, setSocialMedia] = useState([]);
 
   const fallbackIcons = {
@@ -66,20 +38,26 @@ const Linktree = () => {
   };
 
   useEffect(() => {
-    const fetchSocialMedia = async () => {
+    const fetchLinktree = async () => {
       try {
-        const response = await getSocialMedia();
+        const response = await getLinktree();
         if (response.success && response.data) {
-          setSocialMedia(response.data);
+          setLinks(response.data.links || []);
+          setSocialMedia(response.data.social_media || []);
         }
       } catch (error) {
-        logger.error('[Linktree] Failed to fetch social media:', error);
+        logger.error('[Linktree] Failed to fetch linktree data:', error);
+        setLinks([]);
         setSocialMedia([]);
       }
     };
 
-    fetchSocialMedia();
+    fetchLinktree();
   }, []);
+
+  const handleLinkClick = (linkId) => {
+    trackLinktreeClick(linkId);
+  };
 
   return (
     <>
@@ -96,16 +74,16 @@ const Linktree = () => {
             <div className="linktree-avatar">
               <img
                 src={raniaLogo}
-                alt={TEMP_PROFILE.name}
+                alt={PROFILE.name}
                 className="linktree-avatar-img"
               />
             </div>
-            <p className="linktree-tagline">{TEMP_PROFILE.tagline}</p>
+            <p className="linktree-tagline">{PROFILE.tagline}</p>
           </div>
 
           {/* Links Section */}
           <div className="linktree-links">
-            {TEMP_LINKS.map((link, index) => (
+            {links.map((link, index) => (
               <a
                 key={link.id}
                 href={link.url}
@@ -113,6 +91,7 @@ const Linktree = () => {
                 rel="noopener noreferrer"
                 className="linktree-link-button"
                 style={{ animationDelay: `${index * 0.1}s` }}
+                onClick={() => handleLinkClick(link.id)}
               >
                 <span className="linktree-link-title">{link.title}</span>
               </a>
