@@ -165,6 +165,18 @@
   gap: 20px;
 }
 
+a.about-coverage-card {
+  text-decoration: none;
+  color: inherit;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+a.about-coverage-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0px 18px 35px -13px rgba(0, 0, 0, 0.3);
+}
+
 .about-coverage-card {
   background: white;
   box-shadow: 0px 13px 28px -13px rgba(0, 0, 0, 0.25);
@@ -172,6 +184,7 @@
   padding: 20px;
   padding-top: 50px;
   position: relative;
+  display: block;
 }
 
 .about-coverage-card--dark {
@@ -848,6 +861,37 @@
   padding-bottom: 20px;
 }
 
+/* Google Maps Section */
+.about-map-section {
+  width: 100%;
+  padding: var(--section-padding-vertical) var(--section-padding-horizontal);
+  background: var(--text-white);
+}
+
+.about-map-wrapper {
+  max-width: var(--content-width);
+  margin: 0 auto;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+.about-map-iframe {
+  width: 100%;
+  height: 450px;
+  border: none;
+  display: block;
+}
+
+.about-map-address {
+  text-align: center;
+  color: var(--text-primary);
+  font-size: 16px;
+  font-weight: var(--font-weight-regular);
+  margin-top: 20px;
+  opacity: 0.85;
+  line-height: 1.6;
+}
 
 /* Responsive Design */
 @media (max-width: 1024px) {
@@ -973,6 +1017,14 @@
   .about-expert-card,
   .about-gallery-item {
     max-width: 100%;
+  }
+
+  .about-map-iframe {
+    height: 300px;
+  }
+
+  .about-map-address {
+    font-size: 14px;
   }
 
   :root {

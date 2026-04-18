@@ -103,10 +103,10 @@ const About = () => {
 
   // Media coverage data
   const mediaCoverage = [
-    { logo: logoLiputan6, alt: 'Liputan6', description: t('about.coverageMedia1') },
-    { logo: logoSuara, alt: 'Suara.com', description: t('about.coverageMedia2'), dark: true },
-    { logo: logoSindonews, alt: 'SindoNews', description: t('about.coverageMedia3') },
-    { logo: logoTimesIndonesia, alt: 'Times Indonesia', description: t('about.coverageMedia4') }
+    { logo: logoLiputan6, alt: 'Liputan6', description: t('about.coverageMedia1'), link: 'https://www.liputan6.com/islami/read/6116187/calon-jemaah-bisa-berangkat-haji-lebih-cepat-tanpa-tunggu-antrean-lama' },
+    { logo: logoSuara, alt: 'Suara.com', description: t('about.coverageMedia2'), dark: true, link: 'https://www.suara.com/lifestyle/2025/12/15/164041/jamaah-bukan-sekadar-peserta-mengapa-pendekatan-humanis-dibutuhkan-saat-umrah-dan-haji' },
+    { logo: logoSindonews, alt: 'SindoNews', description: t('about.coverageMedia3'), link: 'https://lifestyle.sindonews.com/read/1652299/156/transformasi-industri-travel-perjalanan-ibadah-kini-dituntut-lebih-personal-dan-bermakna-1764951127?showpage=all' },
+    { logo: logoTimesIndonesia, alt: 'Times Indonesia', description: t('about.coverageMedia4'), link: 'https://timesindonesia.co.id/indonesia-positif/571250/bangun-kepercayaan-publik-rania-perkuat-ekosistem-haji-premium-lewat-kolaborasi-syariah-strategis' }
   ];
 
   const coverageGalleryImages = [
@@ -182,12 +182,12 @@ const About = () => {
           </p>
           <div className="about-coverage-cards">
             {mediaCoverage.map((media, index) => (
-              <div key={index} className={`about-coverage-card ${media.dark ? 'about-coverage-card--dark' : ''}`}>
+              <a key={index} href={media.link} target="_blank" rel="noopener noreferrer" className={`about-coverage-card ${media.dark ? 'about-coverage-card--dark' : ''}`}>
                 <div className="about-coverage-card-logo">
                   <img src={media.logo} alt={media.alt} loading="lazy" />
                 </div>
                 <p className="about-coverage-card-text">{media.description}</p>
-              </div>
+              </a>
             ))}
           </div>
         </div>
@@ -379,8 +379,26 @@ const About = () => {
             </Carousel>
           </div>
         </section>
-      
+
       </div>
+
+      {/* Google Maps Section */}
+      <section className="about-map-section about-section">
+        <h2 className="about-section-title">{t('about.findUs')}</h2>
+        <div className="about-map-wrapper">
+          <iframe
+            className="about-map-iframe"
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3966.2845!2d106.8430!3d-6.2245!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e69f3e94c09c0e7%3A0x31a0f5e0c9e8e1a0!2sMall%20Kota%20Kasablanka!5e0!3m2!1sen!2sid!4v1700000000000"
+            title="Rania Office Location - Mall Kota Kasablanka"
+            allowFullScreen
+            loading="lazy"
+            referrerPolicy="no-referrer-when-downgrade"
+          ></iframe>
+        </div>
+        <p className="about-map-address">
+          Mall Kota Kasablanka, Prudential Centre, Kav No.88 Floor 7N, Kota Jakarta Selatan, 12870
+        </p>
+      </section>
     </div>
   );
 };

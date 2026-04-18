@@ -385,6 +385,21 @@ const Contact = () => {
         </div>
       </section>
 
+      {/* Google Maps Section */}
+      <section className="contact-map-section">
+        <h2 className="contact-map-title">{t('contact.findUs')}</h2>
+        <div className="contact-map-wrapper">
+          <iframe
+            className="contact-map-iframe"
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3966.2845!2d106.8430!3d-6.2245!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e69f3e94c09c0e7%3A0x31a0f5e0c9e8e1a0!2sMall%20Kota%20Kasablanka!5e0!3m2!1sen!2sid!4v1700000000000"
+            title="Rania Office Location - Mall Kota Kasablanka"
+            allowFullScreen
+            loading="lazy"
+            referrerPolicy="no-referrer-when-downgrade"
+          ></iframe>
+        </div>
+      </section>
+
       {/* Social Media Section */}
       <section className="contact-social-section">
         <h2 className="contact-social-title">{t('contact.connectWithUs')}</h2>
