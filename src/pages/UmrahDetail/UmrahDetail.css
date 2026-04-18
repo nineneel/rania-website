@@ -115,8 +115,18 @@
 
 .umrah-detail-hero-details {
   margin: 18px 0 0;
-  display: grid;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
   gap: 6px;
+}
+
+.umrah-detail-hero-details > .umrah-detail-hero-detail:first-child {
+  flex: 1;
+}
+
+.umrah-detail-hero-details > .umrah-detail-hero-detail:last-child {
+  text-align: right;
 }
 
 .umrah-detail-hero-detail dt {
