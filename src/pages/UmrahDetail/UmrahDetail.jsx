@@ -131,6 +131,7 @@ const UmrahDetail = () => {
   const galleryImages = useMemo(() => buildGallery(umrahPackage), [umrahPackage]);
   const formattedPrice = useMemo(() => formatPackagePrice(umrahPackage), [umrahPackage]);
   const heroCapacity = umrahPackage?.departure_schedule || umrahPackage?.capacity || umrahPackage?.pax || '-';
+  const categoryLabel = umrahPackage?.category?.name || t('umrahDetail.defaultCategory');
 
   return (
     <div className="umrah-detail-page">
@@ -182,6 +183,7 @@ const UmrahDetail = () => {
                 <div className="umrah-detail-hero-gradient" aria-hidden="true"></div>
                 <div className="umrah-detail-hero-content">
                   <header className="umrah-detail-hero-header">
+                    <span className="umrah-detail-hero-badge">{categoryLabel}</span>
                     <h1 id="umrah-detail-hero-title" className="umrah-detail-hero-title">
                       {umrahPackage?.title || 'Royal Hilton Signature'}
                     </h1>
@@ -593,7 +595,7 @@ const UmrahDetail = () => {
           <div className="umrah-detail-sticky-inner">
             <div className="umrah-detail-sticky-info">
               <h2 className="umrah-detail-sticky-title">{umrahPackage.title}</h2>
-              <p className="umrah-detail-sticky-subtitle">{t('umrahDetail.stickySubtitle')}</p>
+              <p className="umrah-detail-sticky-subtitle">{categoryLabel}</p>
             </div>
             <div className="umrah-detail-sticky-price">
               <span className="umrah-detail-sticky-price-label">{t('umrahDetail.startingFrom')}</span>
@@ -615,7 +617,7 @@ const UmrahDetail = () => {
                 size="large"
                 menuDirection="up"
                 title={umrahPackage.title}
-                text={`${umrahPackage.title} — ${t('umrahDetail.stickySubtitle')}`}
+                text={`${umrahPackage.title} — ${categoryLabel}`}
               />
             </div>
           </div>

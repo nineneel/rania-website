@@ -99,7 +99,20 @@
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  gap: 0;
+  gap: 12px;
+}
+
+.umrah-detail-hero-badge {
+  display: inline-block;
+  padding: 6px 14px;
+  border-radius: 999px;
+  background: var(--primary-gold);
+  color: var(--text-white);
+  font-size: clamp(11px, 0.85vw, 13px);
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  line-height: 1.2;
 }
 
 .umrah-detail-hero-title {
