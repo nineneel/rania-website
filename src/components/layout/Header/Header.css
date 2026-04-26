@@ -82,6 +82,12 @@
   font-weight: var(--font-weight-bold);
 }
 
+.header-nav-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
 /* Language Dropdown - Desktop */
 .lang-dropdown {
   position: relative;
@@ -225,6 +231,12 @@
     padding: 20px 24px;
     height: 70px;
     background: white;
+  }
+
+  .header-mobile-actions {
+    display: flex;
+    align-items: center;
+    gap: 12px;
   }
 
   .header-mobile-logo {

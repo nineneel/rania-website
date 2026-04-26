@@ -6,6 +6,7 @@ import SEO from '../../components/common/SEO';
 import { StructuredData } from '../../components/common/SEO';
 import Button from '../../components/common/Button/Button';
 import Carousel from '../../components/common/Carousel/Carousel';
+import ShareButton from '../../components/common/ShareButton';
 import { getUmrahPackageDetail, getOtherAdditionalServices } from '../../services/api';
 import { openWhatsAppUmrah, whatsappMessages } from '../../utils/whatsapp';
 import locationIcon from '../../assets/icons/location.svg';
@@ -139,7 +140,7 @@ const UmrahDetail = () => {
 
   const galleryImages = useMemo(() => buildGallery(umrahPackage), [umrahPackage]);
   const heroPrice = umrahPackage?.price != null ? formatPrice(umrahPackage.price) : '---';
-  const heroCapacity = umrahPackage?.capacity || umrahPackage?.pax || '1-10 Pax';
+  const heroCapacity = umrahPackage?.departure_schedule || umrahPackage?.capacity || umrahPackage?.pax || '-';
 
   return (
     <div className="umrah-detail-page">
@@ -567,12 +568,21 @@ const UmrahDetail = () => {
                 {umrahPackage.currency || 'Rp'}. {heroPrice}
               </span>
             </div>
-            <button
-              className="umrah-detail-sticky-btn"
-              onClick={() => openWhatsAppUmrah(whatsappMessages.umrahCTA())}
-            >
-              {t('umrahDetail.bookPackage')}
-            </button>
+            <div className="umrah-detail-sticky-actions">
+              <button
+                className="umrah-detail-sticky-btn"
+                onClick={() => openWhatsAppUmrah(whatsappMessages.umrahCTA())}
+              >
+                {t('umrahDetail.bookPackage')}
+              </button>
+              <ShareButton
+                className="umrah-detail-sticky-share"
+                size="large"
+                menuDirection="up"
+                title={umrahPackage.title}
+                text={`${umrahPackage.title} — ${t('umrahDetail.stickySubtitle')}`}
+              />
+            </div>
           </div>
         </div>
       )}

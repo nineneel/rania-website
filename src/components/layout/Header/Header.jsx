@@ -2,6 +2,7 @@ import { useState, useEffect, useRef } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import PropTypes from 'prop-types';
+import ShareButton from '../../common/ShareButton';
 import './Header.css';
 import raniaLogo from '../../../assets/icons/rania-logo.webp';
 
@@ -122,31 +123,34 @@ const Header = ({ activeLink = 'Home' }) => {
               </a>
             );
           })}
-          <div className="lang-dropdown" ref={langRef}>
-            <button
-              className="lang-toggle"
-              onClick={() => setIsLangOpen(!isLangOpen)}
-              aria-label="Select language"
-            >
-              <span className="lang-flag">{currentLang.flag}</span>
-              <svg className={`lang-arrow ${isLangOpen ? 'open' : ''}`} width="10" height="6" viewBox="0 0 10 6" fill="none">
-                <path d="M1 1L5 5L9 1" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-              </svg>
-            </button>
-            {isLangOpen && (
-              <div className="lang-menu">
-                {languages.map((lang) => (
-                  <button
-                    key={lang.code}
-                    className={`lang-option ${lang.code === i18n.language ? 'active' : ''}`}
-                    onClick={() => selectLanguage(lang.code)}
-                  >
-                    <span className="lang-flag">{lang.flag}</span>
-                    <span className="lang-option-label">{lang.label}</span>
-                  </button>
-                ))}
-              </div>
-            )}
+          <div className="header-nav-actions">
+            <div className="lang-dropdown" ref={langRef}>
+              <button
+                className="lang-toggle"
+                onClick={() => setIsLangOpen(!isLangOpen)}
+                aria-label="Select language"
+              >
+                <span className="lang-flag">{currentLang.flag}</span>
+                <svg className={`lang-arrow ${isLangOpen ? 'open' : ''}`} width="10" height="6" viewBox="0 0 10 6" fill="none">
+                  <path d="M1 1L5 5L9 1" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                </svg>
+              </button>
+              {isLangOpen && (
+                <div className="lang-menu">
+                  {languages.map((lang) => (
+                    <button
+                      key={lang.code}
+                      className={`lang-option ${lang.code === i18n.language ? 'active' : ''}`}
+                      onClick={() => selectLanguage(lang.code)}
+                    >
+                      <span className="lang-flag">{lang.flag}</span>
+                      <span className="lang-option-label">{lang.label}</span>
+                    </button>
+                  ))}
+                </div>
+              )}
+            </div>
+            <ShareButton size="small" />
           </div>
         </nav>
       </div>
@@ -157,15 +161,18 @@ const Header = ({ activeLink = 'Home' }) => {
           <Link to="/" onClick={handleLogoClick}>
             <img src={raniaLogo} alt="Rania Logo" className="header-mobile-logo" />
           </Link>
-          <button
-            className={`hamburger-menu ${isMobileMenuOpen ? 'active' : ''}`}
-            onClick={toggleMobileMenu}
-            aria-label="Toggle menu"
-          >
-            <span className="hamburger-line"></span>
-            <span className="hamburger-line"></span>
-            <span className="hamburger-line"></span>
-          </button>
+          <div className="header-mobile-actions">
+            <ShareButton size="small" className="header-mobile-share" />
+            <button
+              className={`hamburger-menu ${isMobileMenuOpen ? 'active' : ''}`}
+              onClick={toggleMobileMenu}
+              aria-label="Toggle menu"
+            >
+              <span className="hamburger-line"></span>
+              <span className="hamburger-line"></span>
+              <span className="hamburger-line"></span>
+            </button>
+          </div>
         </div>
 
         {/* Mobile Menu Dropdown */}

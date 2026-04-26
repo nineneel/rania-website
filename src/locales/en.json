@@ -11,6 +11,12 @@
     "supportHelp": "Support & Help",
     "comingSoon": "Coming Soon"
   },
+  "share": {
+    "sharePage": "Share this page",
+    "copyLink": "Copy link",
+    "linkCopied": "Link copied!",
+    "email": "Email"
+  },
   "footer": {
     "newsletterTitle": "Subscribe to our weekly email newsletter!",
     "emailPlaceholder": "Enter your email",

@@ -11,6 +11,12 @@
     "supportHelp": "Bantuan & Dukungan",
     "comingSoon": "Segera Hadir"
   },
+  "share": {
+    "sharePage": "Bagikan halaman ini",
+    "copyLink": "Salin tautan",
+    "linkCopied": "Tautan disalin!",
+    "email": "Email"
+  },
   "footer": {
     "newsletterTitle": "Berlangganan buletin email mingguan kami!",
     "emailPlaceholder": "Masukkan email Anda",
