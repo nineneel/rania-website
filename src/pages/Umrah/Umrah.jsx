@@ -11,6 +11,7 @@ import { StructuredData } from '../../components/common/SEO';
 import { openWhatsAppUmrah, whatsappMessages } from '../../utils/whatsapp';
 import { UmrahShimmer } from '../../components/common/Shimmer';
 import { getUmrahPackages } from '../../services/api';
+import { formatPackagePrice } from '../../utils/helpers';
 import logger from '../../utils/logger';
 
 // Import wave divider
@@ -50,7 +51,7 @@ import knowMoreImage from '../../assets/images/umrah/know_more_image.webp';
 import customizeYourUmrah from '../../assets/images/umrah/customize_your_umrah.webp';
 
 const Umrah = () => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const [email, setEmail] = useState('');
 
   // API Data States
@@ -98,11 +99,11 @@ const Umrah = () => {
     }
   };
 
-  // Fetch packages on component mount
+  // Fetch packages on mount and whenever active language changes (currency depends on locale)
   useEffect(() => {
     logger.info('🚀 [Umrah] Initializing API data fetch...');
     fetchUmrahPackages();
-  }, []);
+  }, [i18n.language]);
 
   const handleSubscribe = (e) => {
     e.preventDefault();
@@ -267,15 +268,22 @@ const Umrah = () => {
 
                 <div className="umrah-package-price">
                   <span className="umrah-price-label">{t('umrah.startFrom')}</span>
-                  <div className="umrah-price-amount">
-                    <span className="umrah-price-currency">{pkg.currency}</span>
-                    <span className="umrah-price-value">
-                      {new Intl.NumberFormat('id-ID', {
-                        minimumFractionDigits: 2,
-                        maximumFractionDigits: 2
-                      }).format(pkg.price)}
-                    </span>
-                  </div>
+                  {(() => {
+                    const formatted = formatPackagePrice(pkg);
+                    if (!formatted) {
+                      return (
+                        <div className="umrah-price-amount">
+                          <span className="umrah-price-value">{t('umrah.contactRania')}</span>
+                        </div>
+                      );
+                    }
+                    return (
+                      <div className="umrah-price-amount">
+                        <span className="umrah-price-currency">{formatted.currency}</span>
+                        <span className="umrah-price-value">{formatted.amount}</span>
+                      </div>
+                    );
+                  })()}
                 </div>
 
                 <div className="umrah-package-divider"></div>

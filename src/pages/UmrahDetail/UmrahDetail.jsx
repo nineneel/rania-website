@@ -8,6 +8,7 @@ import Button from '../../components/common/Button/Button';
 import Carousel from '../../components/common/Carousel/Carousel';
 import ShareButton from '../../components/common/ShareButton';
 import { getUmrahPackageDetail, getOtherAdditionalServices } from '../../services/api';
+import { formatPackagePrice } from '../../utils/helpers';
 import { openWhatsAppUmrah, whatsappMessages } from '../../utils/whatsapp';
 import locationIcon from '../../assets/icons/location.svg';
 import calendarIcon from '../../assets/icons/calendar.svg';
@@ -20,19 +21,6 @@ import './UmrahDetail.css';
 
 const sortByOrder = (items = []) => {
   return [...items].sort((a, b) => (a?.order ?? 0) - (b?.order ?? 0));
-};
-
-const formatPrice = (price) => {
-  const numericPrice = Number(price);
-
-  if (Number.isNaN(numericPrice)) {
-    return price;
-  }
-
-  return new Intl.NumberFormat('id-ID', {
-    minimumFractionDigits: 0,
-    maximumFractionDigits: 0
-  }).format(numericPrice);
 };
 
 const buildGallery = (pkg) => {
@@ -49,7 +37,7 @@ const buildGallery = (pkg) => {
 };
 
 const UmrahDetail = () => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const { slug } = useParams();
 
   const [umrahPackage, setUmrahPackage] = useState(null);
@@ -102,7 +90,7 @@ const UmrahDetail = () => {
 
     window.scrollTo({ top: 0, behavior: 'smooth' });
     fetchDetail();
-  }, [slug]);
+  }, [slug, i18n.language]);
 
   const fetchOtherServices = async (page = 1) => {
     if (!slug) return;
@@ -141,7 +129,7 @@ const UmrahDetail = () => {
   const packageServices = useMemo(() => sortByOrder(umrahPackage?.package_services), [umrahPackage]);
 
   const galleryImages = useMemo(() => buildGallery(umrahPackage), [umrahPackage]);
-  const heroPrice = umrahPackage?.price != null ? formatPrice(umrahPackage.price) : '---';
+  const formattedPrice = useMemo(() => formatPackagePrice(umrahPackage), [umrahPackage]);
   const heroCapacity = umrahPackage?.departure_schedule || umrahPackage?.capacity || umrahPackage?.pax || '-';
 
   return (
@@ -202,8 +190,14 @@ const UmrahDetail = () => {
                     <div className="umrah-detail-hero-detail">
                       <dt>{t('umrahDetail.startingFrom')}</dt>
                       <dd className="umrah-detail-hero-price">
-                        <span className="umrah-detail-hero-price-currency">{umrahPackage?.currency || 'Rp'}.</span>
-                        <span className="umrah-detail-hero-price-value">{heroPrice}</span>
+                        {formattedPrice ? (
+                          <>
+                            <span className="umrah-detail-hero-price-currency">{formattedPrice.currency}</span>
+                            <span className="umrah-detail-hero-price-value">{formattedPrice.amount}</span>
+                          </>
+                        ) : (
+                          <span className="umrah-detail-hero-price-value">{t('umrahDetail.contactRania')}</span>
+                        )}
                       </dd>
                     </div>
                     <div className="umrah-detail-hero-detail">
@@ -604,7 +598,9 @@ const UmrahDetail = () => {
             <div className="umrah-detail-sticky-price">
               <span className="umrah-detail-sticky-price-label">{t('umrahDetail.startingFrom')}</span>
               <span className="umrah-detail-sticky-price-value">
-                {umrahPackage.currency || 'Rp'}. {heroPrice}
+                {formattedPrice
+                  ? `${formattedPrice.currency} ${formattedPrice.amount}`
+                  : t('umrahDetail.contactRania')}
               </span>
             </div>
             <div className="umrah-detail-sticky-actions">

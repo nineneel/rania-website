@@ -1,8 +1,16 @@
 // API Configuration for RANIA Website
+import i18n from '../i18n';
 import { API_ENDPOINTS } from '../utils/constants';
 import logger from '../utils/logger';
 
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:3000';
+
+const SUPPORTED_LOCALES = ['id', 'en', 'ar'];
+
+const getActiveLocale = () => {
+  const code = (i18n.language || 'id').slice(0, 2).toLowerCase();
+  return SUPPORTED_LOCALES.includes(code) ? code : 'id';
+};
 
 // Log API configuration on load
 logger.info('⚙️ [API Config] Base URL:', API_BASE_URL);
@@ -21,6 +29,7 @@ export const apiRequest = async (endpoint, options = {}) => {
     headers: {
       'Content-Type': 'application/json',
       'Accept': 'application/json',
+      'Accept-Language': getActiveLocale(),
     },
   };
 
