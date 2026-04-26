@@ -226,6 +226,7 @@
     "pax": "Pax",
     "accommodation": "Accommodation",
     "nights": "Nights",
+    "airlines": "Airlines",
     "transportation": "Transportation",
     "itinerary": "Itinerary",
     "itineraryIn": "Itinerary in {{location}}",

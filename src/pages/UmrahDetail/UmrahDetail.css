@@ -489,6 +489,73 @@
   font-weight: 600;
 }
 
+.umrah-detail-airlines-divider {
+  position: relative;
+  width: 100vw;
+  margin-left: calc(50% - 50vw);
+  margin-right: calc(50% - 50vw);
+  margin-top: 48px;
+  margin-bottom: 32px;
+  height: 340px;
+  overflow: hidden;
+}
+
+.umrah-detail-airlines-divider-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+}
+
+.umrah-detail-airlines-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 20px;
+}
+
+.umrah-detail-airline-card {
+  border-radius: 20px;
+  border: 1px solid #e5e7eb;
+  background: #FFFFFF;
+  padding: 28px 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  box-shadow: 0 2px 12px rgba(12, 12, 13, 0.08);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.umrah-detail-airline-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 18px rgba(12, 12, 13, 0.1);
+}
+
+.umrah-detail-airline-logo-wrap {
+  width: 100%;
+  height: 90px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.umrah-detail-airline-logo {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+}
+
+.umrah-detail-airline-name {
+  color: #1f2a44;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 16px;
+  font-weight: 700;
+  text-align: center;
+  margin: 0;
+}
+
 .umrah-detail-transport-card {
   border-radius: 20px;
   border: 1px solid #e5e7eb;
@@ -996,6 +1063,31 @@
 
   .umrah-detail-transport-card {
     border-radius: 24px;
+  }
+
+  .umrah-detail-airlines-divider {
+    height: 200px;
+    margin-top: 32px;
+    margin-bottom: 24px;
+  }
+
+  .umrah-detail-airlines-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+  }
+
+  .umrah-detail-airline-card {
+    padding: 20px 16px;
+    border-radius: 18px;
+    gap: 12px;
+  }
+
+  .umrah-detail-airline-logo-wrap {
+    height: 60px;
+  }
+
+  .umrah-detail-airline-name {
+    font-size: 14px;
   }
 
   .umrah-detail-overview-text {

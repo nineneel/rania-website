@@ -14,6 +14,7 @@ import calendarIcon from '../../assets/icons/calendar.svg';
 import calendar2Icon from '../../assets/icons/calendar-2.svg';
 import hotelIcon from '../../assets/icons/hotel.svg';
 import additionalServiceHero from '../../assets/images/umrah/additional-service-hero.webp';
+import airlinesDivider from '../../assets/images/umrah/discover-private-umrah.webp';
 import './UmrahDetail.css';
 
 
@@ -133,6 +134,7 @@ const UmrahDetail = () => {
   };
 
   const hotels = useMemo(() => sortByOrder(umrahPackage?.hotels), [umrahPackage]);
+  const airlines = useMemo(() => sortByOrder(umrahPackage?.airlines), [umrahPackage]);
   const transportations = useMemo(() => sortByOrder(umrahPackage?.transportations), [umrahPackage]);
   const itineraries = useMemo(() => sortByOrder(umrahPackage?.itineraries), [umrahPackage]);
   const additionalServices = useMemo(() => sortByOrder(umrahPackage?.additional_services), [umrahPackage]);
@@ -248,6 +250,43 @@ const UmrahDetail = () => {
                 </div>
               </div>
             </section>
+
+            {airlines.length > 0 && (
+              <div className="umrah-detail-airlines-divider">
+                <img
+                  src={airlinesDivider}
+                  alt=""
+                  className="umrah-detail-airlines-divider-img"
+                  aria-hidden="true"
+                  loading="lazy"
+                />
+              </div>
+            )}
+
+            {airlines.length > 0 && (
+              <section className="umrah-detail-block-section">
+                <h3 className="umrah-detail-block-title">{t('umrahDetail.airlines')}</h3>
+                <div className="umrah-detail-airlines-grid">
+                  {airlines.map((airline) => (
+                    <article key={airline.id} className="umrah-detail-airline-card">
+                      <div className="umrah-detail-airline-logo-wrap">
+                        {airline.logo_url || airline.logo ? (
+                          <img
+                            src={airline.logo_url || airline.logo}
+                            alt={airline.name}
+                            className="umrah-detail-airline-logo"
+                            loading="lazy"
+                          />
+                        ) : (
+                          <div className="umrah-detail-image-fallback">{t('umrahDetail.noImage')}</div>
+                        )}
+                      </div>
+                      <h4 className="umrah-detail-airline-name">{airline.name}</h4>
+                    </article>
+                  ))}
+                </div>
+              </section>
+            )}
 
             <section className="umrah-detail-block-section">
               <h3 className="umrah-detail-block-title">{t('umrahDetail.accommodation')}</h3>

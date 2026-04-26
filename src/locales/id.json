@@ -226,6 +226,7 @@
     "pax": "Pax",
     "accommodation": "Akomodasi",
     "nights": "Malam",
+    "airlines": "Maskapai Penerbangan",
     "transportation": "Transportasi",
     "itinerary": "Itinerari",
     "itineraryIn": "Itinerari di {{location}}",
