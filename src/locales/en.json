@@ -53,7 +53,6 @@
   "home": {
     "seeDetails": "See Details",
     "contactRania": "Contact Rania",
-    "valuesTitle": "Our Values",
     "values": {
       "trust": "Trust",
       "trustSub": "With Integrity",
@@ -224,6 +223,10 @@
     "accommodation": "Accommodation",
     "nights": "Nights",
     "airlines": "Airlines",
+    "meals": "Meals",
+    "mealsValue": "2× Premium In-Flight Meals",
+    "baggage": "Baggage Allowance",
+    "baggageValue": "23 Kg (2Pcs)",
     "transportation": "Transportation",
     "itinerary": "Itinerary",
     "itineraryIn": "Itinerary in {{location}}",

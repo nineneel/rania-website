@@ -277,9 +277,42 @@ const UmrahDetail = () => {
                           <div className="umrah-detail-image-fallback">{t('umrahDetail.noImage')}</div>
                         )}
                       </div>
-                      <h4 className="umrah-detail-airline-name">{airline.name}</h4>
+                      <div className="umrah-detail-airline-info">
+                        <h4 className="umrah-detail-airline-name">{airline.name}</h4>
+                        {(airline.class || airline.flight_class) && (
+                          <p className="umrah-detail-airline-subtitle">{airline.class || airline.flight_class}</p>
+                        )}
+                      </div>
                     </article>
                   ))}
+                  <article className="umrah-detail-airline-card">
+                    <div className="umrah-detail-airline-logo-wrap">
+                      <svg width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                        <path d="M32 16c-7.18 0-13 5.82-13 13h26c0-7.18-5.82-13-13-13z" stroke="#1f2a44" strokeWidth="2.4" strokeLinejoin="round"/>
+                        <path d="M14 32h36" stroke="#1f2a44" strokeWidth="2.4" strokeLinecap="round"/>
+                        <path d="M22 38l-3 6h26l-3-6" stroke="#1f2a44" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round"/>
+                        <path d="M32 11v5" stroke="#1f2a44" strokeWidth="2.4" strokeLinecap="round"/>
+                      </svg>
+                    </div>
+                    <div className="umrah-detail-airline-info">
+                      <h4 className="umrah-detail-airline-name">{t('umrahDetail.meals')}</h4>
+                      <p className="umrah-detail-airline-subtitle">{t('umrahDetail.mealsValue')}</p>
+                    </div>
+                  </article>
+                  <article className="umrah-detail-airline-card">
+                    <div className="umrah-detail-airline-logo-wrap">
+                      <svg width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                        <rect x="18" y="22" width="22" height="28" rx="2" stroke="#1f2a44" strokeWidth="2.4"/>
+                        <path d="M25 22v-4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v4" stroke="#1f2a44" strokeWidth="2.4" strokeLinecap="round"/>
+                        <path d="M22 28v18M36 28v18" stroke="#1f2a44" strokeWidth="2"/>
+                        <rect x="40" y="28" width="10" height="22" rx="2" stroke="#1f2a44" strokeWidth="2.4"/>
+                      </svg>
+                    </div>
+                    <div className="umrah-detail-airline-info">
+                      <h4 className="umrah-detail-airline-name">{t('umrahDetail.baggage')}</h4>
+                      <p className="umrah-detail-airline-subtitle">{t('umrahDetail.baggageValue')}</p>
+                    </div>
+                  </article>
                 </div>
               </section>
             )}

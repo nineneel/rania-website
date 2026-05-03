@@ -53,7 +53,6 @@
   "home": {
     "seeDetails": "Lihat Detail",
     "contactRania": "Hubungi Rania",
-    "valuesTitle": "Nilai-Nilai Kami",
     "values": {
       "trust": "Kepercayaan",
       "trustSub": "Dengan Integritas",
@@ -224,6 +223,10 @@
     "accommodation": "Akomodasi",
     "nights": "Malam",
     "airlines": "Maskapai Penerbangan",
+    "meals": "Makanan",
+    "mealsValue": "2× Hidangan Premium Selama Penerbangan",
+    "baggage": "Bagasi",
+    "baggageValue": "23 Kg (2Pcs)",
     "transportation": "Transportasi",
     "itinerary": "Itinerari",
     "itineraryIn": "Itinerari di {{location}}",

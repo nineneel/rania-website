@@ -130,110 +130,63 @@ body {
 }
 
 /* Values Section */
-.home-values-section {
+.values-section {
   width: 100%;
-  min-height: 835px;
-  position: relative;
-  overflow: hidden;
-  background: var(--text-white);
-}
-
-.values-bg {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: center;
-}
-
-.values-overlay-top {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 193px;
-  background: linear-gradient(180deg, white 13%, rgba(255, 255, 255, 0) 100%);
-  z-index: 1;
-}
-
-.values-overlay-bottom {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  height: 193px;
-  background: linear-gradient(0deg, white 13%, rgba(255, 255, 255, 0) 100%);
-  z-index: 1;
-}
-
-.values-content {
-  position: relative;
-  z-index: 2;
+  /* min-height: 276px; */
+  background: transparent;
   padding: 0 var(--section-padding-horizontal);
-  max-width: var(--container-width);
-  margin: 0 auto;
-  min-height: 835px;
+  padding-top: calc(var(--section-padding-vertical) * 2);
   display: flex;
-  flex-direction: column;
+  align-items: center;
   justify-content: center;
 }
 
-.values-title {
-  text-align: left;
-  color: var(--text-primary);
-  font-size: 56px;
-  font-family: 'Begum Devanagari', serif;
-  font-weight: 700;
-  line-height: 56px;
-  margin: 0 0 40px 0;
-}
-
-.values-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 156px);
-  gap: 20px;
-  width: fit-content;
+.values-container {
+  max-width: var(--content-width);
+  display: flex;
+  justify-content: space-between;
+  gap: 40px;
+  flex-wrap: wrap;
 }
 
 .value-card {
-  width: 156px;
-  height: 156px;
+  width: 120px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  gap: 12px;
-  padding: 20px 0;
-  background: rgba(255, 255, 255, 0.20);
-  box-shadow: 6px 23px 34px -15px rgba(0, 0, 0, 0.28);
-  border-radius: 28px;
-  border: 1px solid white;
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
+  gap: 16px;
 }
 
 .value-icon-wrapper {
+  width: 100px;
+  height: 100px;
+  background: var(--primary-gold);
+  border-radius: var(--border-radius-icon);
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
 .value-icon {
-  width: 48px;
-  height: 48px;
-  filter: brightness(0) saturate(100%) invert(12%) sepia(20%) saturate(1200%) hue-rotate(190deg) brightness(95%);
+  font-size: 50px;
+  color: white;
 }
 
-.value-card-title {
-  color: var(--text-primary);
-  font-size: var(--font-size-small);
-  font-weight: 600;
+.value-text {
   text-align: center;
-  max-width: 127px;
-  word-wrap: break-word;
-  line-height: 20px;
+}
+
+.value-title {
+  color: white;
+  font-size: 20px;
+  font-weight: var(--font-weight-bold);
+  margin-bottom: 4px;
+}
+
+.value-subtitle {
+  color: white;
+  font-size: var(--font-size-regular);
+  font-weight: var(--font-weight-light);
 }
 
 /* Services Section */
@@ -477,21 +430,6 @@ body {
     line-height: 50px;
   }
 
-  .values-title {
-    font-size: 42px;
-    line-height: 42px;
-  }
-
-  .values-grid {
-    grid-template-columns: repeat(3, 140px);
-    gap: 16px;
-  }
-
-  .value-card {
-    width: 140px;
-    height: 140px;
-  }
-
   .services-container,
   .events-container {
     flex-wrap: wrap;
@@ -519,41 +457,38 @@ body {
     font-size: 16px;
   }
 
-  .home-values-section {
-    min-height: 500px;
-  }
-
-  .values-content {
+  .values-section {
     padding: 0 20px;
-    min-height: 500px;
+    padding-top: 40px;
   }
 
-  .values-title {
-    font-size: 32px;
-    line-height: 32px;
-    margin-bottom: 24px;
-  }
-
-  .values-grid {
-    grid-template-columns: repeat(3, 1fr);
-    gap: 12px;
-    width: 100%;
+  .values-container {
+    flex-direction: row;
+    justify-content: center;
+    gap: 20px;
   }
 
   .value-card {
-    width: 100%;
-    height: 130px;
-    border-radius: 20px;
+    width: 90px;
+  }
+
+  .value-icon-wrapper {
+    width: 70px;
+    height: 70px;
   }
 
   .value-icon {
-    width: 32px;
-    height: 32px;
+    width: 30px;
+    height: 30px;
+    color: white;
   }
 
-  .value-card-title {
-    font-size: 11px;
-    max-width: 100px;
+  .value-title {
+    font-size: 16px;
+  }
+
+  .value-subtitle {
+    font-size: 14px;
   }
 
   .services-section {
