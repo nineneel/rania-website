@@ -215,6 +215,24 @@
   background: linear-gradient(180deg, var(--primary-brown) 0%, var(--primary-gold) 100%);
 }
 
+/* Service Details Variant - See Details on dark service cards (amber/gold pill) */
+.button-service-details {
+  background: linear-gradient(90deg, #ECAD27 0%, #745426 50%, #442305 100%);
+  color: var(--text-white);
+  border-radius: 74px;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-weight: 700;
+}
+
+.button-service-details:hover:not(:disabled) {
+  background: linear-gradient(90deg, #442305 0%, #745426 50%, #ECAD27 100%);
+}
+
+.button-service-details:disabled {
+  background: linear-gradient(90deg, #1A243D 0%, black 50%, #442305 100%);
+  opacity: 1;
+}
+
 /* Responsive adjustments */
 @media (max-width: 768px) {
   .button-small {

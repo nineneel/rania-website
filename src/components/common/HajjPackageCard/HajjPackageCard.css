@@ -1,0 +1,294 @@
+.hajj-packages-container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 18px;
+  max-width: var(--content-width);
+  margin: 0 auto;
+}
+
+.hajj-package-card {
+  width: 100%;
+  background: var(--text-white);
+  border-radius: 24px;
+  border: 1px solid #E0E0E0;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  padding-bottom: 24px;
+  transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.hajj-package-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
+}
+
+.hajj-package-image-wrap {
+  position: relative;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+}
+
+.hajj-package-tag {
+  width: 100%;
+  padding: 14px 20px 28px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  border-top-left-radius: 18px;
+  border-top-right-radius: 18px;
+  margin-bottom: -16px;
+}
+
+.hajj-package-tag-text {
+  color: var(--text-white);
+  font-size: 15px;
+  font-family: var(--font-family-primary);
+  font-weight: var(--font-weight-bold);
+  text-transform: capitalize;
+  white-space: nowrap;
+}
+
+.hajj-package-image {
+  position: relative;
+  width: 100%;
+  height: 220px;
+  object-fit: cover;
+  display: block;
+  border-radius: 18px;
+}
+
+.hajj-package-image-fallback {
+  position: relative;
+  width: 100%;
+  height: 220px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #f3f4f6;
+  color: #6b7280;
+  font-size: 14px;
+  border-radius: 18px;
+}
+
+.hajj-package-title {
+  padding: 0 24px;
+  margin-top: 20px;
+  font-size: 32px;
+  font-family: var(--font-family-primary);
+  font-weight: var(--font-weight-extra-bold);
+  line-height: 36px;
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+  background-repeat: no-repeat;
+}
+
+.hajj-package-tagline {
+  padding: 0 24px;
+  margin-top: 12px;
+  color: var(--text-black);
+  font-size: 11px;
+  font-family: var(--font-family-primary);
+  font-style: italic;
+  font-weight: var(--font-weight-bold);
+}
+
+.hajj-package-list {
+  padding: 0 24px;
+  margin-top: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.hajj-package-list-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.hajj-package-list-icon {
+  width: 22px;
+  height: 22px;
+  background: #E0E0E0;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.hajj-package-list-icon img {
+  width: 12px;
+  height: 12px;
+}
+
+.hajj-package-list-name {
+  color: var(--text-primary);
+  font-size: 13px;
+  font-family: var(--font-family-primary);
+  font-weight: var(--font-weight-medium);
+  text-transform: capitalize;
+  flex: 1;
+}
+
+.hajj-package-list-stars {
+  display: flex;
+  gap: 2px;
+  margin-left: auto;
+}
+
+.hajj-package-star {
+  width: 11px;
+  height: 11px;
+}
+
+.hajj-package-pills {
+  padding: 0 24px;
+  margin-top: 18px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+}
+
+.hajj-package-pill {
+  height: 36px;
+  background: var(--text-white);
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.08);
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 0 12px;
+}
+
+.hajj-package-pill-icon {
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+}
+
+.hajj-package-pill-text {
+  color: var(--text-primary);
+  font-size: 12px;
+  font-family: var(--font-family-primary);
+  font-weight: var(--font-weight-semi-bold);
+  white-space: nowrap;
+}
+
+.hajj-package-pill-airline {
+  gap: 8px;
+}
+
+.hajj-package-pill-airline-logo {
+  height: 22px;
+  max-width: 70px;
+  width: auto;
+  object-fit: contain;
+  flex-shrink: 0;
+}
+
+.hajj-package-action {
+  padding: 0 24px;
+  margin-top: 22px;
+  display: flex;
+  justify-content: center;
+}
+
+.hajj-package-button {
+  width: 165px;
+  border-radius: 130px;
+  border: 1.3px solid #442305;
+  color: #442305;
+  background: transparent;
+  font-weight: var(--font-weight-extra-bold);
+}
+
+.hajj-package-button:hover {
+  background: #442305;
+  color: var(--text-white);
+}
+
+.hajj-package-divider {
+  width: calc(100% - 48px);
+  height: 0;
+  margin: 18px 24px 18px 24px;
+  border-top: 1px solid var(--text-black);
+}
+
+.hajj-package-pricing {
+  padding: 0 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.hajj-pricing-row {
+  display: grid;
+  grid-template-columns: 60px 1fr auto;
+  align-items: center;
+  gap: 12px;
+}
+
+.hajj-pricing-type {
+  color: var(--text-black);
+  font-size: 13px;
+  font-family: var(--font-family-primary);
+  font-weight: var(--font-weight-regular);
+}
+
+.hajj-pricing-amount {
+  color: var(--text-black);
+  font-size: 15px;
+  font-family: var(--font-family-secondary);
+  font-weight: var(--font-weight-bold);
+}
+
+.hajj-pricing-currency {
+  font-size: 11px;
+  font-weight: var(--font-weight-regular);
+}
+
+.hajj-pricing-empty {
+  font-size: 14px;
+  color: #9ca3af;
+}
+
+.hajj-pricing-beds {
+  display: flex;
+  gap: 3px;
+  align-items: center;
+}
+
+.hajj-bed-icon {
+  width: 14px;
+  height: 10px;
+}
+
+@media (max-width: 1024px) {
+  .hajj-packages-container {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .hajj-packages-container {
+    grid-template-columns: 1fr;
+  }
+
+  .hajj-package-card {
+    max-width: 100%;
+  }
+
+  .hajj-package-title {
+    font-size: 28px;
+    line-height: 32px;
+  }
+}

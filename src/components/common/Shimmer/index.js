@@ -4,3 +4,5 @@ export { default as UmrahShimmer } from './UmrahShimmer';
 export { default as TestimonialShimmer } from './TestimonialShimmer';
 export { default as SocialMediaShimmer } from './SocialMediaShimmer';
 export { default as FAQShimmer } from './FAQShimmer';
+export { default as GalleryShimmer } from './GalleryShimmer';
+export { default as NewsShimmer } from './NewsShimmer';

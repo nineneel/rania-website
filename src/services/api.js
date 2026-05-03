@@ -1,8 +1,16 @@
 // API Configuration for RANIA Website
+import i18n from '../i18n';
 import { API_ENDPOINTS } from '../utils/constants';
 import logger from '../utils/logger';
 
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:3000';
+
+const SUPPORTED_LOCALES = ['id', 'en', 'ar'];
+
+const getActiveLocale = () => {
+  const code = (i18n.language || 'id').slice(0, 2).toLowerCase();
+  return SUPPORTED_LOCALES.includes(code) ? code : 'id';
+};
 
 // Log API configuration on load
 logger.info('⚙️ [API Config] Base URL:', API_BASE_URL);
@@ -21,6 +29,7 @@ export const apiRequest = async (endpoint, options = {}) => {
     headers: {
       'Content-Type': 'application/json',
       'Accept': 'application/json',
+      'Accept-Language': getActiveLocale(),
     },
   };
 
@@ -146,6 +155,48 @@ export const getTestimonials = async (params = {}) => {
 };
 
 /**
+ * Get Rania Gallery images with pagination
+ * @param {{per_page?: number, page?: number}} params
+ * @returns {Promise<{success: boolean, data: Array, pagination: object}>}
+ */
+export const getRaniaGalleries = async (params = {}) => {
+  const { per_page = 12, page = 1 } = params;
+  const queryParams = new URLSearchParams({
+    per_page: per_page.toString(),
+    page: page.toString(),
+  });
+
+  try {
+    const response = await apiRequest(`${API_ENDPOINTS.RANIA_GALLERIES}?${queryParams}`);
+    return response;
+  } catch (error) {
+    console.warn('Failed to fetch rania galleries:', error);
+    throw error;
+  }
+};
+
+/**
+ * Get News & Articles with pagination
+ * @param {{per_page?: number, page?: number}} params
+ * @returns {Promise<{success: boolean, data: Array, pagination: object}>}
+ */
+export const getNewsArticles = async (params = {}) => {
+  const { per_page = 12, page = 1 } = params;
+  const queryParams = new URLSearchParams({
+    per_page: per_page.toString(),
+    page: page.toString(),
+  });
+
+  try {
+    const response = await apiRequest(`${API_ENDPOINTS.NEWS_ARTICLES}?${queryParams}`);
+    return response;
+  } catch (error) {
+    console.warn('Failed to fetch news articles:', error);
+    throw error;
+  }
+};
+
+/**
  * Get all umrah packages with hotels and airlines
  * @returns {Promise<{success: boolean, data: Array}>}
  */
@@ -206,6 +257,87 @@ export const getOtherAdditionalServices = async (slug, params = {}) => {
     page: page.toString(),
   });
   const endpoint = `${API_ENDPOINTS.UMRAH_OTHER_ADDITIONAL_SERVICES}/${slug}/other-additional-services?${queryParams}`;
+
+  try {
+    logger.debug(`📡 [API] GET ${endpoint}`);
+    const response = await apiRequest(endpoint);
+    logger.info(`✅ ${logPrefix} Response:`, {
+      success: response.success,
+      dataCount: response.data?.length,
+    });
+    return response;
+  } catch (error) {
+    logger.error(`❌ ${logPrefix} Error:`, error.message);
+    throw error;
+  }
+};
+
+/**
+ * Get all hajj packages with pagination
+ * @param {Object} params - Query parameters
+ * @param {number} params.page - Page number (default: 1)
+ * @returns {Promise<{success: boolean, data: Array, meta: Object, links: Object}>}
+ */
+export const getHajjPackages = async (params = {}) => {
+  const logPrefix = '[Hajj Packages]';
+  const { page = 1 } = params;
+  const queryParams = new URLSearchParams({ page: page.toString() });
+  const endpoint = `${API_ENDPOINTS.HAJJ_PACKAGES}?${queryParams}`;
+
+  try {
+    logger.debug(`📡 [API] GET ${endpoint}`);
+    const response = await apiRequest(endpoint);
+    logger.info(`✅ ${logPrefix} Response:`, {
+      success: response.success,
+      dataCount: response.data?.length
+    });
+    return response;
+  } catch (error) {
+    logger.error(`❌ ${logPrefix} Error:`, error.message);
+    throw error;
+  }
+};
+
+/**
+ * Get hajj package detail by slug
+ * @param {string} slug - Package slug
+ * @returns {Promise<{success: boolean, data: Object}>}
+ */
+export const getHajjPackageDetail = async (slug) => {
+  const logPrefix = '[Hajj Package Detail]';
+  const endpoint = `${API_ENDPOINTS.HAJJ_PACKAGE_DETAIL}/${slug}`;
+
+  try {
+    logger.debug(`📡 [API] GET ${endpoint}`);
+    const response = await apiRequest(endpoint);
+    logger.info(`✅ ${logPrefix} Response:`, {
+      success: response.success,
+      packageId: response.data?.id,
+      packageTitle: response.data?.title
+    });
+    return response;
+  } catch (error) {
+    logger.error(`❌ ${logPrefix} Error:`, error.message);
+    throw error;
+  }
+};
+
+/**
+ * Get other additional services not included in a specific hajj package
+ * @param {string} slug - Package slug
+ * @param {Object} params - Query parameters
+ * @param {number} params.per_page - Items per page (default: 12)
+ * @param {number} params.page - Page number (default: 1)
+ * @returns {Promise<{success: boolean, data: Array, meta: Object, links: Object}>}
+ */
+export const getHajjOtherAdditionalServices = async (slug, params = {}) => {
+  const logPrefix = '[Hajj Other Additional Services]';
+  const { per_page = 12, page = 1 } = params;
+  const queryParams = new URLSearchParams({
+    per_page: per_page.toString(),
+    page: page.toString(),
+  });
+  const endpoint = `${API_ENDPOINTS.HAJJ_OTHER_ADDITIONAL_SERVICES}/${slug}/other-additional-services?${queryParams}`;
 
   try {
     logger.debug(`📡 [API] GET ${endpoint}`);

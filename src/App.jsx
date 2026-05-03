@@ -5,6 +5,7 @@ import Home from './pages/Home';
 import About from './pages/About';
 import Partnership from './pages/Partnership';
 import Hajj from './pages/Hajj';
+import HajjDetail from './pages/HajjDetail';
 import HajjUpgrade from './pages/HajjUpgrade';
 import Umrah from './pages/Umrah';
 import UmrahDetail from './pages/UmrahDetail';
@@ -32,6 +33,7 @@ const App = () => {
             <Route path="/partnership" element={<Partnership />} />
             <Route path="/hajj" element={<Hajj />} />
             <Route path="/hajj/upgrade" element={<HajjUpgrade />} />
+            <Route path="/hajj/:slug" element={<HajjDetail />} />
             <Route path="/umrah" element={<Umrah />} />
             <Route path="/umrah/:slug" element={<UmrahDetail />} />
             <Route path="/contact" element={<Contact />} />

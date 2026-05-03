@@ -52,7 +52,8 @@ Button.propTypes = {
     'change',            // Change Now (outline gold)
     'change-gradient',   // Change Now (gold gradient)
     'itinerary',         // Itinerary (dark bg)
-    'itinerary-gradient' // Itinerary (gold gradient)
+    'itinerary-gradient',// Itinerary (gold gradient)
+    'service-details'    // Service See Details (amber/gold pill on dark cards)
   ]),
   size: PropTypes.oneOf(['small', 'medium', 'large', 'xlarge']),
   onClick: PropTypes.func,

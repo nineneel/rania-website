@@ -1,9 +1,44 @@
 /* Testimonial Section Styles */
 
+.testimonial-wave-divider {
+  width: 100%;
+  position: relative;
+  overflow: hidden;
+  line-height: 0;
+  font-size: 0;
+}
+
+/* The wave SVG paints its own #E2E2E2 fill below the curve; the wrapper colors the opposite side. */
+
+/* Top divider: SVG is flipped so its gray fill sits ABOVE the curve, wrapper paints white below */
+.testimonial-wave-divider--top {
+  background: var(--text-white);
+}
+
+/* Bottom divider: SVG sits as-is so its gray fill is BELOW the curve, wrapper paints white above */
+.testimonial-wave-divider--bottom {
+  background: var(--text-white);
+}
+
+.testimonial-wave-image {
+  width: 100%;
+  height: auto;
+  display: block;
+  position: relative;
+  z-index: 1;
+  /* Pull the next element up to overlap the SVG's bottom edge — eliminates the
+     sub-pixel white seam where the gray fill meets the gray section below. */
+  margin-bottom: -2px;
+}
+
+.testimonial-wave-image--flip {
+  transform: scaleY(-1);
+}
+
 .testimonial-section {
   width: 100%;
   padding: var(--section-padding-vertical) var(--section-padding-horizontal);
-  background-color: var(--text-white);
+  background-color: #E2E2E2;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -29,60 +64,94 @@
 .testimonial-card {
   position: relative;
   width: 100%;
-  max-width: 350px;
-  min-height: 280px;
-  background: var(--primary-gold);
-  border-radius: 18.14px;
-  box-shadow: 0px 1.89px 10.41px rgba(0, 0, 0, 0.08);
-  padding: 30.23px 30.59px;
+  max-width: 367px;
+  min-height: 275px;
+  background: var(--text-white);
+  border-radius: 24px;
+  box-shadow: 3px 4px 10.9px rgba(0, 0, 0, 0.25);
+  padding: 30px;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
   transition: transform var(--transition-fast), box-shadow var(--transition-fast);
   margin: 0 auto;
 }
 
+.testimonial-card--dark {
+  background: linear-gradient(180deg, #1A243D 0%, black 100%);
+}
+
 .testimonial-card:hover {
   transform: translateY(-5px);
-  box-shadow: 0px 4px 16px rgba(0, 0, 0, 0.12);
+  box-shadow: 4px 6px 16px rgba(0, 0, 0, 0.3);
+}
+
+.testimonial-quote {
+  font-family: 'Podkova', serif;
+  font-size: 100px;
+  font-weight: 700;
+  line-height: 0.83;
+  color: var(--primary-dark);
+  margin: 0;
+  height: 60px;
+  display: block;
+}
+
+.testimonial-card--dark .testimonial-quote {
+  color: #A38447;
 }
 
 .testimonial-text {
-  font-family: var(--font-family);
-  font-size: 13.24px;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 16px;
   font-weight: var(--font-weight-regular);
-  line-height: 20.81px;
-  color: var(--text-white);
-  margin: 0 0 20px 0;
+  line-height: 22px;
+  color: var(--text-black);
+  margin: 24px 0 0 0;
   word-wrap: break-word;
   overflow-wrap: break-word;
   display: -webkit-box;
-  -webkit-line-clamp: 6;
+  -webkit-line-clamp: 5;
   -webkit-box-orient: vertical;
   overflow: hidden;
   text-overflow: ellipsis;
 }
 
+.testimonial-card--dark .testimonial-text {
+  color: var(--text-white);
+}
+
 .testimonial-info {
   margin-top: auto;
+  padding-top: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
 }
 
 .testimonial-name {
-  font-family: var(--font-family);
-  font-size: 11.35px;
-  font-weight: var(--font-weight-bold);
-  line-height: 13.60px;
-  color: var(--text-white);
-  margin: 0 0 4px 0;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 12px;
+  font-weight: var(--font-weight-regular);
+  line-height: 22px;
+  color: #9F9F9F;
+  margin: 0;
 }
 
 .testimonial-position {
-  font-family: var(--font-family);
-  font-size: 11.35px;
-  font-weight: var(--font-weight-regular);
-  line-height: 13.60px;
-  color: var(--text-white);
-  margin: 0;
+  display: none;
+}
+
+.testimonial-stars {
+  display: flex;
+  gap: 3px;
+}
+
+.testimonial-star {
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+  display: block;
 }
 
 /* Empty State Styles */

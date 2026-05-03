@@ -8,6 +8,7 @@ import Partners from '../../components/common/Partners';
 import SignatureCard from '../../components/common/SignatureCard';
 import SEO from '../../components/common/SEO';
 import { StructuredData } from '../../components/common/SEO';
+import UmrahPackageCard from '../../components/common/UmrahPackageCard';
 import { openWhatsAppUmrah, whatsappMessages } from '../../utils/whatsapp';
 import { UmrahShimmer } from '../../components/common/Shimmer';
 import { getUmrahPackages } from '../../services/api';
@@ -21,13 +22,6 @@ import heroUmrah from '../../assets/images/umrah/hero.webp';
 
 // Import icons
 import verifiedIcon from '../../assets/icons/verified-icon.webp';
-import bedIcon from '../../assets/icons/bed-icon.webp';
-import checkIcon from '../../assets/icons/check-icon.webp';
-import hotelIcon from '../../assets/icons/hotel.svg';
-import locationIcon from '../../assets/icons/location.svg';
-import starIcon from '../../assets/icons/start.svg';
-import calendarIcon from '../../assets/icons/calendar.svg';
-import calendar2Icon from '../../assets/icons/calendar-2.svg';
 
 // Import value/feature icons
 import value1 from '../../assets/images/umrah/value/value-1.webp';
@@ -50,7 +44,7 @@ import knowMoreImage from '../../assets/images/umrah/know_more_image.webp';
 import customizeYourUmrah from '../../assets/images/umrah/customize_your_umrah.webp';
 
 const Umrah = () => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const [email, setEmail] = useState('');
 
   // API Data States
@@ -98,11 +92,11 @@ const Umrah = () => {
     }
   };
 
-  // Fetch packages on component mount
+  // Fetch packages on mount and whenever active language changes (currency depends on locale)
   useEffect(() => {
     logger.info('🚀 [Umrah] Initializing API data fetch...');
     fetchUmrahPackages();
-  }, []);
+  }, [i18n.language]);
 
   const handleSubscribe = (e) => {
     e.preventDefault();
@@ -212,92 +206,7 @@ const Umrah = () => {
         ) : (
           <div className="umrah-packages-container">
             {umrahPackages.map((pkg, index) => (
-              <div key={pkg.id || index} className="umrah-package-card">
-                <img src={pkg.image_url || pkg.image} alt={pkg.title} className="umrah-package-image" />
-
-                <h3 className="umrah-package-title">{pkg.title}</h3>
-                <p className="umrah-package-description">{pkg.subtitle}</p>
-
-                <div className="umrah-package-hotels">
-                  {pkg.hotels && pkg.hotels.map((hotel, idx) => (
-                    <div key={idx} className="umrah-hotel-item">
-                      <div className="umrah-hotel-icon">
-                        <img src={hotelIcon} alt="Hotel" />
-                      </div>
-                      <span className="umrah-hotel-name">{hotel.name}</span>
-                      <div className="umrah-hotel-stars">
-                        {[...Array(hotel.stars)].map((_, i) => (
-                          <img key={i} src={starIcon} alt="Star" className="umrah-star" />
-                        ))}
-                      </div>
-                    </div>
-                  ))}
-
-                  <div className="umrah-departure-item">
-                    <div className="umrah-departure-icon">
-                      <img src={locationIcon} alt="Location" />
-                    </div>
-                    <span className="umrah-departure-text">{pkg.departure}</span>
-                  </div>
-                </div>
-
-
-                <div className="umrah-package-details">
-                  <div className="umrah-detail-item">
-                    <img src={calendarIcon} alt="Calendar" className="umrah-detail-icon" />
-                    <span className="umrah-detail-text">{pkg.duration}</span>
-                  </div>
-                  <div className="umrah-detail-item">
-                    <img src={calendar2Icon} alt="Calendar" className="umrah-detail-icon" />
-                    <span className="umrah-detail-text">{pkg.departure_schedule}</span>
-                  </div>
-                  <div className="umrah-detail-airlines">
-                    {pkg.airlines && pkg.airlines.map((airline, idx) => (
-                      <div key={idx} className="umrah-airline-wrapper">
-                        <img
-                          src={airline.logo_url || airline.logo}
-                          alt={airline.name}
-                          className="umrah-airline-logo"
-                        />
-                        <span className="umrah-airline-tooltip">{airline.name}</span>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-
-                <div className="umrah-package-price">
-                  <span className="umrah-price-label">{t('umrah.startFrom')}</span>
-                  <div className="umrah-price-amount">
-                    <span className="umrah-price-currency">{pkg.currency}</span>
-                    <span className="umrah-price-value">
-                      {new Intl.NumberFormat('id-ID', {
-                        minimumFractionDigits: 2,
-                        maximumFractionDigits: 2
-                      }).format(pkg.price)}
-                    </span>
-                  </div>
-                </div>
-
-                <div className="umrah-package-divider"></div>
-
-                <div className="umrah-package-actions">
-                  <Button
-                    variant="secondary"
-                    size="medium"
-                    className="umrah-interest-button umrah-interest-button-full"
-                    to={pkg.slug ? `/umrah/${pkg.slug}` : undefined}
-                    onClick={!pkg.slug ? () => {
-                      if (pkg.link) {
-                        window.open(pkg.link, '_blank', 'noopener,noreferrer');
-                      } else {
-                        openWhatsAppUmrah(whatsappMessages.umrahInterest(pkg.title));
-                      }
-                    } : undefined}
-                  >
-                    {t('umrah.iAmInterested')}
-                  </Button>
-                </div>
-              </div>
+              <UmrahPackageCard key={pkg.id || index} pkg={pkg} />
             ))}
           </div>
         )}

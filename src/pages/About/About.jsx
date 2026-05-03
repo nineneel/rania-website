@@ -32,10 +32,7 @@ import logoLiputan6 from '../../assets/images/about/coverage/logos/liputan6.webp
 import logoSuara from '../../assets/images/about/coverage/logos/suara.webp';
 import logoSindonews from '../../assets/images/about/coverage/logos/sindonews.webp';
 import logoTimesIndonesia from '../../assets/images/about/coverage/logos/times-indonesia.webp';
-import coverageGallery1 from '../../assets/images/about/coverage/gallery/gallery-1.webp';
-import coverageGallery2 from '../../assets/images/about/coverage/gallery/gallery-2.webp';
-import coverageGallery3 from '../../assets/images/about/coverage/gallery/gallery-3.webp';
-import coverageGallery4 from '../../assets/images/about/coverage/gallery/gallery-4.webp';
+import coverageCollage from '../../assets/images/about/coverage/coverage-collage.webp';
 
 // Import wave divider
 import waveImage from '../../assets/utils/wave.webp';
@@ -107,13 +104,6 @@ const About = () => {
     { logo: logoSuara, alt: 'Suara.com', description: t('about.coverageMedia2'), dark: true, link: 'https://www.suara.com/lifestyle/2025/12/15/164041/jamaah-bukan-sekadar-peserta-mengapa-pendekatan-humanis-dibutuhkan-saat-umrah-dan-haji' },
     { logo: logoSindonews, alt: 'SindoNews', description: t('about.coverageMedia3'), link: 'https://lifestyle.sindonews.com/read/1652299/156/transformasi-industri-travel-perjalanan-ibadah-kini-dituntut-lebih-personal-dan-bermakna-1764951127?showpage=all' },
     { logo: logoTimesIndonesia, alt: 'Times Indonesia', description: t('about.coverageMedia4'), link: 'https://timesindonesia.co.id/indonesia-positif/571250/bangun-kepercayaan-publik-rania-perkuat-ekosistem-haji-premium-lewat-kolaborasi-syariah-strategis' }
-  ];
-
-  const coverageGalleryImages = [
-    { image: coverageGallery1, alt: 'Rania media coverage' },
-    { image: coverageGallery2, alt: 'Rania hajj journey' },
-    { image: coverageGallery3, alt: 'Rania umrah experience' },
-    { image: coverageGallery4, alt: 'Rania premium service' }
   ];
 
   // Gallery images data
@@ -192,22 +182,12 @@ const About = () => {
           </div>
         </div>
         <div className="about-coverage-right">
-          <div className="about-coverage-badge about-coverage-badge--top">
-            <span className="about-coverage-badge-title">{t('about.coverageBadgeTitle')}</span>
-            <span className="about-coverage-badge-subtitle">{t('about.coverageBadgeSub')}</span>
-          </div>
-          <div className="about-coverage-badge about-coverage-badge--bottom">
-            <span className="about-coverage-badge-title">{t('about.hajjWithoutWait')}</span>
-          </div>
-          {coverageGalleryImages.map((item, index) => (
-            <img
-              key={index}
-              src={item.image}
-              alt={item.alt}
-              className={`about-coverage-gallery-img about-coverage-gallery-img--${index + 1}`}
-              loading="lazy"
-            />
-          ))}
+          <img
+            src={coverageCollage}
+            alt="Rania media coverage collage"
+            className="about-coverage-collage"
+            loading="lazy"
+          />
         </div>
       </section>
 
