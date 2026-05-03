@@ -10,17 +10,28 @@ import ShareButton from '../../components/common/ShareButton';
 import { getUmrahPackageDetail, getOtherAdditionalServices } from '../../services/api';
 import { formatPackagePrice } from '../../utils/helpers';
 import { openWhatsAppUmrah, whatsappMessages } from '../../utils/whatsapp';
-import locationIcon from '../../assets/icons/location.svg';
-import calendarIcon from '../../assets/icons/calendar.svg';
-import calendar2Icon from '../../assets/icons/calendar-2.svg';
-import hotelIcon from '../../assets/icons/hotel.svg';
+import calendarIcon from '../../assets/icons/calendar-icon.svg';
+import mealsIcon from '../../assets/icons/meals-icon.svg';
+import baggageIcon from '../../assets/icons/baggage-icon.svg';
+import paxIcon from '../../assets/icons/pax-icon.svg';
 import additionalServiceHero from '../../assets/images/umrah/additional-service-hero.webp';
-import airlinesDivider from '../../assets/images/umrah/discover-private-umrah.webp';
+import airlinesDivider from '../../assets/images/umrah/airlines-header.webp';
 import './UmrahDetail.css';
 
 
 const sortByOrder = (items = []) => {
   return [...items].sort((a, b) => (a?.order ?? 0) - (b?.order ?? 0));
+};
+
+const formatDateDDMMMYYYY = (value) => {
+  if (!value) return null;
+  const date = new Date(value);
+  if (Number.isNaN(date.getTime())) return value;
+  return new Intl.DateTimeFormat('en-GB', {
+    day: '2-digit',
+    month: 'short',
+    year: 'numeric',
+  }).format(date);
 };
 
 const buildGallery = (pkg) => {
@@ -204,7 +215,10 @@ const UmrahDetail = () => {
                     </div>
                     <div className="umrah-detail-hero-detail">
                       <dt className="umrah-detail-sr-only">{t('umrahDetail.capacity')}</dt>
-                      <dd className="umrah-detail-hero-capacity">{heroCapacity}</dd>
+                      <dd className="umrah-detail-hero-capacity">
+                        <img src={paxIcon} alt="" aria-hidden="true" className="umrah-detail-hero-capacity-icon" />
+                        <span>{heroCapacity}</span>
+                      </dd>
                     </div>
                   </dl>
                 </div>
@@ -230,19 +244,27 @@ const UmrahDetail = () => {
               <p className="umrah-detail-overview-text">{umrahPackage?.description}</p>
               <div className="umrah-detail-overview-info">
                 <div className="umrah-detail-overview-item">
-                  <span className="umrah-detail-overview-icon"><img src={locationIcon} alt="Departure" /></span>
-                  <span className="umrah-detail-overview-label">{t('umrahDetail.departure')}</span>
-                  <span>{umrahPackage?.departure || '-'}</span>
+                  <span className="umrah-detail-overview-icon"><img src={calendarIcon} alt="Date" /></span>
+                  <span className="umrah-detail-overview-label">{t('umrahDetail.date')}</span>
+                  <span>{formatDateDDMMMYYYY(umrahPackage?.date) || '-'}</span>
                 </div>
                 <div className="umrah-detail-overview-item">
-                  <span className="umrah-detail-overview-icon"><img src={calendarIcon} alt="Duration" /></span>
-                  <span className="umrah-detail-overview-label">{t('umrahDetail.numberOfNights')}</span>
+                  <span className="umrah-detail-overview-icon">
+                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                      <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" stroke="#ffffff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                    </svg>
+                  </span>
+                  <span className="umrah-detail-overview-label">{t('umrahDetail.dayOfJourney')}</span>
                   <span>{umrahPackage?.duration || '-'}</span>
                 </div>
                 <div className="umrah-detail-overview-item">
-                  <span className="umrah-detail-overview-icon"><img src={calendar2Icon} alt="Schedule" /></span>
-                  <span className="umrah-detail-overview-label">{t('umrahDetail.pax')}</span>
-                  <span>{umrahPackage?.departure_schedule || '-'}</span>
+                  <span className="umrah-detail-overview-icon">
+                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                      <path d="M12 2.5l2.95 5.98 6.6.96-4.78 4.65 1.13 6.57L12 17.55 6.1 20.66l1.13-6.57L2.45 9.44l6.6-.96L12 2.5z" stroke="#ffffff" strokeWidth="2" strokeLinejoin="round" strokeLinecap="round" fill="none"/>
+                    </svg>
+                  </span>
+                  <span className="umrah-detail-overview-label">{t('umrahDetail.package')}</span>
+                  <span>{umrahPackage?.title || '-'}</span>
                 </div>
               </div>
             </section>
@@ -262,57 +284,63 @@ const UmrahDetail = () => {
             {airlines.length > 0 && (
               <section className="umrah-detail-block-section">
                 <h3 className="umrah-detail-block-title">{t('umrahDetail.airlines')}</h3>
-                <div className="umrah-detail-airlines-grid">
+                <div className="umrah-detail-airlines-list">
                   {airlines.map((airline) => (
-                    <article key={airline.id} className="umrah-detail-airline-card">
-                      <div className="umrah-detail-airline-logo-wrap">
-                        {airline.logo_url || airline.logo ? (
+                    <div key={airline.id} className="umrah-detail-airlines-row">
+                      <article className="umrah-detail-airline-card">
+                        <div className="umrah-detail-airline-logo-wrap">
+                          {airline.logo_url || airline.logo ? (
+                            <img
+                              src={airline.logo_url || airline.logo}
+                              alt={airline.name}
+                              className="umrah-detail-airline-logo"
+                              loading="lazy"
+                            />
+                          ) : (
+                            <div className="umrah-detail-image-fallback">{t('umrahDetail.noImage')}</div>
+                          )}
+                        </div>
+                        <div className="umrah-detail-airline-info">
+                          <h4 className="umrah-detail-airline-name">{airline.name}</h4>
+                          {airline.class && (
+                            <p className="umrah-detail-airline-subtitle">{airline.class}</p>
+                          )}
+                        </div>
+                      </article>
+                      <article className="umrah-detail-airline-card">
+                        <div className="umrah-detail-airline-logo-wrap">
                           <img
-                            src={airline.logo_url || airline.logo}
-                            alt={airline.name}
-                            className="umrah-detail-airline-logo"
+                            src={mealsIcon}
+                            alt={t('umrahDetail.meals')}
+                            className="umrah-detail-airline-logo umrah-detail-airline-logo-icon"
                             loading="lazy"
                           />
-                        ) : (
-                          <div className="umrah-detail-image-fallback">{t('umrahDetail.noImage')}</div>
-                        )}
-                      </div>
-                      <div className="umrah-detail-airline-info">
-                        <h4 className="umrah-detail-airline-name">{airline.name}</h4>
-                        {(airline.class || airline.flight_class) && (
-                          <p className="umrah-detail-airline-subtitle">{airline.class || airline.flight_class}</p>
-                        )}
-                      </div>
-                    </article>
+                        </div>
+                        <div className="umrah-detail-airline-info">
+                          <h4 className="umrah-detail-airline-name">{t('umrahDetail.meals')}</h4>
+                          {airline.meal != null && airline.meal !== '' && (
+                            <p className="umrah-detail-airline-subtitle">{t('umrahDetail.mealsValue', { count: airline.meal })}</p>
+                          )}
+                        </div>
+                      </article>
+                      <article className="umrah-detail-airline-card">
+                        <div className="umrah-detail-airline-logo-wrap">
+                          <img
+                            src={baggageIcon}
+                            alt={t('umrahDetail.baggage')}
+                            className="umrah-detail-airline-logo umrah-detail-airline-logo-icon"
+                            loading="lazy"
+                          />
+                        </div>
+                        <div className="umrah-detail-airline-info">
+                          <h4 className="umrah-detail-airline-name">{t('umrahDetail.baggage')}</h4>
+                          {airline.baggage != null && airline.baggage !== '' && (
+                            <p className="umrah-detail-airline-subtitle">{t('umrahDetail.baggageValue', { count: airline.baggage })}</p>
+                          )}
+                        </div>
+                      </article>
+                    </div>
                   ))}
-                  <article className="umrah-detail-airline-card">
-                    <div className="umrah-detail-airline-logo-wrap">
-                      <svg width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                        <path d="M32 16c-7.18 0-13 5.82-13 13h26c0-7.18-5.82-13-13-13z" stroke="#1f2a44" strokeWidth="2.4" strokeLinejoin="round"/>
-                        <path d="M14 32h36" stroke="#1f2a44" strokeWidth="2.4" strokeLinecap="round"/>
-                        <path d="M22 38l-3 6h26l-3-6" stroke="#1f2a44" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round"/>
-                        <path d="M32 11v5" stroke="#1f2a44" strokeWidth="2.4" strokeLinecap="round"/>
-                      </svg>
-                    </div>
-                    <div className="umrah-detail-airline-info">
-                      <h4 className="umrah-detail-airline-name">{t('umrahDetail.meals')}</h4>
-                      <p className="umrah-detail-airline-subtitle">{t('umrahDetail.mealsValue')}</p>
-                    </div>
-                  </article>
-                  <article className="umrah-detail-airline-card">
-                    <div className="umrah-detail-airline-logo-wrap">
-                      <svg width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                        <rect x="18" y="22" width="22" height="28" rx="2" stroke="#1f2a44" strokeWidth="2.4"/>
-                        <path d="M25 22v-4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v4" stroke="#1f2a44" strokeWidth="2.4" strokeLinecap="round"/>
-                        <path d="M22 28v18M36 28v18" stroke="#1f2a44" strokeWidth="2"/>
-                        <rect x="40" y="28" width="10" height="22" rx="2" stroke="#1f2a44" strokeWidth="2.4"/>
-                      </svg>
-                    </div>
-                    <div className="umrah-detail-airline-info">
-                      <h4 className="umrah-detail-airline-name">{t('umrahDetail.baggage')}</h4>
-                      <p className="umrah-detail-airline-subtitle">{t('umrahDetail.baggageValue')}</p>
-                    </div>
-                  </article>
                 </div>
               </section>
             )}
@@ -347,7 +375,7 @@ const UmrahDetail = () => {
                         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                           <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" stroke="#242d44" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
                         </svg>
-                        <span>{hotel.stars} {t('umrahDetail.nights')}</span>
+                        <span>{hotel.total_nights ?? hotel.nights ?? 3} {t('umrahDetail.nights')}</span>
                       </div>
                     </div>
                   </article>
@@ -357,30 +385,59 @@ const UmrahDetail = () => {
 
             <section className="umrah-detail-block-section">
               <h3 className="umrah-detail-block-title">{t('umrahDetail.transportation')}</h3>
-              <div className="umrah-detail-grid-cards two-col transportation-grid">
+              <Carousel
+                slidesPerView={1}
+                spaceBetween={20}
+                navigation={false}
+                pagination={true}
+                breakpoints={{
+                  640: { slidesPerView: 1, spaceBetween: 20 },
+                  768: { slidesPerView: 3, spaceBetween: 20 },
+                  1024: { slidesPerView: 3, spaceBetween: 24 },
+                }}
+              >
                 {transportations.map((transportation) => (
                   <article key={transportation.id} className="umrah-detail-transport-card">
-                    <span className="umrah-detail-transport-icon">
-                      <img src={transportation.icon_url || hotelIcon} alt={transportation.name} loading="lazy" />
-                    </span>
-                    <div className="umrah-detail-transport-body">
-                      <h4 className="umrah-detail-transport-name">{transportation.name}</h4>
-                      <div className="umrah-detail-transport-footer">
-                        <p className="umrah-detail-transport-desc">{transportation.description}</p>
-                        {transportation.duration && (
-                          <span className="umrah-detail-transport-duration">
-                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                              <circle cx="12" cy="12" r="9" stroke="#242d44" strokeWidth="2"/>
-                              <path d="M12 7v5l3 3" stroke="#242d44" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                            </svg>
-                            {transportation.duration}
-                          </span>
-                        )}
-                      </div>
+                    <div className="umrah-detail-transport-card-image-wrap">
+                      {transportation.image_url ? (
+                        <img
+                          src={transportation.image_url}
+                          alt={transportation.name}
+                          className="umrah-detail-transport-card-image"
+                          loading="lazy"
+                        />
+                      ) : transportation.icon_url ? (
+                        <img
+                          src={transportation.icon_url}
+                          alt={transportation.name}
+                          className="umrah-detail-transport-card-image is-icon"
+                          loading="lazy"
+                        />
+                      ) : (
+                        <div className="umrah-detail-image-fallback">{t('umrahDetail.noImage')}</div>
+                      )}
+                    </div>
+                    <div className="umrah-detail-transport-card-body">
+                      <h4 className="umrah-detail-transport-card-name">{transportation.name}</h4>
+                      {transportation.subtitle && (
+                        <p className="umrah-detail-transport-card-subtitle">{transportation.subtitle}</p>
+                      )}
+                      {transportation.description && (
+                        <p className="umrah-detail-transport-card-desc">{transportation.description}</p>
+                      )}
+                      {transportation.duration && (
+                        <div className="umrah-detail-transport-card-duration">
+                          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <circle cx="12" cy="12" r="9" stroke="#242d44" strokeWidth="2"/>
+                            <path d="M12 7v5l3 3" stroke="#242d44" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                          </svg>
+                          <span>{transportation.duration}</span>
+                        </div>
+                      )}
                     </div>
                   </article>
                 ))}
-              </div>
+              </Carousel>
             </section>
 
             <section className="umrah-detail-block-section">
@@ -427,8 +484,10 @@ const UmrahDetail = () => {
                           rel="noopener noreferrer"
                           className="umrah-detail-itinerary-card-btn"
                         >
-                          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z" fill="currentColor"/>
+                          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="2"/>
+                            <path d="M12 8C10.34 8 9 9.34 9 11c0 2.5 3 5 3 5s3-2.5 3-5c0-1.66-1.34-3-3-3z" fill="currentColor"/>
+                            <circle cx="12" cy="11" r="1" fill="#fff"/>
                           </svg>
                           {t('umrahDetail.location')}
                         </a>

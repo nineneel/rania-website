@@ -8,7 +8,9 @@ import Partners from '../../components/common/Partners';
 import SignatureCard from '../../components/common/SignatureCard';
 import SEO from '../../components/common/SEO';
 import { StructuredData } from '../../components/common/SEO';
+import HajjPackageCard from '../../components/common/HajjPackageCard';
 import { openWhatsAppHajj, whatsappMessages } from '../../utils/whatsapp';
+import { hajjPackages } from '../../data/hajjPackages';
 
 // Import wave divider
 import waveImage from '../../assets/utils/wave-light.webp';
@@ -18,8 +20,6 @@ import heroHajj from '../../assets/images/hajj/hero.webp';
 
 // Import icons
 import verifiedIcon from '../../assets/icons/verified-icon.webp';
-import bedIcon from '../../assets/icons/bed-icon.webp';
-import checkIcon from '../../assets/icons/check-icon.webp';
 
 // Import value/feature icons
 import value1 from '../../assets/images/hajj/value/value-1.webp';
@@ -57,67 +57,7 @@ const Hajj = () => {
     { title: t('hajj.exclusiveCard'), icon: value10 }
   ];
 
-  // Package data
-  const packages = [
-    {
-      name: "Economy",
-      color: "gold",
-      downPayment: "1500",
-      downPaymentIDR: "25JT",
-      features: [
-        "Etihad/Qatar Airways",
-        "Hotel Makkah Bintang 4 di Pelataran Haram",
-        "Hotel Madinah Bintang 3 dekat Masjid Nabawi",
-        "Apartment Transit Kawasan Mina Aziziyah",
-        "Bus Kontrak",
-        "Maktab Zona C"
-      ],
-      pricing: [
-        { type: "Quad", price: "10,250", beds: 4 },
-        { type: "Triple", price: "11,750", beds: 3 },
-        { type: "Double", price: "13,250", beds: 2 }
-      ]
-    },
-    {
-      name: "Luxury",
-      color: "luxury",
-      isVIP: true,
-      downPayment: "1500",
-      downPaymentIDR: "25JT",
-      features: [
-        "Saudia Airlines - Direct Flight",
-        "Hotel Makkah Bintang 5 di Pelataran Haram",
-        "Hotel Madinah Bintang 5 dekat Masjid Nabawi",
-        "Transportasi Makkah-Madinah Kereta Cepat",
-        "Bus Private VIP",
-        "Maktab Zona A VIP 111"
-      ],
-      pricing: [
-        { type: "Quad", price: "18,000", beds: 4 },
-        { type: "Triple", price: "20,000", beds: 3 },
-        { type: "Double", price: "21,500", beds: 2 }
-      ]
-    },
-    {
-      name: "Premium",
-      color: "dark",
-      downPayment: "1500",
-      downPaymentIDR: "25JT",
-      features: [
-        "Etihad/Qatar Airways",
-        "Hotel Makkah Bintang 5 di Pelataran Haram",
-        "Hotel Madinah Bintang 4 dekat Masjid Nabawi",
-        "Apartment Transit Kawasan Mina Aziziyah",
-        "Bus Kontrak",
-        "Maktab Zona B"
-      ],
-      pricing: [
-        { type: "Quad", price: "14,450", beds: 4 },
-        { type: "Triple", price: "15,450", beds: 3 },
-        { type: "Double", price: "16,450", beds: 2 }
-      ]
-    }
-  ];
+  const packages = hajjPackages;
 
   const handleSubscribe = (e) => {
     e.preventDefault();
@@ -200,58 +140,7 @@ const Hajj = () => {
 
         <div className="hajj-packages-container">
           {packages.map((pkg, index) => (
-            <div key={index} className={`hajj-package-card hajj-package-${pkg.color}`}>
-              {pkg.isVIP && (
-                <div className="hajj-vip-badge">
-                  <span className="hajj-vip-text"> VIP <br/>CHOICE</span>
-                </div>
-              )}
-              <div className="hajj-package-header">
-                <h3 className="hajj-package-name">{pkg.name}</h3>
-                <div className="hajj-price-amount">{pkg.downPayment}</div>
-                <div className="hajj-dp-currency">USD</div>
-                <div className="hajj-dp-label">DP</div>
-                <div className="hajj-dp-idr">({pkg.downPaymentIDR})</div>
-              </div>
-
-              <div className="hajj-package-divider"></div>
-
-              <ul className="hajj-package-features">
-                {pkg.features.map((feature, idx) => (
-                  <li key={idx} className="hajj-package-feature">
-                    <span className="hajj-feature-check">
-                      <img src={checkIcon} alt="Check" className="hajj-check-icon" />
-                    </span>
-                    <span className="hajj-feature-text">{feature}</span>
-                  </li>
-                ))}
-              </ul>
-
-              <Button
-                variant="secondary"
-                size="medium"
-                className="hajj-package-button"
-                onClick={() => openWhatsAppHajj(whatsappMessages.hajjInterest(pkg.name))}
-              >
-                {t('hajj.iAmInterested')}
-              </Button>
-
-              <div className="hajj-package-divider"></div>
-
-              <div className="hajj-package-pricing">
-                {pkg.pricing.map((price, idx) => (
-                  <div key={idx} className="hajj-pricing-row">
-                    <span className="hajj-pricing-type">{price.type}</span>
-                    <span className="hajj-pricing-amount">{price.price} <span className="hajj-pricing-currency">USD</span></span>
-                    <div className="hajj-pricing-beds">
-                      {[...Array(price.beds)].map((_, i) => (
-                        <img key={i} src={bedIcon} alt="Bed" className="hajj-bed-icon" />
-                      ))}
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
+            <HajjPackageCard key={index} pkg={pkg} />
           ))}
         </div>
       </section>

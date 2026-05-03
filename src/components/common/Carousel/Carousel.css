@@ -8,6 +8,11 @@
   padding-bottom: 50px; /* Space for pagination */
 }
 
+.carousel .swiper-wrapper {
+  padding-top: 12px;
+  padding-bottom: 12px;
+}
+
 /* Swiper Navigation Buttons */
 .carousel .swiper-button-next,
 .carousel .swiper-button-prev {
