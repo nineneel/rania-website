@@ -7,16 +7,16 @@ import { StructuredData } from '../../components/common/SEO';
 import Button from '../../components/common/Button/Button';
 import Carousel from '../../components/common/Carousel/Carousel';
 import ShareButton from '../../components/common/ShareButton';
-import { getUmrahPackageDetail, getOtherAdditionalServices } from '../../services/api';
+import { getHajjPackageDetail, getHajjOtherAdditionalServices } from '../../services/api';
 import { formatPackagePrice } from '../../utils/helpers';
-import { openWhatsAppUmrah, whatsappMessages } from '../../utils/whatsapp';
+import { openWhatsAppHajj, whatsappMessages } from '../../utils/whatsapp';
 import calendarIcon from '../../assets/icons/calendar-icon.svg';
 import mealsIcon from '../../assets/icons/meals-icon.svg';
 import baggageIcon from '../../assets/icons/baggage-icon.svg';
 import paxIcon from '../../assets/icons/pax-icon.svg';
 import additionalServiceHero from '../../assets/images/umrah/additional-service-hero.webp';
 import airlinesDivider from '../../assets/images/umrah/airlines-header.webp';
-import './UmrahDetail.css';
+import '../UmrahDetail/UmrahDetail.css';
 
 
 const sortByOrder = (items = []) => {
@@ -40,18 +40,18 @@ const buildGallery = (pkg) => {
   }
 
   const collected = [
-    ...(pkg.gallery_images || []).map((hotel) => hotel.image_url),
+    ...(pkg.gallery_images || []).map((image) => image.image_url),
   ].filter(Boolean);
 
   const uniqueImages = [...new Set(collected)];
   return uniqueImages.slice(0, 4);
 };
 
-const UmrahDetail = () => {
+const HajjDetail = () => {
   const { t, i18n } = useTranslation();
   const { slug } = useParams();
 
-  const [umrahPackage, setUmrahPackage] = useState(null);
+  const [hajjPackage, setHajjPackage] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
   const [stickyVisible, setStickyVisible] = useState(true);
@@ -85,10 +85,10 @@ const UmrahDetail = () => {
         setIsLoading(true);
         setError(null);
 
-        const response = await getUmrahPackageDetail(slug);
+        const response = await getHajjPackageDetail(slug);
 
         if (response.success && response.data) {
-          setUmrahPackage(response.data);
+          setHajjPackage(response.data);
         } else {
           setError('Package detail is not available.');
         }
@@ -107,7 +107,7 @@ const UmrahDetail = () => {
     if (!slug) return;
     try {
       setIsLoadingMore(true);
-      const response = await getOtherAdditionalServices(slug, { page, per_page: 12 });
+      const response = await getHajjOtherAdditionalServices(slug, { page, per_page: 12 });
       if (response.success && response.data) {
         setOtherServices((prev) => page === 1 ? response.data : [...prev, ...response.data]);
         setOtherServicesPage(page);
@@ -132,35 +132,34 @@ const UmrahDetail = () => {
     }
   };
 
-  const hotels = useMemo(() => sortByOrder(umrahPackage?.hotels), [umrahPackage]);
-  const airlines = useMemo(() => sortByOrder(umrahPackage?.airlines), [umrahPackage]);
-  const transportations = useMemo(() => sortByOrder(umrahPackage?.transportations), [umrahPackage]);
-  const itineraries = useMemo(() => sortByOrder(umrahPackage?.itineraries), [umrahPackage]);
-  const additionalServices = useMemo(() => sortByOrder(umrahPackage?.additional_services), [umrahPackage]);
-  const packageServices = useMemo(() => sortByOrder(umrahPackage?.package_services), [umrahPackage]);
+  const hotels = useMemo(() => sortByOrder(hajjPackage?.hotels), [hajjPackage]);
+  const airlines = useMemo(() => sortByOrder(hajjPackage?.airlines), [hajjPackage]);
+  const transportations = useMemo(() => sortByOrder(hajjPackage?.transportations), [hajjPackage]);
+  const itineraries = useMemo(() => sortByOrder(hajjPackage?.itineraries), [hajjPackage]);
+  const additionalServices = useMemo(() => sortByOrder(hajjPackage?.additional_services), [hajjPackage]);
+  const packageServices = useMemo(() => sortByOrder(hajjPackage?.package_services), [hajjPackage]);
 
-  const galleryImages = useMemo(() => buildGallery(umrahPackage), [umrahPackage]);
-  const formattedPrice = useMemo(() => formatPackagePrice(umrahPackage), [umrahPackage]);
-  const heroCapacity = umrahPackage?.departure_schedule || umrahPackage?.capacity || umrahPackage?.pax || '-';
-  const categoryLabel = umrahPackage?.category?.name || t('umrahDetail.defaultCategory');
+  const galleryImages = useMemo(() => buildGallery(hajjPackage), [hajjPackage]);
+  const formattedPrice = useMemo(() => formatPackagePrice(hajjPackage), [hajjPackage]);
+  const heroCapacity = hajjPackage?.departure_schedule || hajjPackage?.capacity || hajjPackage?.pax || '-';
 
   return (
     <div className="umrah-detail-page">
       <SEO
-        title={umrahPackage ? `${umrahPackage.title} - Umrah Detail` : 'Umrah Detail'}
-        description={umrahPackage?.description || 'Complete Umrah package detail, itinerary, additional services, and cancellation policy.'}
-        canonical={slug ? `/umrah/${slug}` : '/umrah'}
+        title={hajjPackage ? `${hajjPackage.title} - Hajj Detail` : 'Hajj Detail'}
+        description={hajjPackage?.description || 'Complete Hajj package detail, itinerary, additional services, and cancellation policy.'}
+        canonical={slug ? `/hajj/${slug}` : '/hajj'}
       />
       <StructuredData
         type="breadcrumb"
         data={[
           { name: 'Home', url: '/' },
-          { name: 'Umrah With Rania', url: '/umrah' },
-          { name: umrahPackage?.title || 'Umrah Detail', url: `/umrah/${slug || ''}` }
+          { name: 'Hajj With Rania', url: '/hajj' },
+          { name: hajjPackage?.title || 'Hajj Detail', url: `/hajj/${slug || ''}` }
         ]}
       />
 
-      <Header activeLink="Umrah With Rania" />
+      <Header activeLink="Hajj With Rania" />
 
       <main className="umrah-detail-content">
         {isLoading ? (
@@ -175,7 +174,7 @@ const UmrahDetail = () => {
             <Button
               variant="tertiary"
               size="small"
-              onClick={() => openWhatsAppUmrah(whatsappMessages.umrahCTA())}
+              onClick={() => openWhatsAppHajj(whatsappMessages.hajjCTA())}
             >
               {t('umrahDetail.contactRania')}
             </Button>
@@ -183,10 +182,10 @@ const UmrahDetail = () => {
         ) : (
           <>
             <section className="umrah-detail-hero">
-              <article className="umrah-detail-hero-card" aria-labelledby="umrah-detail-hero-title">
+              <article className="umrah-detail-hero-card" aria-labelledby="hajj-detail-hero-title">
                 <figure className="umrah-detail-hero-media">
-                  {umrahPackage?.image_url ? (
-                    <img src={umrahPackage.image_url} alt={umrahPackage.title || 'Umrah package hero'} />
+                  {hajjPackage?.image_url ? (
+                    <img src={hajjPackage.image_url} alt={hajjPackage.title || 'Hajj package hero'} />
                   ) : (
                     <div className="umrah-detail-image-fallback">{t('umrahDetail.noImage')}</div>
                   )}
@@ -194,9 +193,8 @@ const UmrahDetail = () => {
                 <div className="umrah-detail-hero-gradient" aria-hidden="true"></div>
                 <div className="umrah-detail-hero-content">
                   <header className="umrah-detail-hero-header">
-                    <span className="umrah-detail-hero-badge">{categoryLabel}</span>
-                    <h1 id="umrah-detail-hero-title" className="umrah-detail-hero-title">
-                      {umrahPackage?.title || 'Royal Hilton Signature'}
+                    <h1 id="hajj-detail-hero-title" className="umrah-detail-hero-title">
+                      {hajjPackage?.title}
                     </h1>
                   </header>
                   <dl className="umrah-detail-hero-details">
@@ -230,7 +228,7 @@ const UmrahDetail = () => {
                 {galleryImages.length > 0 ? (
                   galleryImages.map((image, index) => (
                     <div key={`${image}-${index}`} className={`umrah-detail-gallery-item item-${index + 1}`}>
-                      <img src={image} alt={`${umrahPackage?.title} ${index + 1}`} loading="lazy" />
+                      <img src={image} alt={`${hajjPackage?.title} ${index + 1}`} loading="lazy" />
                     </div>
                   ))
                 ) : (
@@ -241,12 +239,12 @@ const UmrahDetail = () => {
 
             <section className="umrah-detail-overview-section">
               <h2 className="umrah-detail-section-title">{t('umrahDetail.packageOverview')}</h2>
-              <p className="umrah-detail-overview-text">{umrahPackage?.description}</p>
+              <p className="umrah-detail-overview-text">{hajjPackage?.description}</p>
               <div className="umrah-detail-overview-info">
                 <div className="umrah-detail-overview-item">
                   <span className="umrah-detail-overview-icon"><img src={calendarIcon} alt="Date" /></span>
                   <span className="umrah-detail-overview-label">{t('umrahDetail.date')}</span>
-                  <span>{formatDateDDMMMYYYY(umrahPackage?.date) || '-'}</span>
+                  <span>{formatDateDDMMMYYYY(hajjPackage?.date) || '-'}</span>
                 </div>
                 <div className="umrah-detail-overview-item">
                   <span className="umrah-detail-overview-icon">
@@ -255,7 +253,7 @@ const UmrahDetail = () => {
                     </svg>
                   </span>
                   <span className="umrah-detail-overview-label">{t('umrahDetail.dayOfJourney')}</span>
-                  <span>{umrahPackage?.duration || '-'}</span>
+                  <span>{hajjPackage?.duration || '-'}</span>
                 </div>
                 <div className="umrah-detail-overview-item">
                   <span className="umrah-detail-overview-icon">
@@ -264,7 +262,7 @@ const UmrahDetail = () => {
                     </svg>
                   </span>
                   <span className="umrah-detail-overview-label">{t('umrahDetail.package')}</span>
-                  <span>{umrahPackage?.title || '-'}</span>
+                  <span>{hajjPackage?.title || '-'}</span>
                 </div>
               </div>
             </section>
@@ -490,7 +488,7 @@ const UmrahDetail = () => {
                   {t('umrahDetail.addonBannerTitle')}
                 </h3>
                 <p className="umrah-detail-addon-banner-desc">
-                  {umrahPackage?.additional_services_description || t('umrahDetail.addonBannerDesc')}
+                  {hajjPackage?.additional_services_description || t('umrahDetail.addonBannerDesc')}
                 </p>
               </div>
             </div>
@@ -666,12 +664,12 @@ const UmrahDetail = () => {
         )}
       </main>
 
-      {umrahPackage && (
+      {hajjPackage && (
         <div className={`umrah-detail-sticky-bar${stickyVisible ? ' visible' : ''}`}>
           <div className="umrah-detail-sticky-inner">
             <div className="umrah-detail-sticky-info">
-              <h2 className="umrah-detail-sticky-title">{umrahPackage.title}</h2>
-              <p className="umrah-detail-sticky-subtitle">{categoryLabel}</p>
+              <h2 className="umrah-detail-sticky-title">{hajjPackage.title}</h2>
+              <p className="umrah-detail-sticky-subtitle">{t('hajjDetail.stickySubtitle')}</p>
             </div>
             <div className="umrah-detail-sticky-price">
               <span className="umrah-detail-sticky-price-label">{t('umrahDetail.startingFrom')}</span>
@@ -684,7 +682,7 @@ const UmrahDetail = () => {
             <div className="umrah-detail-sticky-actions">
               <button
                 className="umrah-detail-sticky-btn"
-                onClick={() => openWhatsAppUmrah(whatsappMessages.umrahCTA())}
+                onClick={() => openWhatsAppHajj(whatsappMessages.hajjCTA())}
               >
                 {t('umrahDetail.bookPackage')}
               </button>
@@ -692,8 +690,8 @@ const UmrahDetail = () => {
                 className="umrah-detail-sticky-share"
                 size="large"
                 menuDirection="up"
-                title={umrahPackage.title}
-                text={`${umrahPackage.title} — ${categoryLabel}`}
+                title={hajjPackage.title}
+                text={hajjPackage.title}
               />
             </div>
           </div>
@@ -703,4 +701,4 @@ const UmrahDetail = () => {
   );
 };
 
-export default UmrahDetail;
+export default HajjDetail;

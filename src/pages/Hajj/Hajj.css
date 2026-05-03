@@ -254,6 +254,34 @@
 
 /* Hajj package card styles live in components/common/HajjPackageCard/HajjPackageCard.css */
 
+.hajj-empty-state {
+  max-width: var(--content-width);
+  margin: 40px auto 0;
+  padding: 60px 24px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  background: #fafafa;
+  border-radius: 24px;
+}
+
+.hajj-empty-title {
+  font-size: 24px;
+  font-weight: var(--font-weight-bold);
+  color: var(--text-primary);
+  margin: 0;
+}
+
+.hajj-empty-description {
+  max-width: 480px;
+  color: var(--text-black);
+  font-size: 14px;
+  line-height: 1.6;
+  margin: 0 0 12px;
+}
+
 /* CTA Section */
 .hajj-cta-section {
   width: 100%;

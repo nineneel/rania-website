@@ -5,6 +5,7 @@
   position: relative;
   overflow: hidden;
   line-height: 0;
+  font-size: 0;
 }
 
 /* The wave SVG paints its own #E2E2E2 fill below the curve; the wrapper colors the opposite side. */
@@ -17,7 +18,6 @@
 /* Bottom divider: SVG sits as-is so its gray fill is BELOW the curve, wrapper paints white above */
 .testimonial-wave-divider--bottom {
   background: var(--text-white);
-  margin-top: -1px;
 }
 
 .testimonial-wave-image {
@@ -26,14 +26,13 @@
   display: block;
   position: relative;
   z-index: 1;
+  /* Pull the next element up to overlap the SVG's bottom edge — eliminates the
+     sub-pixel white seam where the gray fill meets the gray section below. */
+  margin-bottom: -2px;
 }
 
 .testimonial-wave-image--flip {
-  transform: scaleY(-1) translateY(1px);
-}
-
-.testimonial-wave-image--top {
-  transform: translateY(1px);
+  transform: scaleY(-1);
 }
 
 .testimonial-section {
@@ -44,7 +43,6 @@
   flex-direction: column;
   align-items: center;
   gap: 60px;
-  margin-top: -1px;
 }
 
 .testimonial-title {

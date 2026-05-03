@@ -10,12 +10,11 @@ import SignatureCard from '../../components/common/SignatureCard';
 import Testimonial from '../../components/common/Testimonial';
 import SEO from '../../components/common/SEO';
 import { StructuredData } from '../../components/common/SEO';
-import { HeroShimmer, EventShimmer } from '../../components/common/Shimmer';
-import { getHeroSlides, getEvents, getUmrahPackages } from '../../services/api';
+import { HeroShimmer, EventShimmer, GalleryShimmer, NewsShimmer } from '../../components/common/Shimmer';
+import { getHeroSlides, getEvents, getUmrahPackages, getHajjPackages, getRaniaGalleries, getNewsArticles } from '../../services/api';
 import logger from '../../utils/logger';
 import HajjPackageCard from '../../components/common/HajjPackageCard';
 import UmrahPackageCard from '../../components/common/UmrahPackageCard';
-import { hajjPackages } from '../../data/hajjPackages';
 
 // Import coverage/media images
 import logoLiputan6 from '../../assets/images/about/coverage/logos/liputan6.webp';
@@ -23,18 +22,6 @@ import logoSuara from '../../assets/images/about/coverage/logos/suara.webp';
 import logoSindonews from '../../assets/images/about/coverage/logos/sindonews.webp';
 import logoTimesIndonesia from '../../assets/images/about/coverage/logos/times-indonesia.webp';
 import coverageCollage from '../../assets/images/about/coverage/coverage-collage.webp';
-
-// Reuse home hero images for news article thumbnails (dummy data)
-import newsThumb1 from '../../assets/images/home/hero/hero-1.webp';
-import newsThumb2 from '../../assets/images/home/hero/hero-2.webp';
-import newsThumb3 from '../../assets/images/home/hero/hero-3.webp';
-
-// Gallery placeholder images (replace with API + pagination later)
-import gallery1 from '../../assets/images/home/hero/hero-1.webp';
-import gallery2 from '../../assets/images/home/hero/hero-2.webp';
-import gallery3 from '../../assets/images/home/hero/hero-3.webp';
-import gallery4 from '../../assets/images/home/hero/hero-4.webp';
-import gallery5 from '../../assets/images/about/life/life-1.webp';
 
 // Placeholder hero for the Contact Us section
 import contactHero from '../../assets/images/support-help/support-help-hero.webp';
@@ -67,7 +54,7 @@ import value4 from '../../assets/images/home/value/value-4.webp';
 import value5 from '../../assets/images/home/value/value-5.webp';
 
 const Home = () => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const [currentSlide, setCurrentSlide] = useState(0);
   const [bgColor, setBgColor] = useState('var(--primary-dark)');
   const [textColor, setTextColor] = useState('white');
@@ -76,6 +63,11 @@ const Home = () => {
   const [heroSlides, setHeroSlides] = useState([]);
   const [events, setEvents] = useState([]);
   const [umrahPackages, setUmrahPackages] = useState([]);
+  const [hajjPackages, setHajjPackages] = useState([]);
+  const [raniaGalleries, setRaniaGalleries] = useState([]);
+  const [isLoadingGalleries, setIsLoadingGalleries] = useState(true);
+  const [newsArticles, setNewsArticles] = useState([]);
+  const [isLoadingNews, setIsLoadingNews] = useState(true);
 
   // Loading States
   const [isLoadingHero, setIsLoadingHero] = useState(true);
@@ -160,56 +152,15 @@ const Home = () => {
     { logo: logoTimesIndonesia, alt: 'Times Indonesia', description: t('about.coverageMedia4'), link: 'https://timesindonesia.co.id/indonesia-positif/571250/bangun-kepercayaan-publik-rania-perkuat-ekosistem-haji-premium-lewat-kolaborasi-syariah-strategis' }
   ];
 
-  const homeHajjPackages = hajjPackages.slice(0, 3);
+  const galleryImages = raniaGalleries.map((item) => ({
+    src: item.image_url,
+    alt: item.title || 'Rania gallery'
+  }));
 
-  // Rania News & Articles (dummy data — replace with API later)
-  const newsArticles = [
-    {
-      logo: logoSuara,
-      logoAlt: 'Suara.com',
-      thumbnail: newsThumb1,
-      title: t('home.newsItem1Title'),
-      description: t('home.newsItem1Desc'),
-      link: '#'
-    },
-    {
-      logo: logoTimesIndonesia,
-      logoAlt: 'Times Indonesia',
-      thumbnail: newsThumb2,
-      title: t('home.newsItem2Title'),
-      description: t('home.newsItem2Desc'),
-      link: '#'
-    },
-    {
-      logo: logoSindonews,
-      logoAlt: 'SindoNews',
-      thumbnail: newsThumb3,
-      title: t('home.newsItem3Title'),
-      description: t('home.newsItem3Desc'),
-      link: '#'
-    }
-  ];
+  // Featured = first article, list = next 3
+  const featuredArticle = newsArticles[0] || null;
+  const sideArticles = newsArticles.slice(1, 4);
 
-  // Rania Galleries (dummy data — replace with paginated API later)
-  const galleryImages = [
-    { src: gallery1, alt: 'Pilgrim near Kaaba' },
-    { src: gallery2, alt: 'Family at hotel suite' },
-    { src: gallery3, alt: 'Couple by the mountains' },
-    { src: gallery4, alt: 'Pilgrim couple at the Grand Mosque' },
-    { src: gallery5, alt: 'Inside Rania life' }
-  ];
-
-  const featuredNews = {
-    logo: logoLiputan6,
-    logoAlt: 'Liputan6',
-    breadcrumbHome: t('home.newsBreadcrumbHome'),
-    breadcrumbCategory: t('home.newsBreadcrumbCategory'),
-    title: t('home.newsFeaturedTitle'),
-    description: t('home.newsFeaturedDesc'),
-    image: newsArticles[0].thumbnail,
-    link: '#'
-  };
-  
   // Fallback events (keep for development/error cases)
   const fallbackEvents = [
     {
@@ -334,13 +285,76 @@ const Home = () => {
     }
   };
 
+  const fetchHajjPackagesPreview = async () => {
+    const logPrefix = '[Hajj Packages Preview]';
+
+    try {
+      const response = await getHajjPackages();
+      if (response.success && response.data) {
+        setHajjPackages(response.data.slice(0, 3));
+        logger.info(`${logPrefix} ✅ Loaded ${response.data.length} packages (showing up to 3)`);
+      }
+    } catch (error) {
+      logger.error(`${logPrefix} ❌ API Error:`, error);
+      setHajjPackages([]);
+    }
+  };
+
+  const fetchRaniaGalleries = async () => {
+    const logPrefix = '[Rania Galleries]';
+
+    try {
+      setIsLoadingGalleries(true);
+      const response = await getRaniaGalleries({ per_page: 12, page: 1 });
+      if (response.success && response.data) {
+        setRaniaGalleries(response.data);
+        logger.info(`${logPrefix} ✅ Loaded ${response.data.length} gallery images`);
+      } else {
+        setRaniaGalleries([]);
+      }
+    } catch (error) {
+      logger.error(`${logPrefix} ❌ API Error:`, error);
+      setRaniaGalleries([]);
+    } finally {
+      setIsLoadingGalleries(false);
+    }
+  };
+
+  const fetchNewsArticles = async () => {
+    const logPrefix = '[News Articles]';
+
+    try {
+      setIsLoadingNews(true);
+      // 4 = 1 featured + 3 list items
+      const response = await getNewsArticles({ per_page: 4, page: 1 });
+      if (response.success && response.data) {
+        setNewsArticles(response.data);
+        logger.info(`${logPrefix} ✅ Loaded ${response.data.length} news articles`);
+      } else {
+        setNewsArticles([]);
+      }
+    } catch (error) {
+      logger.error(`${logPrefix} ❌ API Error:`, error);
+      setNewsArticles([]);
+    } finally {
+      setIsLoadingNews(false);
+    }
+  };
+
   // Initial data fetch
   useEffect(() => {
     logger.info('🚀 [Home] Initializing API data fetch...');
     fetchHeroSlides(1);
     fetchEvents();
-    fetchUmrahPackagesPreview();
+    fetchRaniaGalleries();
+    fetchNewsArticles();
   }, []);
+
+  // Re-fetch packages whenever the active language changes (currency depends on locale)
+  useEffect(() => {
+    fetchUmrahPackagesPreview();
+    fetchHajjPackagesPreview();
+  }, [i18n.language]);
 
   // Lazy load more hero slides when approaching the end
   useEffect(() => {
@@ -508,9 +522,9 @@ const Home = () => {
 
       {/* Media Coverage Section */}
       <section ref={coverageRef} className="home-coverage-section">
-        <h2 className="home-coverage-title">{t('home.coverageTitle')}</h2>
+        <h2 className="home-coverage-title" style={{ color: textColor }}>{t('home.coverageTitle')}</h2>
         <div className="home-coverage-left">
-          <p className="home-coverage-description">
+          <p className="home-coverage-description" style={{ color: textColor }}>
             {t('home.coverageDesc')}
           </p>
           <div className="home-coverage-cards">
@@ -535,29 +549,31 @@ const Home = () => {
       </section>
 
       {/* Best Hajj Packages */}
-      <section className="home-best-packages-section">
-        <div className="home-best-packages-header">
-          <h2 className="home-best-packages-title">{t('home.bestHajjPackages')}</h2>
-          <Button variant="primary" size="small" to="/hajj">
-            {t('home.seeMore')}
-          </Button>
-        </div>
-        <div className="hajj-packages-container">
-          {homeHajjPackages.map((pkg, index) => (
-            <HajjPackageCard
-              key={index}
-              pkg={pkg}
-              ctaLabel={t('home.moreDetails')}
-            />
-          ))}
-        </div>
-      </section>
+      {hajjPackages.length > 0 && (
+        <section className="home-best-packages-section">
+          <div className="home-best-packages-header">
+            <h2 className="home-best-packages-title" style={{ color: textColor }}>{t('home.bestHajjPackages')}</h2>
+            <Button variant="primary" size="small" to="/hajj">
+              {t('home.seeMore')}
+            </Button>
+          </div>
+          <div className="hajj-packages-container">
+            {hajjPackages.map((pkg, index) => (
+              <HajjPackageCard
+                key={pkg.id || index}
+                pkg={pkg}
+                ctaLabel={t('home.moreDetails')}
+              />
+            ))}
+          </div>
+        </section>
+      )}
 
       {/* Best Umrah Packages */}
       {umrahPackages.length > 0 && (
         <section className="home-best-packages-section">
           <div className="home-best-packages-header">
-            <h2 className="home-best-packages-title">{t('home.bestUmrahPackages')}</h2>
+            <h2 className="home-best-packages-title" style={{ color: textColor }}>{t('home.bestUmrahPackages')}</h2>
             <Button variant="primary" size="small" to="/umrah">
               {t('home.seeMore')}
             </Button>
@@ -588,65 +604,101 @@ const Home = () => {
       <Testimonial>
         <section className="home-news-section">
           <h2 className="home-news-title">{t('home.raniaNews')}</h2>
-          <div className="home-news-layout">
-            <a
-              href={featuredNews.link}
-              className="home-news-featured"
-              target={featuredNews.link === '#' ? undefined : '_blank'}
-              rel={featuredNews.link === '#' ? undefined : 'noopener noreferrer'}
-            >
-              <div className="home-news-featured-logo">
-                <img src={featuredNews.logo} alt={featuredNews.logoAlt} loading="lazy" />
+          {isLoadingNews ? (
+            <NewsShimmer />
+          ) : newsArticles.length === 0 ? (
+            <div className="home-news-empty">
+              <div className="home-news-empty-icon">
+                <svg width="80" height="80" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <circle cx="40" cy="40" r="38" stroke="var(--primary-gold)" strokeWidth="2" strokeDasharray="4 4"/>
+                  <rect x="22" y="24" width="36" height="32" rx="3" stroke="var(--primary-gold)" strokeWidth="3"/>
+                  <line x1="28" y1="34" x2="52" y2="34" stroke="var(--primary-gold)" strokeWidth="3" strokeLinecap="round"/>
+                  <line x1="28" y1="42" x2="52" y2="42" stroke="var(--primary-gold)" strokeWidth="3" strokeLinecap="round"/>
+                  <line x1="28" y1="50" x2="42" y2="50" stroke="var(--primary-gold)" strokeWidth="3" strokeLinecap="round"/>
+                </svg>
               </div>
-              <p className="home-news-featured-breadcrumb">
-                {featuredNews.breadcrumbHome} <span>›</span> {featuredNews.breadcrumbCategory}
+              <h3 className="home-news-empty-title">{t('home.noNews')}</h3>
+              <p className="home-news-empty-description">
+                {t('home.noNewsDesc')}
               </p>
-              <h3 className="home-news-featured-title">{featuredNews.title}</h3>
-              <p className="home-news-featured-desc">{featuredNews.description}</p>
-              <div className="home-news-featured-image">
-                <img src={featuredNews.image} alt={featuredNews.title} loading="lazy" />
-              </div>
-            </a>
-
-            <div className="home-news-list">
-              {newsArticles.map((article, index) => (
+            </div>
+          ) : (
+            <div className="home-news-layout">
+              {featuredArticle && (
                 <a
-                  key={index}
-                  href={article.link}
-                  className="home-news-item"
-                  target={article.link === '#' ? undefined : '_blank'}
-                  rel={article.link === '#' ? undefined : 'noopener noreferrer'}
+                  href={featuredArticle.link}
+                  className="home-news-featured"
+                  target="_blank"
+                  rel="noopener noreferrer"
                 >
-                  <div className="home-news-item-thumb">
-                    <img src={article.thumbnail} alt={article.title} loading="lazy" />
-                  </div>
-                  <div className="home-news-item-body">
-                    <div className="home-news-item-logo">
-                      <img src={article.logo} alt={article.logoAlt} loading="lazy" />
-                    </div>
-                    <h4 className="home-news-item-title">{article.title}</h4>
-                    <p className="home-news-item-desc">{article.description}</p>
+                  {featuredArticle.source && (
+                    <p className="home-news-featured-source">{featuredArticle.source}</p>
+                  )}
+                  <h3 className="home-news-featured-title">{featuredArticle.title}</h3>
+                  <div className="home-news-featured-image">
+                    <img src={featuredArticle.image_url} alt={featuredArticle.title} loading="lazy" />
                   </div>
                 </a>
-              ))}
+              )}
+
+              <div className="home-news-list">
+                {sideArticles.map((article) => (
+                  <a
+                    key={article.id}
+                    href={article.link}
+                    className="home-news-item"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <div className="home-news-item-thumb">
+                      <img src={article.image_url} alt={article.title} loading="lazy" />
+                    </div>
+                    <div className="home-news-item-body">
+                      {article.source && (
+                        <p className="home-news-item-source">{article.source}</p>
+                      )}
+                      <h4 className="home-news-item-title">{article.title}</h4>
+                    </div>
+                  </a>
+                ))}
+              </div>
             </div>
-          </div>
+          )}
         </section>
       </Testimonial>
 
       {/* Rania Galleries */}
       <section className="home-gallery-section">
         <h2 className="home-gallery-title">{t('home.raniaGalleries')}</h2>
-        <div className="home-gallery-grid">
-          {galleryImages.map((image, index) => (
-            <div
-              key={index}
-              className={`home-gallery-item ${index === 0 ? 'home-gallery-item--feature' : ''}`}
-            >
-              <img src={image.src} alt={image.alt} loading="lazy" />
+        {isLoadingGalleries ? (
+          <GalleryShimmer />
+        ) : galleryImages.length === 0 ? (
+          <div className="home-gallery-empty">
+            <div className="home-gallery-empty-icon">
+              <svg width="80" height="80" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="40" cy="40" r="38" stroke="var(--primary-gold)" strokeWidth="2" strokeDasharray="4 4"/>
+                <rect x="22" y="26" width="36" height="28" rx="4" stroke="var(--primary-gold)" strokeWidth="3" strokeLinejoin="round"/>
+                <circle cx="32" cy="36" r="3" fill="var(--primary-gold)"/>
+                <path d="M22 50L34 40L46 48L58 38" stroke="var(--primary-gold)" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"/>
+              </svg>
             </div>
-          ))}
-        </div>
+            <h3 className="home-gallery-empty-title">{t('home.noGalleries')}</h3>
+            <p className="home-gallery-empty-description">
+              {t('home.noGalleriesDesc')}
+            </p>
+          </div>
+        ) : (
+          <div className="home-gallery-grid">
+            {galleryImages.map((image, index) => (
+              <div
+                key={index}
+                className={`home-gallery-item ${index === 0 ? 'home-gallery-item--feature' : ''}`}
+              >
+                <img src={image.src} alt={image.alt} loading="lazy" />
+              </div>
+            ))}
+          </div>
+        )}
       </section>
 
       {/* Upcoming Events */}

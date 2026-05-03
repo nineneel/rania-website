@@ -189,6 +189,7 @@ The application provides REST API endpoints for the public website to consume.
 | GET | `/api/social-media` | Get active social media links | ❌ |
 | GET | `/api/faqs` | Get active FAQs | ❌ |
 | GET | `/api/testimonials` | Get active testimonials | ✅ |
+| GET | `/api/rania-galleries` | Get active Rania Gallery images | ✅ |
 | GET | `/api/umrah-packages` | Get active packages list with hotels, airlines & additional services | ✅ |
 | GET | `/api/umrah-packages/{slug}` | Get one active package detail by slug | ❌ |
 | GET | `/api/umrah-packages/{slug}/other-additional-services` | Get additional services not included in a package | ✅ |
@@ -354,6 +355,51 @@ curl "https://your-domain.com/api/testimonials?per_page=10&page=1"
 
 ---
 
+### Rania Gallery
+
+Get active Rania Gallery images with pagination for the gallery section on the website.
+
+**Endpoint:** `GET /api/rania-galleries`
+
+**Query Parameters:**
+- `per_page` (optional) - Items per page (default: 12, max: 50)
+- `page` (optional) - Page number (default: 1)
+
+**Example:**
+```bash
+curl "https://your-domain.com/api/rania-galleries?per_page=12&page=1"
+```
+
+**Response:**
+```json
+{
+  "success": true,
+  "data": [
+    {
+      "id": 1,
+      "title": "Pilgrim at Masjid al-Haram",
+      "image_url": "https://example.com/storage/rania-galleries/image1.jpg",
+      "order": 0
+    }
+  ],
+  "pagination": {
+    "current_page": 1,
+    "last_page": 2,
+    "per_page": 12,
+    "total": 18,
+    "from": 1,
+    "to": 12,
+    "has_more": true
+  }
+}
+```
+
+**Notes:**
+- `title` may be `null` when the image is decorative.
+- Use `pagination.has_more` for lazy loading / infinite scroll.
+
+---
+
 ### Umrah Packages
 
 #### 1) Package List
@@ -507,6 +553,7 @@ curl "https://your-domain.com/api/umrah-packages/royal-hilton-signature"
       {
         "id": 3,
         "name": "Private Car",
+        "subtitle": "GMC",
         "description": "Comfortable airport-hotel transfer",
         "icon_url": "https://example.com/storage/umrah/transportations/private-car.png",
         "order": 0
@@ -549,6 +596,9 @@ curl "https://your-domain.com/api/umrah-packages/royal-hilton-signature"
 
 **Date field:**
 - `date` — optional free-form string (max 100 chars) representing the package's departure date or date range. Returned as `null` when not configured. Examples: `"15 Mar 2026"`, `"15-20 Mar 2026"`, `"Q1 2026"`. Stored as a string for flexibility — no parsing or validation of the format is performed.
+
+**Transportation fields:**
+- `subtitle` — optional short label (max 255 chars) shown beneath `name` to specify the make/model/operator. Examples: `"GMC"` for `"Private Car"`, `"Haramain High Speed Railway"` for `"Train"`. Returned as `null` when not configured.
 
 **Hotel fields:**
 - `image_url` — thumbnail derived from the first item in `images` (ordered by `order`). `null` when the hotel has no images.

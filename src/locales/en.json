@@ -60,6 +60,8 @@
     "seeMore": "See More",
     "moreDetails": "More Details",
     "raniaGalleries": "Rania Galleries",
+    "noGalleries": "No Gallery Images Yet",
+    "noGalleriesDesc": "We're curating moments from our pilgrims' journeys. Check back soon to explore the gallery.",
     "raniaNews": "Rania News & Articles",
     "newsBreadcrumbHome": "Home",
     "newsBreadcrumbCategory": "Islami",
@@ -71,6 +73,8 @@
     "newsItem2Desc": "consectetuer adipiscing elit, sed diam nonummy nibh",
     "newsItem3Title": "Lorem ipsum dolor sit amet,",
     "newsItem3Desc": "consectetuer adipiscing elit, sed diam nonummy nibh",
+    "noNews": "No News & Articles Yet",
+    "noNewsDesc": "We're collecting the latest stories about Rania. Please check back soon for updates.",
     "values": {
       "trust": "Trust",
       "trustSub": "With Integrity",
@@ -153,6 +157,14 @@
     "pihkCertDesc": "'A' Accredited Special Hajj Pilgrimage Organizer",
     "pihkCertDetail": "License No. 02202041807930002",
     "iAmInterested": "I am Interested",
+    "moreDetails": "More Details",
+    "cardTagline": "Discover Your Sacred Hajj Journey",
+    "packageTagDefault": "Hajj Package",
+    "roomQuad": "Quad",
+    "roomTriple": "Triple",
+    "roomDouble": "Double",
+    "noHajj": "No Hajj Packages Available",
+    "noHajjDesc": "We're currently updating our Hajj offerings. Please check back soon or contact us for personalized Hajj inquiries.",
     "vipChoice": "VIP CHOICE",
     "ctaTitle": "Have Questions? Get Answers in Minutes",
     "ctaDesc": "Rania is ready to provide immediate answers about your Hajj preparations",
@@ -287,6 +299,9 @@
     "defaultCategory": "Umrah Private",
     "bookPackage": "Book Package",
     "noImage": "No image"
+  },
+  "hajjDetail": {
+    "stickySubtitle": "Premium Service Agency for Hajj Services"
   },
   "contact": {
     "heroTitle": "Let's Start Your Sacred Journey",

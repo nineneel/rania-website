@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import './Hajj.css';
 import Header from '../../components/layout/Header/Header';
@@ -9,8 +9,10 @@ import SignatureCard from '../../components/common/SignatureCard';
 import SEO from '../../components/common/SEO';
 import { StructuredData } from '../../components/common/SEO';
 import HajjPackageCard from '../../components/common/HajjPackageCard';
+import { UmrahShimmer } from '../../components/common/Shimmer';
 import { openWhatsAppHajj, whatsappMessages } from '../../utils/whatsapp';
-import { hajjPackages } from '../../data/hajjPackages';
+import { getHajjPackages } from '../../services/api';
+import logger from '../../utils/logger';
 
 // Import wave divider
 import waveImage from '../../assets/utils/wave-light.webp';
@@ -40,8 +42,12 @@ import knowMoreImage from '../../assets/images/hajj/know_more_image.webp';
 import signatureCardImage from '../../assets/images/home/signature-card.webp';
 
 const Hajj = () => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const [email, setEmail] = useState('');
+
+  const [hajjPackages, setHajjPackages] = useState([]);
+  const [isLoadingPackages, setIsLoadingPackages] = useState(true);
+  const [packagesError, setPackagesError] = useState(null);
 
   // Features/Benefits data
   const features = [
@@ -57,7 +63,34 @@ const Hajj = () => {
     { title: t('hajj.exclusiveCard'), icon: value10 }
   ];
 
-  const packages = hajjPackages;
+  const fetchHajjPackages = async () => {
+    const logPrefix = '[Hajj Packages]';
+
+    try {
+      logger.debug(`${logPrefix} Fetching packages...`);
+      setIsLoadingPackages(true);
+
+      const response = await getHajjPackages();
+      logger.debug(`${logPrefix} ✅ API Response:`, response);
+
+      if (response.success && response.data) {
+        setHajjPackages(response.data);
+        logger.info(`${logPrefix} ✅ Loaded ${response.data.length} packages`);
+        setPackagesError(null);
+      }
+    } catch (error) {
+      logger.error(`${logPrefix} ❌ API Error:`, error);
+      setPackagesError(error.message);
+      setHajjPackages([]);
+    } finally {
+      setIsLoadingPackages(false);
+    }
+  };
+
+  useEffect(() => {
+    logger.info('🚀 [Hajj] Initializing API data fetch...');
+    fetchHajjPackages();
+  }, [i18n.language]);
 
   const handleSubscribe = (e) => {
     e.preventDefault();
@@ -138,11 +171,27 @@ const Hajj = () => {
           </div>
         </div>
 
-        <div className="hajj-packages-container">
-          {packages.map((pkg, index) => (
-            <HajjPackageCard key={index} pkg={pkg} />
-          ))}
-        </div>
+        {isLoadingPackages ? (
+          <UmrahShimmer />
+        ) : hajjPackages.length === 0 ? (
+          <div className="hajj-empty-state">
+            <h3 className="hajj-empty-title">{t('hajj.noHajj')}</h3>
+            <p className="hajj-empty-description">{t('hajj.noHajjDesc')}</p>
+            <Button
+              variant="tertiary"
+              size="small"
+              onClick={() => openWhatsAppHajj(whatsappMessages.hajjCTA())}
+            >
+              {t('hajj.contactRania')}
+            </Button>
+          </div>
+        ) : (
+          <div className="hajj-packages-container">
+            {hajjPackages.map((pkg) => (
+              <HajjPackageCard key={pkg.id || pkg.slug} pkg={pkg} />
+            ))}
+          </div>
+        )}
       </section>
 
 

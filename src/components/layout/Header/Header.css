@@ -111,8 +111,13 @@
 }
 
 .lang-flag {
-  font-size: 18px;
-  line-height: 1;
+  width: 22px;
+  height: 16px;
+  object-fit: cover;
+  border-radius: 2px;
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  display: block;
+  flex-shrink: 0;
 }
 
 .lang-arrow {

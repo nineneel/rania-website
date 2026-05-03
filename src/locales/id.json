@@ -60,6 +60,8 @@
     "seeMore": "Lihat Selengkapnya",
     "moreDetails": "Detail Lainnya",
     "raniaGalleries": "Galeri Rania",
+    "noGalleries": "Belum Ada Foto Galeri",
+    "noGalleriesDesc": "Kami sedang mengumpulkan momen dari perjalanan jamaah kami. Kunjungi kembali nanti untuk melihat galerinya.",
     "raniaNews": "Berita & Artikel Rania",
     "newsBreadcrumbHome": "Beranda",
     "newsBreadcrumbCategory": "Islami",
@@ -71,6 +73,8 @@
     "newsItem2Desc": "consectetuer adipiscing elit, sed diam nonummy nibh",
     "newsItem3Title": "Lorem ipsum dolor sit amet,",
     "newsItem3Desc": "consectetuer adipiscing elit, sed diam nonummy nibh",
+    "noNews": "Belum Ada Berita & Artikel",
+    "noNewsDesc": "Kami sedang mengumpulkan berita terbaru seputar Rania. Silakan kunjungi kembali untuk pembaruan.",
     "values": {
       "trust": "Kepercayaan",
       "trustSub": "Dengan Integritas",
@@ -153,6 +157,14 @@
     "pihkCertDesc": "Penyelenggara Ibadah Haji Khusus Terakreditasi 'A'",
     "pihkCertDetail": "No. Izin: 02202041807930002",
     "iAmInterested": "Saya Tertarik",
+    "moreDetails": "Detail Lainnya",
+    "cardTagline": "Temukan Perjalanan Haji Suci Anda",
+    "packageTagDefault": "Paket Haji",
+    "roomQuad": "Quad",
+    "roomTriple": "Triple",
+    "roomDouble": "Double",
+    "noHajj": "Tidak Ada Paket Haji Tersedia",
+    "noHajjDesc": "Kami sedang memperbarui penawaran Haji. Silakan cek kembali nanti atau hubungi kami untuk pertanyaan Haji.",
     "vipChoice": "VIP CHOICE",
     "ctaTitle": "Punya Pertanyaan? Dapatkan Jawaban dalam Hitungan Menit",
     "ctaDesc": "Rania siap memberikan jawaban langsung tentang persiapan Haji Anda",
@@ -287,6 +299,9 @@
     "defaultCategory": "Umrah Private",
     "bookPackage": "Pesan Paket",
     "noImage": "Tidak ada gambar"
+  },
+  "hajjDetail": {
+    "stickySubtitle": "Agen Layanan Premium untuk Layanan Haji"
   },
   "contact": {
     "heroTitle": "Mari Mulai Perjalanan Suci Anda",

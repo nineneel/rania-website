@@ -7,8 +7,8 @@ import './Header.css';
 import raniaLogo from '../../../assets/icons/rania-logo.webp';
 
 const languages = [
-  { code: 'en', label: 'English', flag: '🇬🇧' },
-  { code: 'id', label: 'Bahasa Indonesia', flag: '🇮🇩' },
+  { code: 'en', label: 'English', flagSrc: 'https://flagcdn.com/w40/gb.png', flagAlt: 'UK Flag' },
+  { code: 'id', label: 'Bahasa Indonesia', flagSrc: 'https://flagcdn.com/w40/id.png', flagAlt: 'Indonesia Flag' },
 ];
 
 const Header = ({ activeLink = 'Home' }) => {
@@ -130,7 +130,7 @@ const Header = ({ activeLink = 'Home' }) => {
                 onClick={() => setIsLangOpen(!isLangOpen)}
                 aria-label="Select language"
               >
-                <span className="lang-flag">{currentLang.flag}</span>
+                <img src={currentLang.flagSrc} alt={currentLang.flagAlt} className="lang-flag" />
                 <svg className={`lang-arrow ${isLangOpen ? 'open' : ''}`} width="10" height="6" viewBox="0 0 10 6" fill="none">
                   <path d="M1 1L5 5L9 1" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
                 </svg>
@@ -143,7 +143,7 @@ const Header = ({ activeLink = 'Home' }) => {
                       className={`lang-option ${lang.code === i18n.language ? 'active' : ''}`}
                       onClick={() => selectLanguage(lang.code)}
                     >
-                      <span className="lang-flag">{lang.flag}</span>
+                      <img src={lang.flagSrc} alt={lang.flagAlt} className="lang-flag" />
                       <span className="lang-option-label">{lang.label}</span>
                     </button>
                   ))}

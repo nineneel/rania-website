@@ -646,12 +646,6 @@
   object-fit: cover;
 }
 
-.umrah-detail-transport-card-image.is-icon {
-  width: auto;
-  height: 64%;
-  object-fit: contain;
-}
-
 .umrah-detail-transport-card-body {
   padding: 16px 8px 0;
   display: flex;
@@ -683,15 +677,6 @@
   margin: 0 0 14px;
 }
 
-.umrah-detail-transport-card-duration {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  font-size: 13px;
-  color: #242d44;
-  font-weight: 500;
-  margin-top: auto;
-}
 
 .itinerary-card .umrah-detail-card-image-wrap {
   height: 180px;
